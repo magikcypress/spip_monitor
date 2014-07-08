@@ -40,6 +40,7 @@ function monitor_declarer_tables_objets_sql($tables){
 		'field'=> array(
 			"id_monitor" => "bigint(21) unsigned NOT NULL AUTO_INCREMENT",
 			"id_syndic" => "bigint(21) NOT NULL",
+			"alert" => "int(11) NOT NULL",
 			"type"	=> "varchar(255) NOT NULL",
 			"statut" => "varchar(255) NOT NULL default 'oui'",
 			"date_modif" => "datetime DEFAULT '0000-00-00 00:00:00' NOT NULL",
