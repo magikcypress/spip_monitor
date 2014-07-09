@@ -31,9 +31,8 @@ function monitor_upgrade($nom_meta_base_version,$version_cible){
 	 	array('maj_tables', array('spip_syndic'))
 	);
 
-	$maj['1.2'] = array(		
-	  	// Ajout du champs alert dans spip_monitor
-	  	sql_alter('TABLE spip_monitor ADD alert int(11)'));
+	$maj['1.2'] = array(
+		array('sql_alter',"TABLE spip_monitor ADD alert int(11) DEFAULT 0 NOT NULL AFTER id_syndic"));
 
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);

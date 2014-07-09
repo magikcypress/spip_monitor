@@ -6,7 +6,7 @@
 	compatibilite="[3.0.0;3.1.*]"
 	logo="prive/themes/spip/images/monitor-32.png"
 	documentation=""
-	schema="1.1"
+	schema="1.2"
 >
 
 	<nom>Monitor</nom>
@@ -23,9 +23,9 @@
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/monitor.php" />
 	<pipeline nom="affiche_milieu" inclure="monitor_pipelines.php" />
 	<pipeline nom="taches_generales_cron" inclure="monitor_pipelines.php" />
-	<pipeline nom="insert_head" action="insert_head_public" inclure="monitor_pipelines.php" />
 	<pipeline nom="header_prive" action="insert_head_prive" inclure="monitor_pipelines.php" />
-
+	<pipeline nom="insert_head_css" action="insert_head_css" inclure="monitor_pipelines.php" />
+	
 	<menu nom="monitor_configuration" titre="monitor:icone_monitor_configuration" parent="menu_configuration" icone="images/monitor-16.png" action="configurer_monitor" />
 	<menu nom="monitor_ping" titre="monitor:icone_monitor_editer" parent="menu_edition" icone="images/monitor-16.png" action="liste_monitor" />
 	
