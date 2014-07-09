@@ -1,25 +1,4 @@
-<style>
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-</style>
-
 <div class="box_graph #ENV{type}"></div>
-
 
 [(#ENV*{type}|=={ping}|?{[(#SET{titre_y, 'Latence (en ms)'})],[(#SET{titre_y, 'Poids (en kb)'})]})]
 

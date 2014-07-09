@@ -80,24 +80,6 @@ function monitor_affiche_milieu($flux){
 }
 
 /**
- * Ajout des scripts de dc.js dans le head des pages publiques
- *
- * Uniquement si l'on est autorisé à l'afficher le porte plume dans
- * l'espace public !
- *
- * @pipeline insert_head
- * @param  string $flux Contenu du head
- * @return string Contenu du head
- */
-function monitor_insert_head_public($flux){
-	include_spip('inc/autoriser');
-	if (autoriser('afficher_public', 'dc-js')) {
-		$flux = monitor_inserer_head($flux);
-	}
-	return $flux;
-}
-
-/**
  * Ajout des scripts de dc-js dans le head des pages privées
  *
  * @pipeline header_prive
@@ -111,6 +93,34 @@ function monitor_insert_head_prive($flux){
 		. "<script type='text/javascript' src='$js_crossfilter'></script>\n"
 		. "<script type='text/javascript' src='$js_dcjs'></script>\n";
 
+	return $flux;
+}
+
+/**
+ * Ajout des CSS du monitor au head public
+ *
+ * Appelé aussi depuis le privé avec $prive à true.
+ * 
+ * @pipeline insert_head_css
+ * @param string $flux  Contenu du head
+ * @param  bool  $prive Est-ce pour l'espace privé ?
+ * @return string Contenu du head complété
+ */
+function monitor_insert_head_css($flux='', $prive = false){
+	include_spip('inc/autoriser');
+	// toujours autoriser pour le prive.
+	if ($prive or autoriser('afficher_public', 'monitor')) {
+		if ($prive) {
+			$cssprive = find_in_path('css/perso.css');
+			$flux .= "<link rel='stylesheet' type='text/css' media='all' href='$cssprive' />\n";
+		}
+		$css = direction_css(find_in_path('css/perso.css'), lang_dir());
+		$css_icones = generer_url_public('css/perso.css');
+		if (defined('_VAR_MODE') AND _VAR_MODE=="recalcul")
+			$css_icones = parametre_url($css_icones, 'var_mode', 'recalcul');
+		$flux
+			.= "<link rel='stylesheet' type='text/css' media='all' href='$css' />\n";
+	}
 	return $flux;
 }
 

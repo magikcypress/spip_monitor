@@ -20,7 +20,7 @@
             <td class='url_site principale'>                
                 <a href="[(#ID_SYNDIC|generer_url_entite{site})]"
                     title="<:info_numero_abbreviation|attribut_html:> #ID_SYNDIC">#NOM_SITE</a> [<span class='visiter'>&#91;<a href='(#URL_SITE)'><:lien_visite_site:></a>&#93;</span>]</td>
-            <td class='date_ping secondaire'>[(#DATE_PING|affdate_jourcourt)]</td>
+            <td class='date_ping secondaire'>[(#MAJ|affdate_jourcourt)]</td>
             <BOUCLE_latence_monitor(MONITOR_LOG){id_syndic}{statut=#ENV{type}}{par maj}{0,1}>
                 [(#ENV*{type}|=={ping}|?{[(#SET{valeur, #VALEUR|round{4}})],[(#SET{valeur, #VALEUR|div{1024}|round{2}})]})]
                 <td class='latence'>[(#GET{valeur})]</td>
