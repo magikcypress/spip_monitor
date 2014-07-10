@@ -7,10 +7,11 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
 function genie_monitor_insert($id_syndic, $statut, $log, $valeur, $alert) {
     // Insert les data dans monitor_log
     $insert_ping = sql_insertq('spip_monitor_log', array('id_syndic' => $id_syndic, 'statut' => $statut, 'log' => ($log ? "oui" : "non"), 'valeur' => $valeur));
+    spip_log($insert_ping, 'test.' . _LOG_ERREUR);
     if(is_numeric($insert_ping) && $insert_ping > 0) {
         // Updater champs date_ping dans spip_syndic
-        sql_updateq('spip_syndic', array('date_ping' => date('Y-m-d H:i:s'), 'statut_log' => ($log ? "oui" : "non"), 'alert' => $alert), 'id_syndic=' . intval($id_syndic));
-        spip_log($alert, 'test.' . _LOG_ERREUR);
+        sql_updateq('spip_syndic', array('date_ping' => date('Y-m-d H:i:s'), 'statut_log' => ($log ? "oui" : "non")), 'id_syndic=' . intval($id_syndic));
+        sql_updateq('spip_monitor', array('alert' => $alert), 'id_syndic=' . intval($id_syndic));
     }
 }
 
@@ -29,7 +30,7 @@ function genie_monitor_dist($t) {
 
             // Gestion des alertes
             // Prendre la dernière valeur d'un site
-            $alert_site = sql_getfetsel('alerts', 'spip_monitor_log', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
+            $alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
             
 
             if($result['latency'] >= 10 && $alert_site == 0) {
@@ -40,7 +41,7 @@ function genie_monitor_dist($t) {
                 $sujet = "[#NOM_SITE_SPIP] Alert latence";
                 $body = "Bonjour\r\n Je suis le robot qui vérifie la latence des site internet.\n
                          Le site " . $site['url_site'] . " rencontre un latence de plus de 10.\n
-                         <a href=" . $GLOBALS['meta']['adresse_site'] . '/ecrire/?exec=site&id_syndic=' . $site['id_syndic']">Accéder à la fiche du site</a>
+                         <a href=" . $GLOBALS['meta']['adresse_site'] . '/ecrire/?exec=site&id_syndic=' . $site['id_syndic'] .">Accéder à la fiche du site</a>
                          Passe une bonne journée,\n
                          Nono";
                 $envoyer_mail = charger_fonction('envoyer_mail','inc');
