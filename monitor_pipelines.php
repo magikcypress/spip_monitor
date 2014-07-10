@@ -18,7 +18,7 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
  * @return array
  */
 function monitor_affiche_milieu($flux){
-
+    include_spip('inc/config');
 	// si on est sur un site ou il faut activer le monitor...
 	if (lire_config('monitor/activer_monitor') == "oui" and trouver_objet_exec($flux['args']['exec'] == "site")){
 		$id_syndic = _request('id_syndic');
