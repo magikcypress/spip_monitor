@@ -97,29 +97,30 @@ function monitor_insert_head_prive($flux){
 }
 
 /**
- * Ajout des CSS du monitor au head public
- *
- * Appelé aussi depuis le privé avec $prive à true.
+ * Ajoute les css pour monitor chargées dans le privé
  * 
- * @pipeline insert_head_css
- * @param string $flux  Contenu du head
- * @param  bool  $prive Est-ce pour l'espace privé ?
- * @return string Contenu du head complété
+ * @param string $flux Contenu du head HTML concernant les CSS
+ * @return string       Contenu du head HTML concernant les CSS
  */
-function monitor_insert_head_css($flux='', $prive = false){
-	include_spip('inc/autoriser');
-	// toujours autoriser pour le prive.
-	if ($prive or autoriser('afficher_public', 'monitor')) {
-		if ($prive) {
-			$cssprive = find_in_path('css/perso.css');
-			$flux .= "<link rel='stylesheet' type='text/css' media='all' href='$cssprive' />\n";
-		}
-		$css = direction_css(find_in_path('css/perso.css'), lang_dir());
-		$css_icones = generer_url_public('css/perso.css');
-		if (defined('_VAR_MODE') AND _VAR_MODE=="recalcul")
-			$css_icones = parametre_url($css_icones, 'var_mode', 'recalcul');
-		$flux
-			.= "<link rel='stylesheet' type='text/css' media='all' href='$css' />\n";
+function monitor_header_prive_css($flux) {
+
+	$css = find_in_path('css/perso.css');
+	$flux .= "<link rel='stylesheet' type='text/css' media='all' href='".direction_css($css)."' />\n";
+
+	return $flux;
+}
+
+/**
+ * Ajoute les css pour monitor chargées dans le public
+ * 
+ * @param string $flux Contenu du head HTML concernant les CSS
+ * @return string       Contenu du head HTML concernant les CSS
+**/
+function monitor_insert_head_css($flux) {
+	include_spip('inc/config');
+	if (lire_config('monitor/activer_monitor') == "oui"){
+		$css = find_in_path('css/perso.css');
+		$flux .= '<link rel="stylesheet" href="'.direction_css($css).'" type="text/css" media="all" />';
 	}
 	return $flux;
 }
