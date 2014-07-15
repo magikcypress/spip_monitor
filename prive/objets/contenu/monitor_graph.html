@@ -1,3 +1,9 @@
+<form method='post' action='#ENV{action}'>
+  <input type="radio" name="periode" id="periode" value="annee" /> Année
+  <input type="radio" name="periode" id="periode" value="mois" /> Mois
+  <input type="radio" name="periode" id="periode" value="semaine" /> Semaine
+</form>
+
 <div class="box_graph #ENV{type}"></div>
 
 [(#ENV*{type}|=={ping}|?{[(#SET{titre_y, 'Latence (en ms)'})],[(#SET{titre_y, 'Poids (en kb)'})]})]
@@ -36,7 +42,7 @@ var svg_#ENV{type} = d3.select(".box_graph.#ENV{type}").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("#URL_SITE_SPIP/spip.php?page=monitor_csv&id_syndic=#ID_SYNDIC&type=#ENV{type}", function(error, data) {
-  
+
   data.forEach(function(d) {
     d.date = parseDate(d.date);
     d.valeur = +d.valeur;
