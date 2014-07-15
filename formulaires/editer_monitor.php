@@ -18,7 +18,7 @@
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
 /**
- * Chargement du formulaire de configuration du monitoring des sites
+ * Chargement du formulaire d'édition du monitoring des sites
  *
  * @return array
  *     Environnement du formulaire
@@ -35,7 +35,7 @@ function formulaires_editer_monitor_charger_dist($id_syndic){
 }
 
 /**
- * Vérifications du formulaire de configuration du monitoring des sites
+ * Vérifications du formulaire d'édition du monitoring des sites
  *
  * @return array
  *     Tableau des erreurs
@@ -47,7 +47,7 @@ function formulaires_editer_monitor_verifier_dist($id_syndic){
 }
 
 /**
- * Traitement du formulaire de configuration du monitoring des sites
+ * Traitement du formulaire d'édition du monitoring des sites
  *
  * @return array
  *     Retours du traitement
