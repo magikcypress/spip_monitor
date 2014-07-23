@@ -30,6 +30,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'form_latence' => 'Latence (en ms)',
 	'form_poids' => 'Poids (en Kb)',
 
+	// G
+	'graph_annee' => 'Par année',
+	'graph_mois' => 'Par mois',
+	'graph_semaine' => 'Par semaine',
+
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',
 	'icone_monitor_editer' => 'Lister sites Monitorés',

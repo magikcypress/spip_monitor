@@ -1,8 +1,14 @@
-<form method='post' action='#ENV{action}'>
-  <input type="radio" name="periode" id="periode" value="annee" /> Année
-  <input type="radio" name="periode" id="periode" value="mois" /> Mois
-  <input type="radio" name="periode" id="periode" value="semaine" /> Semaine
-</form>
+#SET{duree,#ENV{duree,0}}
+#SET{type,#ENV{type}|duree_affiche_graph{semaine}}
+
+<div class="pagination">
+  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{annee}})]"
+     class="ajax"><:monitor:graph_annee:></a> |
+  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{mois}})]"
+     class="ajax"><:monitor:graph_mois:></a> |
+  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{semaine}})]"
+     class="ajax"><:monitor:graph_semaine:></a>
+</div>
 
 <div class="box_graph #ENV{type}"></div>
 
