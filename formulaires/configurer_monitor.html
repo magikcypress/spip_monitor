@@ -25,6 +25,13 @@
 						[(#ENV{#GET{name}}|=={oui}|non)checked="checked"] /><label for="#GET{name}_non"><:monitor:item_non_utiliser_monitor:></label>
 					</div>
 			</li>
+			#SET{name,activer_pagespeed}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+			<li class="editer editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]"[(#ENV{activer_monitor}|=={oui}|non)style="display:none;"]>
+				<label><:monitor:titre_activer_pagespeed:></label>
+				<div class="choix">
+						<input type="checkbox" name="#GET{name}" id="#GET{name}" value="oui" [(#ENV{#GET{name}}|=={oui}|oui)checked="checked")] /><label for="#GET{name}"><:monitor:item_activer_pagespeed:></label>
+				</div>
+			</li>
 		</ul>
 
 	[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]

@@ -7,7 +7,6 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
 function genie_monitor_insert($id_syndic, $statut, $log, $valeur, $alert) {
     // Insert les data dans monitor_log
     $insert_ping = sql_insertq('spip_monitor_log', array('id_syndic' => $id_syndic, 'statut' => $statut, 'log' => ($log ? "oui" : "non"), 'valeur' => $valeur));
-    spip_log($insert_ping, 'test.' . _LOG_ERREUR);
     if(is_numeric($insert_ping) && $insert_ping > 0) {
         // Updater champs date_ping dans spip_syndic
         sql_updateq('spip_syndic', array('date_ping' => date('Y-m-d H:i:s'), 'statut_log' => ($log ? "oui" : "non")), 'id_syndic=' . intval($id_syndic));

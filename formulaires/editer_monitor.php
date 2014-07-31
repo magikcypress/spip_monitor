@@ -18,7 +18,7 @@
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
 /**
- * Chargement du formulaire d'édition du monitoring des sites
+ * Chargement du formulaire de configuration du monitoring des sites
  *
  * @return array
  *     Environnement du formulaire
@@ -35,7 +35,7 @@ function formulaires_editer_monitor_charger_dist($id_syndic){
 }
 
 /**
- * Vérifications du formulaire d'édition du monitoring des sites
+ * Vérifications du formulaire de configuration du monitoring des sites
  *
  * @return array
  *     Tableau des erreurs
@@ -47,7 +47,7 @@ function formulaires_editer_monitor_verifier_dist($id_syndic){
 }
 
 /**
- * Traitement du formulaire d'édition du monitoring des sites
+ * Traitement du formulaire de configuration du monitoring des sites
  *
  * @return array
  *     Retours du traitement
@@ -61,7 +61,6 @@ function formulaires_editer_monitor_traiter_dist($id_syndic){
 		if(!$type) {
 			sql_insertq('spip_monitor', array('id_syndic'=>$id_syndic, 'statut'=>_request('activer_monitor_'. $key) ,'type'=>$key, 'date_modif' => date('Y-m-d H:i:s')));
 		} else {
-			spip_log("$key=" . _request('activer_monitor_' . $key), 'test.' . _LOG_ERREUR);
 			sql_updateq('spip_monitor', array('statut'=>_request('activer_monitor_' . $key)), 'id_syndic=' . intval($id_syndic) . ' and type=' . sql_quote($key));
 		}
 	}
