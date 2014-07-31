@@ -12,22 +12,22 @@
 
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
-function duree_affiche_graph($type,$periode,$duree){
+function duree_affiche_graph($duree,$periode,$type){
     if (intval($duree))
         return $duree;
 
     if ($periode=='mois'){
-        $debut = sql_getfetsel("maj","spipmonitor_monitor_log","statut='" . $type . "'","","maj","0,1");
+        $debut = sql_getfetsel("maj","spip_monitor_log","statut='" . $type . "'","","maj","0,1");
         $debut = strtotime($debut);
         $duree = ceil((time()-$debut)/24/3600);
         return $duree;
     } elseif ($periode=='annee') {
-        $debut = sql_getfetsel("maj","spipmonitor_monitor_log","statut='" . $type . "'","","maj","0,1");
+        $debut = sql_getfetsel("maj","spip_monitor_log","statut='" . $type . "'","","maj","0,1");
         $debut = strtotime($debut);
         $duree = ceil((time()-$debut)/3600);
         return $duree;
     } else {
-        $debut = sql_getfetsel("maj","spipmonitor_monitor_log","statut='" . $type . "'","","maj","0,1");
+        $debut = sql_getfetsel("maj","spip_monitor_log","statut='" . $type . "'","","maj","0,1");
         $debut = strtotime($debut);
         $duree = ceil((time()-$debut)/30/24/3600);
         return $duree;

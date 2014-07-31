@@ -1,3 +1,12 @@
+#SET{duree,#ENV{duree,0}}
+#SET{type,#ENV{type}}
+
+<div class="pagination">
+  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{annee,#GET{type}}})]" class="ajax"><:monitor:graph_annee:></a> |
+  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{mois,#GET{type}}})]" class="ajax"><:monitor:graph_mois:></a> |
+  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{semaine,#GET{type}}})]" class="ajax"><:monitor:graph_semaine:></a>
+</div>
+
 <div class="box_graph #ENV{type}"></div>
 
 [(#ENV*{type}|=={ping}|?{[(#SET{titre_y, 'Latence (en ms)'})],[(#SET{titre_y, 'Poids (en kb)'})]})]
