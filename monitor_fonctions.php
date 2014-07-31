@@ -26,8 +26,10 @@ function monitor_pageSpeed($href) {
 
 function tableau_pagestats($texte) {
 
-	foreach ($texte as $cle => $valeur) {
-		$pagestats[$cle] = $valeur;
+	if(isset($texte)) {
+		foreach ($texte as $cle => $valeur) {
+			$pagestats[$cle] = $valeur;
+		}
 	}
 	
 	return $pagestats;

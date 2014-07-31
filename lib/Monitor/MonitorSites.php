@@ -102,43 +102,45 @@ function getPageSpeedGoogle($href) {
         $result = curl_get($url_pagespeed.$href, false);
         $result = json_decode($result, true);
 
-        foreach ($result as $key => $val) {
-            if($key == 'score')
-				$score = $val;
+        if(isset($result)) {
+            foreach ($result as $key => $val) {
+                if($key == 'score')
+    				$score = $val;
 
-			if($key == 'pageStats') {
-				foreach ($val as $k => $v) {	
-					$pagestats[$k] = $v;
-				}
-			}
-			if($key == 'formattedResults') {
-				foreach ($val as $k => $v) {
-					if($k == 'ruleResults') {
-						foreach ($v as $k => $v) {
-							if($k == 'MinifyCss') {
-								foreach ($v as $k => $v) {
-									if($k == 'ruleImpact') 
-										$minifycss = $v;
-								}
-							}
-							if($k == 'MinifyHTML') {
-								foreach ($v as $k => $v) {
-									if($k == 'ruleImpact') 
-										$minifyhtml = $v;
-								}
-							}
-							if($k == 'MinifyJavaScript') {
-								foreach ($v as $k => $v) {
-									if($k == 'ruleImpact')
-										$minifyjavascript = $v;
-								}
-							}
-						}
-					}
-				}
-			}
+    			if($key == 'pageStats') {
+    				foreach ($val as $k => $v) {	
+    					$pagestats[$k] = $v;
+    				}
+    			}
+    			if($key == 'formattedResults') {
+    				foreach ($val as $k => $v) {
+    					if($k == 'ruleResults') {
+    						foreach ($v as $k => $v) {
+    							if($k == 'MinifyCss') {
+    								foreach ($v as $k => $v) {
+    									if($k == 'ruleImpact') 
+    										$minifycss = $v;
+    								}
+    							}
+    							if($k == 'MinifyHTML') {
+    								foreach ($v as $k => $v) {
+    									if($k == 'ruleImpact') 
+    										$minifyhtml = $v;
+    								}
+    							}
+    							if($k == 'MinifyJavaScript') {
+    								foreach ($v as $k => $v) {
+    									if($k == 'ruleImpact')
+    										$minifyjavascript = $v;
+    								}
+    							}
+    						}
+    					}
+    				}
+    			}
+            }
         }
-
+        
         return array('score' => $score, 
         			'pagestats' => $pagestats, 
         			'minifycss' => $minifycss,
