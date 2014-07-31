@@ -29,17 +29,18 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'form_date_ping' => 'Date',
 	'form_latence' => 'Latence (en ms)',
 	'form_poids' => 'Poids (en Kb)',
-
-	// G
-	'graph_annee' => 'Par année',
-	'graph_mois' => 'Par mois',
-	'graph_semaine' => 'Par semaine',
+	'form_score' => 'Score',
+	'form_pagestats' => 'PageStats',
+	'form_minifycss' => 'Minifycss',
+	'form_minifyhtml' => 'MinifyHTML',
+	'form_minifyjavascript' => 'Minifyjavascript',
 
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',
 	'icone_monitor_editer' => 'Lister sites Monitorés',
 	'info_site_ping' => 'Le site ping bien.',
 	'info_site_noping' => 'Le site ne ping plus.',
+	'item_activer_pagespeed' => 'En cochant la case vous activer les résultats de page speed Google',
 	'item_utiliser_monitor' => 'Activer Monitor',
 	'item_utiliser_monitor_ping' => 'Activer ping',
 	'item_utiliser_monitor_poids' => 'Activer poids page',
@@ -58,6 +59,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'texte_monitor_compteur_poids' => 'Il y a @nb@ site qui a "poids" d\'activé sur @site_publie@ sites',
 	'texte_monitor_compteurs_ping' => 'Il y a @nb@ sites qui ont "ping" d\'activé sur @site_publie@ sites',
 	'texte_monitor_compteurs_poids' => 'Il y a @nb@ sites qui ont "poids" d\'activé sur @site_publie@ sites',
+	'titre_activer_pagespeed' => 'Activer page speed',
 	'titre_configurer' => 'Configurer Monitor',
 	'titre_monitor' => 'Configuration du plugin Monitor',
 	'titre_monitor_site' => 'Activer Monitor pour ce site',
@@ -66,4 +68,5 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'titre_monitor_poids' => 'Activer le monitoring (poids page) pour ce site',
 	'titre_page_monitor_ping' => 'Liste des sites sous monitor (ping)',
 	'titre_page_monitor_poids' => 'Liste des sites sous monitor (poids)',
+	'titre_pagespeed' => 'Monitor site avec pageSpeed Google',
 );

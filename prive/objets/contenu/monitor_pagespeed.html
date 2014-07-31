@@ -1,0 +1,42 @@
+<B_site_monitor>
+<div class="liste-objets sites syndic">
+<table class='spip liste'>
+<caption><strong class="caption"><:monitor:titre_pagespeed:></strong></caption>
+    <thead>
+        <tr class='first_row'>
+            <th class='score' scope='col'><:monitor:form_score:></th>
+            <th class='minifycss' scope='col'><:monitor:form_minifycss:></th>
+            <th class='minifyhtml' scope='col'><:monitor:form_minifyhtml:></th>
+            <th class='minifyjavascript' scope='col'><:monitor:form_minifyjavascript:></th>
+        </tr>
+    </thead>
+    <tbody>
+    <BOUCLE_site_monitor(SYNDIC){id_syndic}>
+    <BOUCLE_liste_pagespeed(DATA){source table, #URL_SITE|monitor_pageSpeed}>
+        <tr>
+            <td class='score'>#SCORE</td>
+            <td class='minifycss'>#MINIFYCSS</td>
+            <td class='minifyhtml'>#MINIFYHTML</td>
+            <td class='minifyjavascript'>#MINIFYJAVASCRIPT</td>
+        </tr>
+    </tbody>
+    </table>
+    <table>
+    <tbody>
+        <tr>
+            <th><:monitor:pagestats:></th>
+        </tr>
+        <BOUCLE_liste_pagestats(DATA){source table, #PAGESTATS|tableau_pagestats}>
+        <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+            <td><strong>#CLE</strong></td>
+            <td>#VALEUR</td>
+        </tr>
+        </BOUCLE_liste_pagestats>
+    </BOUCLE_liste_pagespeed>
+    </BOUCLE_site_monitor>
+    </tbody>
+</table>
+</div>
+</B_site_monitor>[
+<div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_site_monitor>

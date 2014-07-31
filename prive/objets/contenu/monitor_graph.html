@@ -1,15 +1,3 @@
-#SET{duree,#ENV{duree,0}}
-#SET{type,#ENV{type}|duree_affiche_graph{semaine}}
-
-<div class="pagination">
-  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{annee}})]"
-     class="ajax"><:monitor:graph_annee:></a> |
-  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{mois}})]"
-     class="ajax"><:monitor:graph_mois:></a> |
-  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{semaine}})]"
-     class="ajax"><:monitor:graph_semaine:></a>
-</div>
-
 <div class="box_graph #ENV{type}"></div>
 
 [(#ENV*{type}|=={ping}|?{[(#SET{titre_y, 'Latence (en ms)'})],[(#SET{titre_y, 'Poids (en kb)'})]})]
@@ -48,7 +36,7 @@ var svg_#ENV{type} = d3.select(".box_graph.#ENV{type}").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("#URL_SITE_SPIP/spip.php?page=monitor_csv&id_syndic=#ID_SYNDIC&type=#ENV{type}", function(error, data) {
-
+  
   data.forEach(function(d) {
     d.date = parseDate(d.date);
     d.valeur = +d.valeur;

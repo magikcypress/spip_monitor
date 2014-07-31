@@ -58,6 +58,14 @@ function monitor_affiche_milieu($flux){
 					'type'=>'poids',
 				)
 		);
+		if (lire_config('monitor/activer_pagespeed') == "oui") {
+			$texte .= recuperer_fond(
+					'prive/objets/contenu/monitor_pagespeed',
+					array(
+						'id_syndic'=>$id_syndic
+					)
+			);
+		}
 		if ($p=strpos($flux['data'],"<!--affiche_milieu-->"))
 			$flux['data'] = substr_replace($flux['data'],$texte,$p,0);
 		else
