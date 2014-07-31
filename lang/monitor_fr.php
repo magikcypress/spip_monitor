@@ -24,6 +24,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'legend_activer_monitor' => 'Choix d\'activer monitor',
 	'legend_explication_activer_monitor' => ' ',
 
+	// G
+	'graph_annee' => 'Par année',
+	'graph_mois' => 'Par mois',
+	'graph_semaine' => 'Par semaine',
+
 	// F
 	'form_url_site' => 'Nom du site',
 	'form_date_ping' => 'Date',
