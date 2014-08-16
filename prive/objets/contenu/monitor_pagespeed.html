@@ -3,31 +3,44 @@
 <table class='spip liste'>
 <caption><strong class="caption"><:monitor:titre_pagespeed:></strong></caption>
     <thead>
-        <tr class='first_row'>
-            <th class='score' scope='col'><:monitor:form_score:></th>
-            <th class='minifycss' scope='col'><:monitor:form_minifycss:></th>
-            <th class='minifyhtml' scope='col'><:monitor:form_minifyhtml:></th>
-            <th class='minifyjavascript' scope='col'><:monitor:form_minifyjavascript:></th>
+        <tr>
+            <th colspan="3"><:monitor:form_resultat_pagespeed:></th>
         </tr>
     </thead>
     <tbody>
     <BOUCLE_site_monitor(SYNDIC){id_syndic}>
     <BOUCLE_liste_pagespeed(DATA){source table, #URL_SITE|monitor_pageSpeed}>
         <tr>
+            <th class='score' scope='col'><:monitor:form_score:></th>
             <td class='score'>#SCORE</td>
+        </tr>
+        <tr>
+            <th class='minifycss' scope='col'><:monitor:form_minifycss:></th>
             <td class='minifycss'>#MINIFYCSS</td>
+            <td class='minifycss'>#MINIFYCSS_MSG</td>
+        </tr>
+        <tr>
+            <th class='minifyhtml' scope='col'><:monitor:form_minifyhtml:></th>
             <td class='minifyhtml'>#MINIFYHTML</td>
+            <td class='minifyhtml'>#MINIFYHTML_MSG</td>
+        </tr>
+        <tr>
+            <th class='minifyjavascript' scope='col'><:monitor:form_minifyjavascript:></th>
             <td class='minifyjavascript'>#MINIFYJAVASCRIPT</td>
+            <td class='minifyjavascript'>#MINIFYJAVASCRIPT_MSG</td>
         </tr>
     </tbody>
     </table>
+    <hr />
     <table>
-    <tbody>
+    <thead>
         <tr>
-            <th><:monitor:pagestats:></th>
+            <th colspan="2"><:monitor:form_pagestats:></th>
         </tr>
-        <BOUCLE_liste_pagestats(DATA){source table, #PAGESTATS|tableau_pagestats}>
-        <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
+    </thead>
+    <tbody>
+        <BOUCLE_liste_pagestats(DATA){source table, #PAGESTATS|monitor_tableau_pagestats}>
+        <tr>
             <td><strong>#CLE</strong></td>
             <td>#VALEUR</td>
         </tr>
