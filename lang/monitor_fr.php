@@ -30,15 +30,16 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'graph_semaine' => 'Par semaine',
 
 	// F
-	'form_url_site' => 'Nom du site',
 	'form_date_ping' => 'Date',
 	'form_latence' => 'Latence (en ms)',
-	'form_poids' => 'Poids (en Kb)',
-	'form_score' => 'Score',
-	'form_pagestats' => 'PageStats',
 	'form_minifycss' => 'Minifycss',
 	'form_minifyhtml' => 'MinifyHTML',
 	'form_minifyjavascript' => 'Minifyjavascript',
+	'form_pagestats' => 'PageStats',
+	'form_poids' => 'Poids (en Kb)',
+	'form_resultat_pagespeed' => 'Résultats',
+	'form_score' => 'Score',
+	'form_url_site' => 'Nom du site',
 
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',

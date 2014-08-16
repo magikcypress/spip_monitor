@@ -100,50 +100,34 @@ function sizePage($href) {
 function getPageSpeedGoogle($href) {
         $url_pagespeed = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed?url=';
         $result = curl_get($url_pagespeed.$href, false);
-        $result = json_decode($result, true);
+        $result = json_decode($result, false);
 
         if(isset($result)) {
-            foreach ($result as $key => $val) {
-                if($key == 'score')
-    				$score = $val;
-
-    			if($key == 'pageStats') {
-    				foreach ($val as $k => $v) {	
-    					$pagestats[$k] = $v;
-    				}
-    			}
-    			if($key == 'formattedResults') {
-    				foreach ($val as $k => $v) {
-    					if($k == 'ruleResults') {
-    						foreach ($v as $k => $v) {
-    							if($k == 'MinifyCss') {
-    								foreach ($v as $k => $v) {
-    									if($k == 'ruleImpact') 
-    										$minifycss = $v;
-    								}
-    							}
-    							if($k == 'MinifyHTML') {
-    								foreach ($v as $k => $v) {
-    									if($k == 'ruleImpact') 
-    										$minifyhtml = $v;
-    								}
-    							}
-    							if($k == 'MinifyJavaScript') {
-    								foreach ($v as $k => $v) {
-    									if($k == 'ruleImpact')
-    										$minifyjavascript = $v;
-    								}
-    							}
-    						}
-    					}
-    				}
-    			}
+            $score = $result->{'score'};
+            $pagestats = $result->{'pageStats'};
+            $minifycss = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyCss'}->{'ruleImpact'};
+            $minifycss_msg = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyCss'}->{'urlBlocks'};
+            foreach ($minifycss_msg[0]->{'header'} as $key => $value) {
+                if($key == 'format') $minifycss_msg = $value;
             }
+            $minifyhtml = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyHTML'}->{'ruleImpact'};
+            $minifyhtml_msg = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyHTML'}->{'urlBlocks'};
+            foreach ($minifyhtml_msg[0]->{'header'} as $key => $value) {
+                if($key == 'format') $minifyhtml_msg = $value;
+            }
+            $minifyjavascript = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyJavaScript'}->{'ruleImpact'};
+            $minifyjavascript_msg = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyJavaScript'}->{'urlBlocks'};
+            foreach ($minifyjavascript_msg[0]->{'header'} as $key => $value) {
+                if($key == 'format') $minifyjavascript_msg = $value;
+            }   
         }
         
         return array('score' => $score, 
         			'pagestats' => $pagestats, 
         			'minifycss' => $minifycss,
+                    'minifycss_msg' => $minifycss_msg,
         			'minifyhtml' => $minifyhtml,
-        			'minifyjavascript' => $minifyjavascript);
+                    'minifyhtml_msg' => $minifyhtml_msg,
+        			'minifyjavascript' => $minifyjavascript,
+                    'minifyjavascript_msg' => $minifyjavascript_msg);
 }
