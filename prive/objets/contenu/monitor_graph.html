@@ -10,6 +10,7 @@
 <div class="box_graph #ENV{type}"></div>
 
 [(#ENV*{type}|=={ping}|?{[(#SET{titre_y, 'Latence (en ms)'})],[(#SET{titre_y, 'Poids (en kb)'})]})]
+[(#ENV*{type}|=={ping}|?{[(#SET{titre_tooltip, ' ms'})],[(#SET{titre_tooltip, ' kb'})]})]
 
 [(#REM) Graphique de latence]
 <script type="text/javascript">
@@ -19,6 +20,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50},
     height = 500 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
+var tooltipDate = d3.time.format("%e %B");
 
 var x = d3.time.scale()
     .range([0, width]);
@@ -38,10 +40,16 @@ var line = d3.svg.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.valeur); });
 
+var div = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
 var svg_#ENV{type} = d3.select(".box_graph.#ENV{type}").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
+    .attr("class", "tooltip")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("#URL_SITE_SPIP/spip.php?page=monitor_csv&id_syndic=#ID_SYNDIC&type=#ENV{type}", function(error, data) {
@@ -73,5 +81,26 @@ d3.csv("#URL_SITE_SPIP/spip.php?page=monitor_csv&id_syndic=#ID_SYNDIC&type=#ENV{
       .datum(data)
       .attr("class", "line")
       .attr("d", line);
+
+  // draw the scatterplot
+  svg_#ENV{type}.selectAll("dot")                                    
+      .data(data)                                            
+      .enter().append("circle")                                
+      .attr("fill", "steelblue")
+      .attr("r", 1)    
+      .attr("cx", function(d) { return x(d.date); })         
+      .attr("cy", function(d) { return y(d.valeur); })
+      .on("mouseover", function(d) {        
+          div.transition()
+              .duration(500)
+              .style("opacity", 0);
+          div.transition()
+              .duration(200)
+              .style("opacity", .9);    
+          div.html(tooltipDate(d.date) + "<br/>"  + d.valeur + " #GET{titre_tooltip}")
+              .style("left", (d3.event.pageX) + "px")
+              .style("top", (d3.event.pageY - 28) + "px")
+              .style("z-index", 5000); 
+          });
 });
 </script>
