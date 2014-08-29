@@ -31,7 +31,6 @@ function genie_monitor_dist($t) {
             // Prendre la dernière valeur d'un site
             $alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
             
-
             if($result['latency'] >= 10 && $alert_site == 0) {
                 $alert = $alert_site+1;
                 // Insert les data dans monitor_log
@@ -52,7 +51,6 @@ function genie_monitor_dist($t) {
                 // Insert les data dans monitor_log
                 genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);
             }
-
         }
 
         // Aller chercher les 5 dernier poids dans spip_syndic
@@ -60,9 +58,16 @@ function genie_monitor_dist($t) {
 
         foreach ($sites as $site) {
             $result = sizePage($site['url_site']);
-
             // Insert les data dans monitor_log
             $insert_poids = sql_insertq('spip_monitor_log', array('id_syndic' => $site['id_syndic'], 'statut' => 'poids', 'log' => ($result['result'] ? "oui" : "non"), 'valeur' => $result['poids']));
+        }
+
+        // Archive logs
+        // On supprime les logs de plus de 6 mois
+        $date_delete = date('Y-m-d', strtotime('-6 month', time()));
+        $logs_sites = sql_allfetsel('id_monitor', 'spip_monitor', ' statut = "oui" and maj < "' . $date_delete . '"');
+        foreach ($logs_sites as $id_site) {
+            sql_delete('spip_monitor', 'id_monitor=' . $id_site);
         }
 
         return 0;
