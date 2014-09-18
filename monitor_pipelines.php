@@ -112,7 +112,7 @@ function monitor_insert_head_prive($flux){
  */
 function monitor_header_prive_css($flux) {
 
-	$css = find_in_path('css/perso.css');
+	$css = find_in_path('css/monitor.css');
 	$flux .= "<link rel='stylesheet' type='text/css' media='all' href='".direction_css($css)."' />\n";
 
 	return $flux;
@@ -127,7 +127,7 @@ function monitor_header_prive_css($flux) {
 function monitor_insert_head_css($flux) {
 	include_spip('inc/config');
 	if (lire_config('monitor/activer_monitor') == "oui"){
-		$css = find_in_path('css/perso.css');
+		$css = find_in_path('css/monitor.css');
 		$flux .= '<link rel="stylesheet" href="'.direction_css($css).'" type="text/css" media="all" />';
 	}
 	return $flux;
