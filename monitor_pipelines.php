@@ -23,6 +23,12 @@ function monitor_affiche_milieu($flux){
 	if (lire_config('monitor/activer_monitor') == "oui" and trouver_objet_exec($flux['args']['exec'] == "site")){
 		$id_syndic = _request('id_syndic');
 		$texte = recuperer_fond(
+				'prive/objets/contenu/monitor_stats',
+				array(
+					'id_syndic'=>$id_syndic
+				)
+		);
+		$texte .= recuperer_fond(
 				'prive/objets/editer/monitor',
 				array(
 					'id_syndic'=>$id_syndic
@@ -143,6 +149,7 @@ function monitor_taches_generales_cron($taches_generales){
     include_spip('inc/config');
 	if (lire_config('monitor/activer_monitor') == "oui") {
 		$taches_generales['monitor'] = 90; 
+		$taches_generales['monitor_univers_check'] = 90; 
 	}
 		
 	return $taches_generales;

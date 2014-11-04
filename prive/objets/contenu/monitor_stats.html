@@ -1,0 +1,54 @@
+<B_stats_monitor>
+<div class="liste-objets sites syndic">
+<table class='spip liste'>
+<caption><strong class="caption"><:monitor:form_statstechnic:></strong></caption>
+    <thead>
+        <tr>
+            <th colspan="2"><:monitor:form_resultat:></th>
+        </tr>
+    </thead>
+    <tbody>
+    <BOUCLE_stats_monitor(MONITOR_STATS){id_syndic}>
+        <tr>
+            <th class='ip' scope='col'><:monitor:form_ip:></th>
+            <td class='ip'>[(#IP)]</td>
+        </tr>
+        <tr>
+            <th class='spip' scope='col'><:monitor:form_spip:></th>
+            <td class='spip'>[(#SPIP)]</td>
+        </tr>
+        <tr>
+        	<th class='server' scope='col'><:monitor:form_server:></th>
+        	<td class='server'>[(#SERVER)]</td>
+        </tr>
+        <tr>
+        	<th class='php' scope='col'><:monitor:form_php:></th>
+        	<td class='php'>[(#PHP)]</td>
+        </tr>
+        <tr>
+        	<th class='gzip' scope='col'><:monitor:form_gzip:></th>
+        	<td class='gzip'>[(#GZIP)]</td>
+        </tr>
+        <tr>
+        	<th class='plugins' scope='col'><:monitor:form_nbplugins:></th>
+        	<td class='plugins'>[(#PLUGINS)]</td>
+        </tr>
+        <tr>
+        	<th class='pays' scope='col'><:monitor:form_pays:></th>
+        	<td class='pays'>[(#PAYS)]</td>
+        </tr>
+        <tr>
+        	<th class='date' scope='col'><:monitor:form_date:></th>
+        	<td class='date'>[(#DATE)]</td>
+        </tr>
+        <tr>
+        	<th class='retry' scope='col'><:monitor:form_retry:></th>
+        	<td class='retry'>[(#RETRY)]</td>
+        </tr>
+    </BOUCLE_stats_monitor>
+    </tbody>
+</table>
+</div>
+</B_stats_monitor>[
+<div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_stats_monitor>
