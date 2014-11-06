@@ -49,6 +49,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'form_nbplugins' => 'Nombre de plugins',
 	'form_pays' => 'Pays d\'hébergement',
 	'form_date' => 'Date du relevé',
+	'form_status' => 'Status',
 	'form_retry' => 'Retry',
 	'form_recuperer_stats' => 'Récupérer les stats pour ce site',
 
@@ -64,6 +65,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'item_non_utiliser_monitor' => 'Désactiver Monitor',
 	'item_non_utiliser_monitor_ping' => 'Désactiver ping',
 	'item_non_utiliser_monitor_poids' => 'Désactiver poids page',
+
+	// O
+	'afficher_plugins' => 'Afficher la liste des plugins',
 
 	// T
 	'texte_monitor' => '<p>Activer Monitor, puis renseigner le formulaire de configuration du plugin</p>',

@@ -31,16 +31,16 @@
         </tr>
         <tr>
         	<th class='plugins' scope='col'><:monitor:form_nbplugins:></th>
-        	<td class='plugins'>[(#PLUGINS)]
-        		<table class='liste'>
-        		<BOUCLE_stats_monitor_plugins(MONITOR_STATS_PLUGINS){id_monitor_stats}>
-	        		<tr>
-	        			<td>
-	        				#VERSION
-	        			</td>
-	        		</tr>
-        		</BOUCLE_stats_monitor_plugins>
-        		</table>
+        	<td class='plugins'>[(#PLUGINS)]  
+        	<span  style="float: right;">
+	        	<a href="[(#SELF|parametre_url{id_monitor_stats,#ID_MONITOR_STATS}|ancre_url{plugins_#ID_MONITOR_STATS})]" class="ajax">
+	        	<:monitor:afficher_plugins:></a>
+        	</span>
+        	<div id="plugins_#ID_MONITOR_STATS">
+	        	[(#ID_MONITOR_STATS|=={#ENV{id_monitor_stats}}|oui) 
+					[(#INCLURE{fond=inc-plugins, ajax, env})]
+				]
+			</div>
         	</td>
         </tr>
         <tr>
@@ -54,6 +54,10 @@
         <tr>
         	<th class='retry' scope='col'><:monitor:form_retry:></th>
         	<td class='retry'>[(#RETRY)]</td>
+        </tr>
+        <tr>
+        	<th class='status' scope='col'><:monitor:form_status:></th>
+        	<td class='status'>[(#STATUS)]</td>
         </tr>
 
     </BOUCLE_stats_monitor>
