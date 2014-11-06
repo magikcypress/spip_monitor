@@ -50,6 +50,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'form_pays' => 'Pays d\'hébergement',
 	'form_date' => 'Date du relevé',
 	'form_retry' => 'Retry',
+	'form_recuperer_stats' => 'Récupérer les stats pour ce site',
 
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',

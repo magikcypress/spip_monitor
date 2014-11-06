@@ -1,6 +1,6 @@
 <B_stats_monitor>
 <div class="liste-objets sites syndic">
-<table class='spip liste'>
+<table class='liste'>
 <caption><strong class="caption"><:monitor:form_statstechnic:></strong></caption>
     <thead>
         <tr>
@@ -31,7 +31,17 @@
         </tr>
         <tr>
         	<th class='plugins' scope='col'><:monitor:form_nbplugins:></th>
-        	<td class='plugins'>[(#PLUGINS)]</td>
+        	<td class='plugins'>[(#PLUGINS)]
+        		<table class='liste'>
+        		<BOUCLE_stats_monitor_plugins(MONITOR_STATS_PLUGINS){id_monitor_stats}>
+	        		<tr>
+	        			<td>
+	        				#VERSION
+	        			</td>
+	        		</tr>
+        		</BOUCLE_stats_monitor_plugins>
+        		</table>
+        	</td>
         </tr>
         <tr>
         	<th class='pays' scope='col'><:monitor:form_pays:></th>
@@ -45,9 +55,13 @@
         	<th class='retry' scope='col'><:monitor:form_retry:></th>
         	<td class='retry'>[(#RETRY)]</td>
         </tr>
+
     </BOUCLE_stats_monitor>
     </tbody>
 </table>
+	<div style="text-align: right">
+		[(#BOUTON_ACTION{<:monitor:form_recuperer_stats:>, [(#URL_ACTION_AUTEUR{instituer_monitor_stats, #ID_SYNDIC, [(#SELF|parametre_url{'var_mode', 'recalcul'})]})]})]
+	</div>
 </div>
 </B_stats_monitor>[
 <div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>

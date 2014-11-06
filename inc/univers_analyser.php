@@ -185,6 +185,9 @@ function univers_analyser($url, $debug=false) {
 	if (count($res)==1 AND preg_match(',404 ,', $header)){
 		$res['response'] = '404';
 	}
+	else {
+		$res['response'] = true;
+	}
 	return $res;
 
 }
@@ -239,7 +242,6 @@ function univers_analyser_un($row,$debug = false){
 			$set['plugins'] = count($res['plugins']);
 
 			// mettre a jour les plugins
-				spip_log($id_monitor_stats, 'test.' . _LOG_ERREUR);
 			sql_delete('spip_monitor_stats_plugins','id_monitor_stats=' . intval($id_monitor_stats));
 			foreach($res['plugins'] as $p=>$v) {
 				sql_insertq('spip_monitor_stats_plugins', array('id_monitor_stats'=>$id_monitor_stats,'plugin'=>$p,'version'=>$v));
@@ -258,7 +260,7 @@ function univers_analyser_un($row,$debug = false){
 
 	$set['date'] = date('Y-m-d H:i:s');
 	if ($debug) var_dump($set);
-	sql_updateq("spip_monitor_stats", $set, "id_syndic=".intval($id));
+	sql_updateq("spip_monitor_stats", $set, "id_monitor_stats=".intval($id_monitor_stats));
 
 	if (time() >= _TIME_OUT)
         return;
