@@ -1,0 +1,95 @@
+#SET{total,0}
+#SET{likev,#ENV{v}|concat{%}}
+<BOUCLE_compte(MONITOR_STATS){spip like #GET{likev}} />#SET{total,#TOTAL_BOUCLE}<//B_compte>
+<B_sitesspip>
+<h2>Version #ENV{v} : #GET{total} sites vérifiés</h2>
+
+<h3>Versions</h3>
+<table id='versions'>
+	<thead>
+		<tr><th>Version</th><th>Nombre de sites</th></tr>
+	</thead>
+	<tbody>
+	<BOUCLE_sitesspip(MONITOR_STATS){spip like #GET{likev}}{fusion spip}{compte spip}{!par compte_spip}>
+	<tr><td>#SPIP</td><td>#COMPTE{spip} ([(#COMPTE{spip}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+	</BOUCLE_sitesspip>
+	</tbody>
+</table>
+</B_sitesspip>
+
+<B_hasplug>
+<h3>Nombre de plugins install&#233;s</h3>
+<p>Nombre total de sites ayant activé un ou plusieurs plugins: <BOUCLE_tothas(MONITOR_STATS){spip like #GET{likev}}{plugins>=1} />#TOTAL_BOUCLE/#GET{total} soit[ (#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%]<//B_tothas></p>
+<table>
+	<thead>
+		<tr><th>Nombre de plugins</th><th>Nombre de sites</th></tr>
+	</thead>
+	<tbody>
+		<BOUCLE_hasplug(MONITOR_STATS){spip like #GET{likev}}{fusion plugins}{compte plugins}{!par compte_plugins}{plugins>=1}>
+		<tr><td>#PLUGINS plugins</td><td>#COMPTE{plugins} ([(#COMPTE{plugins}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+		</BOUCLE_hasplug>
+	</tbody>
+</table>
+</B_hasplug>
+
+<B_plugins>
+<h3>Plugins</h3>
+<table>
+	<thead>
+		<tr><th>Nom</th><th>Nombre de sites</th></tr>
+	</thead>
+	<tbody>
+	<BOUCLE_plugins(monitor_stats_plugins monitor_stats){monitor_stats.spip like #GET{likev}}{fusion plugin}{!par compte_plugin}{compte plugin}>
+		<tr><td>#CHAMP_SQL{plugin}</td><td>#COMPTE{plugin} ([(#COMPTE{plugin}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+	</BOUCLE_plugins>
+	</tbody>
+</table>
+</B_plugins>
+
+<!--
+<B_pluginsv>
+<h3>Plugins, versionn&#233;s</h3>
+<table>
+	<thead>
+		<tr><th>Version de plugin</th><th>Nombre de sites</th></tr>
+	</thead>
+	<tbody>
+		<BOUCLE_pluginsv(monitor_stats_plugins monitor_stats){monitor_stats.spip like #GET{likev}}{fusion version}{!par compte_version}{compte version}>
+		<tr><td>#VERSION</td><td>#COMPTE{version}</td></tr>
+		</BOUCLE_pluginsv>
+	</tbody>
+</table>
+</B_pluginsv>
+	-->
+
+<B_pays>
+<h3>Pays</h3>
+<table>
+	<thead>
+		<tr><th>Nom</th><th>Nombre de sites</th></tr>
+	</thead>
+	<tbody>
+	<BOUCLE_pays(MONITOR_STATS){spip like #GET{likev}}{fusion pays}{!par compte_pays}{compte pays}>
+		<tr><td>#PAYS</td><td>#COMPTE{pays} ([(#COMPTE{pays}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+	</BOUCLE_pays>
+	</tbody>
+</table>
+</B_pays>
+
+
+<h3>PHP</h3>
+<table id='php'>
+	<thead>
+		<tr><th>PHP</th><th>Nombre de sites</th></tr>
+	</thead>
+	<tbody>
+	<BOUCLE_v40(MONITOR_STATS){spip like #GET{likev}}{php LIKE '4.0%'} />[(#TOTAL_BOUCLE|>{0}|oui) <tr><td>4.0</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%])</td></tr>]<//B_v40>
+	<BOUCLE_v41(MONITOR_STATS){spip like #GET{likev}}{php LIKE '4.1%'} />[(#TOTAL_BOUCLE|>{0}|oui) <tr><td>4.1</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%])</td></tr>]<//B_v41>
+	<BOUCLE_v42(MONITOR_STATS){spip like #GET{likev}}{php LIKE '4.2%'} />[(#TOTAL_BOUCLE|>{0}|oui) <tr><td>4.2</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%])</td></tr>]<//B_v42>
+	<BOUCLE_v43(MONITOR_STATS){spip like #GET{likev}}{php LIKE '4.3%'} />[(#TOTAL_BOUCLE|>{0}|oui) <tr><td>4.3</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%])</td></tr>]<//B_v43>
+	<BOUCLE_v50(MONITOR_STATS){spip like #GET{likev}}{php LIKE '5.0%'} />[(#TOTAL_BOUCLE|>{0}|oui) <tr><td>5.0</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%])</td></tr>]<//B_v50>
+	<BOUCLE_v51(MONITOR_STATS){spip like #GET{likev}}{php LIKE '5.1%'} />[(#TOTAL_BOUCLE|>{0}|oui) <tr><td>5.1</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%])</td></tr>]<//B_v51>
+	<BOUCLE_v52(MONITOR_STATS){spip like #GET{likev}}{php LIKE '5.2%'} />[(#TOTAL_BOUCLE|>{0}|oui) <tr><td>5.2</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%])</td></tr>]<//B_v52>
+	<BOUCLE_v53(MONITOR_STATS){spip like #GET{likev}}{php LIKE '5.3%'} />[(#TOTAL_BOUCLE|>{0}|oui) <tr><td>5.3</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%])</td></tr>]<//B_v53>
+	</tbody>
+</table>
