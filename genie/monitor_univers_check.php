@@ -8,27 +8,27 @@ function genie_monitor_univers_check_dist($t) {
     include_spip('inc/univers_analyser');
 
     // On insert 5 sites qui ne sont pas encore traités
-    $sites = sql_allfetsel('monitor.id_syndic, site.statut_stats,  site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic AND monitor.type = "ping"', 'site.statut_stats!="oui"', '', '', '0,5');
+    $sites = sql_allfetsel('monitor.id_syndic, site.statut_stats,  site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic AND monitor.type = "ping" AND site.statut="publie"', 'site.statut_stats!="oui"', '', '', '0,5');
     foreach ($sites as $row) {
         univers_analyser_un($row);
     }
 
     $il_y_a_une_heure = date('Y-m-d H:i:s',time()-3600);
     // 2 sites en attente de validation
-    $sites = sql_allfetsel('monitor_stats.id_syndic, site.statut_stats, site.url_site', 'spip_monitor_stats as monitor_stats left join spip_syndic as site on monitor_stats.id_syndic = site.id_syndic', 'site.statut_stats="oui" AND (monitor_stats.retry=0 OR monitor_stats.date<'.sql_quote($il_y_a_une_heure).')', '', 'monitor_stats.date,monitor_stats.retry', '0,2');
+    $sites = sql_allfetsel('monitor_stats.id_syndic, site.statut_stats, site.url_site', 'spip_monitor_stats as monitor_stats left join spip_syndic as site on monitor_stats.id_syndic = site.id_syndic', 'site.statut="publie" AND site.statut_stats="oui" AND (monitor_stats.retry=0 OR monitor_stats.date<'.sql_quote($il_y_a_une_heure).')', '', 'monitor_stats.date,monitor_stats.retry', '0,2');
     foreach ($sites as $row) {
         univers_analyser_un($row);
     }
 
     $il_y_a_quatre_heure = date('Y-m-d H:i:s',time()-4*3600);
     // revisiter 5 sites deja vu, en commencant par les plus anciens
-    $sites = sql_allfetsel('monitor_stats.id_syndic, site.statut_stats, site.url_site', 'spip_monitor_stats as monitor_stats left join spip_syndic as site on monitor_stats.id_syndic = site.id_syndic', 'site.statut_stats="oui" AND (monitor_stats.retry=0 OR monitor_stats.date<'.sql_quote($il_y_a_une_heure).')', '', 'monitor_stats.date,monitor_stats.retry', '0,5');
+    $sites = sql_allfetsel('monitor_stats.id_syndic, site.statut_stats, site.url_site', 'spip_monitor_stats as monitor_stats left join spip_syndic as site on monitor_stats.id_syndic = site.id_syndic', 'site.statut="publie" AND site.statut_stats="oui" AND (monitor_stats.retry=0 OR monitor_stats.date<'.sql_quote($il_y_a_une_heure).')', '', 'monitor_stats.date,monitor_stats.retry', '0,5');
     foreach ($sites as $row) {
         univers_analyser_un($row);
     }
 
     // revisiter un site publie, en retry de plus de 4 heures
-    $sites = sql_allfetsel('monitor_stats.id_syndic, site.statut_stats, site.url_site', 'spip_monitor_stats as monitor_stats left join spip_syndic as site on monitor_stats.id_syndic = site.id_syndic', 'site.statut_stats="oui" AND (monitor_stats.retry>0 OR monitor_stats.date<'.sql_quote($il_y_a_une_heure).')', '', 'monitor_stats.date,monitor_stats.retry', '0,1');
+    $sites = sql_allfetsel('monitor_stats.id_syndic, site.statut_stats, site.url_site', 'spip_monitor_stats as monitor_stats left join spip_syndic as site on monitor_stats.id_syndic = site.id_syndic', 'site.statut="publie" AND site.statut_stats="oui" AND (monitor_stats.retry>0 OR monitor_stats.date<'.sql_quote($il_y_a_une_heure).')', '', 'monitor_stats.date,monitor_stats.retry', '0,1');
     foreach ($sites as $row) {
         univers_analyser_un($row);
     }

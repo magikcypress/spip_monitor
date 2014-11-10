@@ -1,0 +1,7 @@
+#SET{total,0}
+#SET{likev,#ENV{v}|concat{%}}
+<BOUCLE_compte(MONITOR_STATS){spip like #GET{likev}} />#SET{total,#TOTAL_BOUCLE}<//B_compte>
+<B_plugins>
+nom,compte,pourcent<BOUCLE_plugins(monitor_stats_plugins monitor_stats){monitor_stats.spip like #GET{likev}}{fusion plugin}{!par compte_plugin}{compte plugin}>
+#CHAMP_SQL{plugin},#COMPTE{plugin},[(#COMPTE{plugin}|mult{100}|div{#GET{total}}|round{1})]</BOUCLE_plugins>
+#FILTRE{trim}

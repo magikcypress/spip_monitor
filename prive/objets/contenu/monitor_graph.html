@@ -20,7 +20,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50},
     height = 500 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
-var tooltipDate = d3.time.format("%e %B");
+var tooltipDate = d3.time.format("%e %b");
 
 var x = d3.time.scale()
     .range([0, width]);
