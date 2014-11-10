@@ -14,19 +14,19 @@
 	</thead>
 	<tbody>
 	<BOUCLE_sitesspip(MONITOR_STATS){pagination 1}>
-	<BOUCLE_v30(MONITOR_STATS){spip LIKE '3.0%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=3.0}" title="voir les stats de cette version">3.0</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v30>
-	<BOUCLE_v22(MONITOR_STATS){spip LIKE '2.2%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=2.2}" title="voir les stats de cette version">2.2</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v22>
-	<BOUCLE_v21(MONITOR_STATS){spip LIKE '2.1%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=2.1}" title="voir les stats de cette version">2.1</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v21>
-	<BOUCLE_v20(MONITOR_STATS){spip LIKE '2.0%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=2.0}" title="voir les stats de cette version">2.0</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v20>
-	<BOUCLE_v193(MONITOR_STATS){spip LIKE '1.9.3%'}{doublons} /><tr><td><a href="#URL_PAGE{liste-stats,v=1.9.3}" title="voir les stats de cette version">1.9.3dev</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v193>
-	<BOUCLE_v192(MONITOR_STATS){spip LIKE '1.9.2%'}{doublons} /><tr><td><a href="#URL_PAGE{liste-stats,v=1.9.2}" title="voir les stats de cette version">1.9.2</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v192>
-	<BOUCLE_v191(MONITOR_STATS){spip LIKE '1.9.1%'}{doublons} /><tr><td><a href="#URL_PAGE{liste-stats,v=1.9.1}" title="voir les stats de cette version">1.9.1</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v191>
-	<BOUCLE_v19(MONITOR_STATS){spip LIKE '1.9%'}{doublons} /><tr><td><a href="#URL_PAGE{liste-stats,v=1.9}" title="voir les stats de cette version">1.9</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v19>
-	<BOUCLE_v183(MONITOR_STATS){spip LIKE '1.8.3%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=1.8.3}" title="voir les stats de cette version">1.8.3</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v183>
-	<BOUCLE_v182(MONITOR_STATS){spip LIKE '1.8.2%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=1.8.2}" title="voir les stats de cette version">1.8.2</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v182>
-	<BOUCLE_v181(MONITOR_STATS){spip LIKE '1.8.1%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=1.8.1}" title="voir les stats de cette version">1.8.1</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v181>
-	<BOUCLE_v180(MONITOR_STATS){spip LIKE '1.8.0%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=1.8.0}" title="voir les stats de cette version">1.8.0</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v180>
-	<BOUCLE_vold(MONITOR_STATS){spip LIKE '<1.8%'} /><tr><td><a href="#URL_PAGE{liste-stats,v=<1.8}" title="voir les stats de cette version"><1.8</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr><//B_vold>
+	<BOUCLE_v30(MONITOR_STATS){spip LIKE '3.0%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,3.0})]" title="voir les stats de cette version">3.0</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v30>
+	<BOUCLE_v22(MONITOR_STATS){spip LIKE '2.2%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,2.2})]" title="voir les stats de cette version">2.2</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v22>
+	<BOUCLE_v21(MONITOR_STATS){spip LIKE '2.1%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,2.1})]" title="voir les stats de cette version">2.1</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v21>
+	<BOUCLE_v20(MONITOR_STATS){spip LIKE '2.0%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,2.0})]" title="voir les stats de cette version">2.0</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v20>
+	<BOUCLE_v193(MONITOR_STATS){spip LIKE '1.9.3%'}{doublons} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,1.9.3})]" title="voir les stats de cette version">1.9.3dev</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v193>
+	<BOUCLE_v192(MONITOR_STATS){spip LIKE '1.9.2%'}{doublons} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,1.9.2})]" title="voir les stats de cette version">1.9.2</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v192>
+	<BOUCLE_v191(MONITOR_STATS){spip LIKE '1.9.1%'}{doublons} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,1.9.1})]" title="voir les stats de cette version">1.9.1</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v191>
+	<BOUCLE_v19(MONITOR_STATS){spip LIKE '1.9%'}{doublons} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,1.9})]" title="voir les stats de cette version">1.9</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v19>
+	<BOUCLE_v183(MONITOR_STATS){spip LIKE '1.8.3%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,1.8.3})]" title="voir les stats de cette version">1.8.3</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v183>
+	<BOUCLE_v182(MONITOR_STATS){spip LIKE '1.8.2%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,1.8.2})]" title="voir les stats de cette version">1.8.2</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v182>
+	<BOUCLE_v181(MONITOR_STATS){spip LIKE '1.8.1%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,1.8.1})]" title="voir les stats de cette version">1.8.1</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v181>
+	<BOUCLE_v180(MONITOR_STATS){spip LIKE '1.8.0%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,1.8.0})]" title="voir les stats de cette version">1.8.0</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr>#SET{total,#GET{total}|plus{#TOTAL_BOUCLE}}<//B_v180>
+	<BOUCLE_vold(MONITOR_STATS){spip LIKE '<1.8%'} /><tr><td><a href="[(#SELF|parametre_url{p,liste-stats}|parametre_url{v,<1.8})]" title="voir les stats de cette version"><1.8</a></td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr><//B_vold>
 	<BOUCLE_vinc(MONITOR_STATS){spip='?'} /><tr><td>?</td><td>#TOTAL_BOUCLE ([(#TOTAL_BOUCLE|mult{100}|div{#_sitesspip:GRAND_TOTAL}|round{1})%])</td></tr><//B_vinc>
 	</BOUCLE_sitesspip>
 	</tbody>
@@ -35,13 +35,13 @@
 
 <B_hasplug>
 <h3>Nombre de plugins install&#233;s</h3>
-<p>Nombre total de sites ayant activé un ou plusieurs plugins: <BOUCLE_tothas(MONITOR_STATS){plugins>=1}{statut=publie} />#TOTAL_BOUCLE/#GET{total} soit[ (#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%]<//B_tothas></p>
+<p>Nombre total de sites ayant activé un ou plusieurs plugins: <BOUCLE_tothas(MONITOR_STATS){plugins>=1} />#TOTAL_BOUCLE/#GET{total} soit[ (#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%]<//B_tothas></p>
 <table>
 	<thead>
 		<tr><th>Nombre de plugins</th><th>Nombre de sites</th></tr>
 	</thead>
 	<tbody>
-		<BOUCLE_hasplug(MONITOR_STATS){fusion plugins}{compte plugins}{!par compte_plugins}{plugins>=1}{statut=publie}>
+		<BOUCLE_hasplug(MONITOR_STATS){fusion plugins}{compte plugins}{!par compte_plugins}{plugins>=1}>
 		<tr><td>#PLUGINS plugins</td><td>#COMPTE{plugins} ([(#COMPTE{plugins}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
 		</BOUCLE_hasplug>
 	</tbody>

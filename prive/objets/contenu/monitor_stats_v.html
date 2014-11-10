@@ -2,7 +2,7 @@
 #SET{likev,#ENV{v}|concat{%}}
 <BOUCLE_compte(MONITOR_STATS){spip like #GET{likev}} />#SET{total,#TOTAL_BOUCLE}<//B_compte>
 <B_sitesspip>
-<h2>Version #ENV{v} : #GET{total} sites vérifiés</h2>
+<h2>Version #ENV{v} : #GET{total}&nbsp;sites vérifiés</h2>
 
 <h3>Versions</h3>
 <table id='versions'>
@@ -19,7 +19,7 @@
 
 <B_hasplug>
 <h3>Nombre de plugins install&#233;s</h3>
-<p>Nombre total de sites ayant activé un ou plusieurs plugins: <BOUCLE_tothas(MONITOR_STATS){spip like #GET{likev}}{plugins>=1} />#TOTAL_BOUCLE/#GET{total} soit[ (#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%]<//B_tothas></p>
+<p>Nombre total de sites ayant activé un ou plusieurs plugins: <BOUCLE_tothas(MONITOR_STATS){spip like #GET{likev}}{plugins>=1} />#TOTAL_BOUCLE/#GET{total}&nbsp;soit[ (#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%]<//B_tothas></p>
 <table>
 	<thead>
 		<tr><th>Nombre de plugins</th><th>Nombre de sites</th></tr>
@@ -75,7 +75,6 @@
 	</tbody>
 </table>
 </B_pays>
-
 
 <h3>PHP</h3>
 <table id='php'>

@@ -25,7 +25,8 @@ function monitor_affiche_milieu($flux){
 		$texte = recuperer_fond(
 				'prive/objets/contenu/monitor_stats',
 				array(
-					'id_syndic'=>$id_syndic
+					'id_syndic'=>$id_syndic,
+					'id_monitor_stat'=>$id_monitor_stat
 				)
 		);
 		$texte .= recuperer_fond(
