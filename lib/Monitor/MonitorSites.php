@@ -12,7 +12,10 @@ function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agen
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, $header);
         curl_setopt($ch, CURLOPT_NOBODY, (!$body));
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off'))
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        else
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
