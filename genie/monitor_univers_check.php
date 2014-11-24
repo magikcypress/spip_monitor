@@ -41,6 +41,8 @@ function genie_monitor_univers_check_dist($t) {
     // soit un publie (donc vu vivant un jour) pas vu vivant dans les 40 dernieres heures
     // sql_updateq("spip_monitor_stats",array('statut'=>'non'),"statut IN ('non','oui') AND retry>=10");
 
+    spip_log('Monitor Check', 'test.' . _LOG_ERREUR);
+
     return 0;
 }
 
