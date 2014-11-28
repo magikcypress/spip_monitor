@@ -1,3 +1,4 @@
+<h1>[(#ENV*{type}|=={ping}|?{<:monitor:titre_page_monitor_ping:>,<:monitor:titre_page_monitor_poids:>})]</h1>
 <B_liste_monitor>
 #ANCRE_PAGINATION
 <div class="liste-objets sites syndic">
@@ -35,5 +36,6 @@
 [<p class='pagination'>(#PAGINATION{prive})</p>]
 </div>
 </B_liste_monitor>[
-<div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+<div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong>
+<p><:monitor::></div>
 ]<//B_liste_monitor>

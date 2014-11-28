@@ -9,6 +9,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'activer_monitor' => 'Activer',
 	'activer_monitor_ping' => 'Activer le ping',
 	'activer_monitor_poids' => 'Activer le poids des pages',
+	'afficher_plugins' => 'Afficher la liste des plugins',
 
 	// B
 	'bouton_activer_ping' => 'Activer le "ping" sur l\'ensemble des sites',
@@ -30,28 +31,29 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'graph_semaine' => 'Par semaine',
 
 	// F
+	'form_date' => 'Date du relevé',
 	'form_date_ping' => 'Date',
+	'form_ip' => 'Adresse IP',
+	'form_gzip' => 'Compression Gzip',
 	'form_latence' => 'Latence (en ms)',
 	'form_minifycss' => 'Minifycss',
 	'form_minifyhtml' => 'MinifyHTML',
 	'form_minifyjavascript' => 'Minifyjavascript',
-	'form_pagestats' => 'PageStats',
-	'form_poids' => 'Poids (en Kb)',
-	'form_resultat' => 'Résultats',
-	'form_score' => 'Score',
-	'form_url_site' => 'Nom du site',
-	'form_ip' => 'Adresse IP',
-	'form_statstechnic' => 'Données techniques',
-	'form_spip' => 'Version de SPIP',
-	'form_server' => 'Nom du serveur',
-	'form_php' => 'Version de php',
-	'form_gzip' => 'Compression Gzip',
 	'form_nbplugins' => 'Nombre de plugins',
+	'form_pagestats' => 'PageStats',
 	'form_pays' => 'Pays d\'hébergement',
-	'form_date' => 'Date du relevé',
-	'form_status' => 'Status',
-	'form_retry' => 'Retry',
+	'form_poids' => 'Poids (en Kb)',
+	'form_php' => 'Version de php',
 	'form_recuperer_stats' => 'Récupérer les stats pour ce site',
+	'form_resultat' => 'Résultats',
+	'form_retry' => 'Retry',
+	'form_score' => 'Score',
+	'form_server' => 'Nom du serveur',
+	'form_spip' => 'Version de SPIP',
+	'form_statstechnic' => 'Données techniques',
+	'form_status' => 'Status',
+	'form_url_site' => 'Nom du site',
+	
 
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',
@@ -66,13 +68,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'item_non_utiliser_monitor_ping' => 'Désactiver ping',
 	'item_non_utiliser_monitor_poids' => 'Désactiver poids page',
 
-	// O
-	'afficher_plugins' => 'Afficher la liste des plugins',
-
 	// T
 	'texte_monitor' => '<p>Activer Monitor, puis renseigner le formulaire de configuration du plugin</p>',
-	'texte_monitor_site' => '<p>Activer le monitoring pour ce site</p>',
-	'texte_monitor_sites' => '<p>Activer le monitoring pour tout les sites</p>',
+	'texte_monitor_site' => '<p>Activer le monitoring en choisissant d\'activer les résultats du ping ou du poids pour ce site.</p>',
+	'texte_monitor_sites' => '<p>Activer le monitoring pour tout les sites "publié"</p>',
 	'texte_monitor_poids' => '<p>Activer le monitoring (poids page) pour ce site</p>',
 	'texte_monitor_compteur_aucun_ping' => 'Il n\'y a aucun site qui a "ping" d\'activé sur @site_publie@ sites',
 	'texte_monitor_compteur_aucun_poids' => 'Il n\'y a aucun site qui a "poids" d\'activé sur @site_publie@ sites',

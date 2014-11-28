@@ -1,4 +1,4 @@
-<div class="formulaire_spip formulaire_configurer formulaire_#FORM formulaire_#FORM-#ENV{id,nouveau}">
+<div class="formulaire_spip formulaire_#FORM formulaire_#FORM-#ENV{objet}-#ENV{id,nouveau}">
 <h3 class='titrem'><img src="#CHEMIN_IMAGE{monitor-24.png}" class="cadre-icone" /><:monitor:titre_monitor_site:>#AIDER{confmonitor}</h3>
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
@@ -8,41 +8,53 @@
 		[(#REM) declarer les hidden qui declencheront le service du formulaire
 		parametre : url d'action ]
 		#ACTION_FORMULAIRE{#ENV{action}}
+	]
 		<ul>
+			[(#ENV{editable})
+			<span class="toggle_box_link">&#91;<a href="#"
+					onclick="var f=jQuery(this).parents('form').eq(0);f.find('li .input').show('fast').siblings('span').hide('fast');f.find('.boutons').show('fast');f.find('span.input').show('fast');f.find('input').eq(0).focus();f.find('.toggle_box_link').hide(); return false;"
+					><:bouton_changer:></a>&#93;</span>
+			]
 
-			#SET{name,activer_monitor_ping}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
-			<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
-				<label for="#GET{name}"><:monitor:activer_monitor_ping:></label>[
-				<span class='erreur_message'>(#GET{erreurs})</span>
-				]<div class="choix">
-						<input type="radio" name="#GET{name}" id="#GET{name}_oui" value="oui"
-						[(#ENV{ping,non}|=={oui}|oui)checked="checked"] /><label for="#GET{name}_oui"><:monitor:item_utiliser_monitor_ping:></label>
-					</div>
-					<div class="choix">
-						<input type="radio" name="#GET{name}" id="#GET{name}_non" value="non"
-						[(#ENV{ping,non}|=={oui}|non)checked="checked"] /><label for="#GET{name}_non"><:monitor:item_non_utiliser_monitor_ping:></label>
-					</div>
-					<input type="hidden" name="#GET{name}_type" value="ping" />
-			</li>
-			#SET{name,activer_monitor_poids}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
-			<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
-				<label for="#GET{name}"><:monitor:activer_monitor_poids:></label>[
-				<span class='erreur_message'>(#GET{erreurs})</span>
-				]<div class="choix">
-						<input type="radio" name="#GET{name}" id="#GET{name}_oui" value="oui"
-						[(#ENV{poids,non}|=={oui}|oui)checked="checked"] /><label for="#GET{name}_oui"><:monitor:item_utiliser_monitor_poids:></label>
-					</div>
-					<div class="choix">
-						<input type="radio" name="#GET{name}" id="#GET{name}_non" value="non"
-						[(#ENV{poids,non}|=={oui}|non)checked="checked"] /><label for="#GET{name}_non"><:monitor:item_non_utiliser_monitor_poids:></label>
-					</div>
-					<input type="hidden" name="#GET{name}_type" value="poids" />
-			</li>
+			[(#ENV{editable})
+			<span class="input" style="display:none;">
+				#SET{name,activer_monitor_ping}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label for="#GET{name}"><:monitor:activer_monitor_ping:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]<div class="choix">
+							<input type="radio" name="#GET{name}" id="#GET{name}_oui" value="oui"
+							[(#ENV{ping,non}|=={oui}|oui)checked="checked"] /><label for="#GET{name}_oui"><:monitor:item_utiliser_monitor_ping:></label>
+						</div>
+						<div class="choix">
+							<input type="radio" name="#GET{name}" id="#GET{name}_non" value="non"
+							[(#ENV{ping,non}|=={oui}|non)checked="checked"] /><label for="#GET{name}_non"><:monitor:item_non_utiliser_monitor_ping:></label>
+						</div>
+						<input type="hidden" name="#GET{name}_type" value="ping" />
+				</li>
+				#SET{name,activer_monitor_poids}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+				<li class="editer long_label editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]">
+					<label for="#GET{name}"><:monitor:activer_monitor_poids:></label>[
+					<span class='erreur_message'>(#GET{erreurs})</span>
+					]<div class="choix">
+							<input type="radio" name="#GET{name}" id="#GET{name}_oui" value="oui"
+							[(#ENV{poids,non}|=={oui}|oui)checked="checked"] /><label for="#GET{name}_oui"><:monitor:item_utiliser_monitor_poids:></label>
+						</div>
+						<div class="choix">
+							<input type="radio" name="#GET{name}" id="#GET{name}_non" value="non"
+							[(#ENV{poids,non}|=={oui}|non)checked="checked"] /><label for="#GET{name}_non"><:monitor:item_non_utiliser_monitor_poids:></label>
+						</div>
+						<input type="hidden" name="#GET{name}_type" value="poids" />
+				</li>
+			</span>]
 		</ul>
 
+	[(#ENV{editable})
 	[(#REM) ajouter les saisies supplementaires : extra et autre, a cet endroit ]
 	<!--extra-->
-	<p class='boutons'><span class='image_loading'>&nbsp;</span><input type='submit' class='submit' value='<:bouton_enregistrer:>' /></p>
+	<p class='boutons' style="display:none;"><span class='image_loading'>&nbsp;</span>
+		<input type='submit' class='submit' name='annuler' value='<:bouton_annuler:>' />
+		<input type='submit' class='submit' name='enregistrer' value='<:bouton_enregistrer:>' /></p>
 	</div></form>
 	]
 </div>
