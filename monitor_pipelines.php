@@ -26,7 +26,7 @@ function monitor_affiche_milieu($flux){
 				'prive/objets/contenu/monitor_stats',
 				array(
 					'id_syndic'=>$id_syndic,
-					'id_monitor_stat'=>$id_monitor_stat
+					'id_monitor_stats'=>$id_monitor_stats
 				)
 		);
 		$texte .= recuperer_fond(
@@ -79,7 +79,7 @@ function monitor_affiche_milieu($flux){
 			$flux['data'] .= $texte;
 	}
 
-	// si on est sur la liste des site référencés
+	// si on est sur la liste des sites référencés
 	if (lire_config('monitor/activer_monitor') == "oui" and trouver_objet_exec($flux['args']['exec'] == "sites")){
 
 		$texte = recuperer_fond(

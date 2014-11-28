@@ -26,7 +26,7 @@ function action_instituer_monitor_dist() {
             $monitores[] = $value['id_syndic'];
 
         }
-        $syndics = sql_allfetsel('id_syndic', 'spip_syndic');
+        $syndics = sql_allfetsel('id_syndic', 'spip_syndic', 'statut="publie"');
         foreach ($syndics as $key => $value) {
             $id_syndic = $value['id_syndic'];
             if(in_array($id_syndic, $monitores)) {

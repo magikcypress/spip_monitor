@@ -8,6 +8,16 @@
  * @licence    GNU/GPL3
  */
 
+/**
+ * Regroupement de curl_init(), curl_exec et curl_close()
+ *
+ * @param string $href
+ * @param boolean $header Retourne l'entête
+ * @param boolean $body Retourne le corps
+ * @param int $timeout connection timeout en secondes
+ * @param boolean $add_agent Ajout d'un user agent
+ * @return string cURL resultat
+ */
 function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agent = true, $status = false) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, $header);
@@ -37,6 +47,12 @@ function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agen
         return $result;
 }
 
+/**
+ * Latence des sites, corresponds au ping dans l'interface SPIP
+ *
+ * @param string $href
+ * @return array resultat
+ */
 function updateWebsite($href) {
 
         $starttime = microtime(true);
@@ -72,6 +88,12 @@ function updateWebsite($href) {
         return array('result' => $result, 'latency' => $latency);
 }
 
+/**
+ * Verifie le bonne état d'un service
+ *
+ * @param string $href
+ * @return string resultat
+ */
 function updateService($href) {
         $errno = 0;
         $error = 1;
@@ -88,6 +110,12 @@ function updateService($href) {
         return $status;
 }
 
+/**
+ * Récupére le poids de la page d'un site
+ *
+ * @param string $href
+ * @return array resultat
+ */
 function sizePage($href) {
 
         $poids = curl_get($href, true, true, 10, false, CURLINFO_SIZE_DOWNLOAD);
@@ -100,6 +128,12 @@ function sizePage($href) {
         return array('result' => $result, 'poids' => $poids);
 }
 
+/**
+ * Récupére les données depuis l'api google pageSpeed
+ *
+ * @param string $href
+ * @return array resultat
+ */
 function getPageSpeedGoogle($href) {
         $url_pagespeed = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed?url=';
         $result = curl_get($url_pagespeed.$href, false);
@@ -133,4 +167,18 @@ function getPageSpeedGoogle($href) {
                     'minifyhtml_msg' => $minifyhtml_msg,
         			'minifyjavascript' => $minifyjavascript,
                     'minifyjavascript_msg' => $minifyjavascript_msg);
+}
+
+/**
+ * Récupére les données depuis l'api de tenon (experimental)
+ *
+ * @param string $href
+ * @return array resultat
+ */
+function getPageTenon($href) {
+        $url_tenon = 'http://www.tenon.io/api/?url=' . $href . '&key=4984f9a77c969b9a9954151cd6233880';
+        $result = curl_get($url_tenon, false);
+        $result = json_decode($result, false);
+
+        return $result;
 }

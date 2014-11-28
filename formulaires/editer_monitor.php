@@ -64,7 +64,7 @@ function formulaires_editer_monitor_traiter_dist($id_syndic){
 			sql_updateq('spip_monitor', array('statut'=>_request('activer_monitor_' . $key)), 'id_syndic=' . intval($id_syndic) . ' and type=' . sql_quote($key));
 		}
 	}
-		
+
 	return array('editable' => true, 'message_ok'=>_T('config_info_enregistree'));
 }
 
