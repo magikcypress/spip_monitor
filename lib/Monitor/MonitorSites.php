@@ -139,7 +139,7 @@ function getPageSpeedGoogle($href) {
         $result = curl_get($url_pagespeed.$href, false);
         $result = json_decode($result, false);
 
-        if(isset($result)) {
+        if(isset($result) && isset($result->{'responseCode'})) {
             $score = $result->{'score'};
             $pagestats = $result->{'pageStats'};
             $minifycss = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyCss'}->{'ruleImpact'};

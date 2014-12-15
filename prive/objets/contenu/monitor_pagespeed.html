@@ -1,5 +1,7 @@
 <B_site_monitor>
 <div class="liste-objets sites syndic">
+<BOUCLE_site_monitor(SYNDIC){id_syndic}>
+<B_liste_pagespeed>
 <table class='spip liste'>
 <caption><strong class="caption"><:monitor:titre_pagespeed:></strong></caption>
     <thead>
@@ -7,9 +9,8 @@
             <th colspan="3"><:monitor:form_resultat:></th>
         </tr>
     </thead>
-    <tbody>
-    <BOUCLE_site_monitor(SYNDIC){id_syndic}>
     <BOUCLE_liste_pagespeed(DATA){source table, #URL_SITE|monitor_pageSpeed}>
+    <tbody>
         <tr>
             <th class='score' scope='col'><:monitor:form_score:></th>
             <td class='score'>#SCORE</td>
@@ -45,10 +46,13 @@
             <td>#VALEUR</td>
         </tr>
         </BOUCLE_liste_pagestats>
-    </BOUCLE_liste_pagespeed>
-    </BOUCLE_site_monitor>
     </tbody>
+    </BOUCLE_liste_pagespeed>
 </table>
+</B_liste_pagespeed>[
+<div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
+]<//B_liste_pagespeed>
+</BOUCLE_site_monitor>
 </div>
 </B_site_monitor>[
 <div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
