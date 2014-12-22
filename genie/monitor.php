@@ -70,8 +70,6 @@ function genie_monitor_dist($t) {
             sql_delete('spip_monitor', 'id_monitor=' . $id_site);
         }
 
-        spip_log('Monitor', 'test.' . _LOG_ERREUR);
-
         if (time() >= _TIME_OUT)
             return 0;
     }
