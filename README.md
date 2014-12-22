@@ -8,5 +8,3 @@ Plugin SPIP réalisé pour monitorer des sites web syndiqués
 Necessite :
 	- sites (http://zone.spip.org/trac/spip-zone/browser/_core_/plugins/sites)
 	- d3js (https://github.com/magikcypress/spip_d3js)
-
-
