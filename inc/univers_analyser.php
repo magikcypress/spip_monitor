@@ -110,7 +110,7 @@ function univers_analyser($url, $debug=false) {
 	}
 
 	list($header, $page) = $site;
-	if ($debug) var_dump($header);
+	spip_log($header, 'test.' . __LOG_ERREUR);
 
 	// get some generic informations (server, php, gzip)
 	if (preg_match(',Server: (.*)$,m', $header, $r)) {
@@ -132,7 +132,9 @@ function univers_analyser($url, $debug=false) {
 			if ($config AND preg_match($regexp, $config, $rc))
 				$r = $rc;
 		}
-		$res['spip'] = trim(preg_replace(',^[^0-9]*,','',$r[1]));
+		// $res['spip'] = trim(preg_replace(',^[^0-9]*,','',$r[1]));
+		$res['spip'] = $r[1]?trim(preg_replace(',^[^0-9]*,','',$r[1])):trim(preg_replace('(.*)','',$r[1]));
+
 		if (!$res['spip'])
 			$res['spip'] = '?';
 		$res['plugins'] = array();
@@ -142,7 +144,11 @@ function univers_analyser($url, $debug=false) {
 				$res['plugins'][preg_replace(',[(].*,','', $plugin)] = $plugin;
 			}
 		}
+	} else {
+		// Check if the header says "Hey, i'm made with otherCMS"
+		$res['otherscms'] = '?';
 	}
+
 	// else, find another clue
 	// if 'spip' is in the html, there are some chance that it is a SPIP site
 	if (!isset($res['spip']))
@@ -181,6 +187,19 @@ function univers_analyser($url, $debug=false) {
 			$res['spip'] = '<1.8?';
 	}
 
+	// if maybe but not sure, try to get the admin wordpress page
+	if (isset($res['otherscms']) AND (!$res['otherscms'] OR $res['otherscms']=='?')){
+		// recuperer la page d'admin de wordpress
+		$login = preg_replace(",wp-login[.]php.*$,","",$url);
+		if ($login = univers_recuperer_lapage($login)){
+			list(, $login) = $login;
+			if  (preg_match(',<meta name=[\'"]generator["\'][^>]*>,Uims',$login,$r)
+				AND $v = extraire_attribut($r[0], 'content')
+				AND preg_match(",([^\[]+),",$v,$r))
+				$res['otherscms'] = trim($r[1]);
+		}
+	}
+
 	// if it is a 404, that was a bad adress
 	if (count($res)==1 AND preg_match(',404 ,', $header)){
 		$res['response'] = '404';
@@ -199,7 +218,6 @@ function univers_analyser($url, $debug=false) {
  * @param bool $debug
  */
 function univers_analyser_un($row,$debug = false){
-	if ($debug) var_dump($row);
 	$id = $row['id_syndic'];
 	$url = $row['url_site'];
 	$statut = $row['statut_stats'];
@@ -216,7 +234,6 @@ function univers_analyser_un($row,$debug = false){
 	}
 
 	$res = univers_analyser($url, $debug);
-	if ($debug) var_dump($res);
 
 	$set = array();
 	if ($res===false) {
@@ -237,7 +254,7 @@ function univers_analyser_un($row,$debug = false){
 		if (isset($res['spip'])){
 			$set['pays'] = univers_geoip($set['ip']);
 
-			// c'estun SPIP !
+			// c'est un SPIP !
 			$set['spip'] = $res['spip'];
 			$set['plugins'] = count($res['plugins']);
 
@@ -246,8 +263,13 @@ function univers_analyser_un($row,$debug = false){
 			foreach($res['plugins'] as $p=>$v) {
 				sql_insertq('spip_monitor_stats_plugins', array('id_monitor_stats'=>$id_monitor_stats,'plugin'=>$p,'version'=>$v));
 			}
+		}
+		if (isset($res['otherscms'])){
+			$set['pays'] = univers_geoip($set['ip']);
 
-			if ($debug) var_dump(univers_geoip($set['ip']));
+			// c'est un WordPress
+			$set['spip'] = $res['otherscms']?$res['otherscms']:'';
+			$set['plugins'] = 0; // Get plugins WordPress ???
 		}
 		$set['status'] = '';
 		$set['retry'] = 0;
@@ -259,7 +281,7 @@ function univers_analyser_un($row,$debug = false){
 	}
 
 	$set['date'] = date('Y-m-d H:i:s');
-	if ($debug) var_dump($set);
+	spip_log($set, 'test.' . __LOG_ERREUR);
 	sql_updateq("spip_monitor_stats", $set, "id_monitor_stats=".intval($id_monitor_stats));
 
 	if (time() >= _TIME_OUT)
