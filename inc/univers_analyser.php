@@ -94,7 +94,6 @@ function univers_getaddrbyhost($host, $timeout = 3) {
 function univers_analyser($url, $debug=false) {
 	$res = array();
 
-	spip_log("analyse version : $url ","univers_check");
 	$path = parse_url($url);
 	$ip = univers_getaddrbyhost($path['host']);
 	if (!$ip OR $ip==$path['host'])
@@ -110,7 +109,6 @@ function univers_analyser($url, $debug=false) {
 	}
 
 	list($header, $page) = $site;
-	spip_log($header, 'test.' . __LOG_ERREUR);
 
 	// get some generic informations (server, php, gzip)
 	if (preg_match(',Server: (.*)$,m', $header, $r)) {
@@ -260,8 +258,10 @@ function univers_analyser_un($row,$debug = false){
 
 			// mettre a jour les plugins
 			sql_delete('spip_monitor_stats_plugins','id_monitor_stats=' . intval($id_monitor_stats));
-			foreach($res['plugins'] as $p=>$v) {
-				sql_insertq('spip_monitor_stats_plugins', array('id_monitor_stats'=>$id_monitor_stats,'plugin'=>$p,'version'=>$v));
+			if($res['plugins']) {
+				foreach($res['plugins'] as $p=>$v) {
+					sql_insertq('spip_monitor_stats_plugins', array('id_monitor_stats'=>$id_monitor_stats,'plugin'=>$p,'version'=>$v));
+				}
 			}
 		}
 		if (isset($res['otherscms'])){
@@ -281,7 +281,6 @@ function univers_analyser_un($row,$debug = false){
 	}
 
 	$set['date'] = date('Y-m-d H:i:s');
-	spip_log($set, 'test.' . __LOG_ERREUR);
 	sql_updateq("spip_monitor_stats", $set, "id_monitor_stats=".intval($id_monitor_stats));
 
 	if (time() >= _TIME_OUT)
