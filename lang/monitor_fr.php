@@ -10,6 +10,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'activer_monitor_ping' => 'Activer le ping',
 	'activer_monitor_poids' => 'Activer le poids des pages',
 	'afficher_plugins' => 'Afficher la liste des plugins',
+	'alert_latence_sujet' => 'Alert latence',
+	'alert_latence_corps' => 'Bonjour,
+
+Je suis le robot qui vérifie la latence des sites internet via spip_monitor.
+Le site @url_site@ rencontre peut-être une latence de plus de 10 ou il est coupé.
+
+Passe une bonne journée,
+Nono',
 
 	// B
 	'bouton_activer_ping' => 'Activer le "ping" sur l\'ensemble des sites',
@@ -45,6 +53,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'form_poids' => 'Poids (en Kb)',
 	'form_php' => 'Version de php',
 	'form_recuperer_stats' => 'Récupérer les stats pour ce site',
+	'form_recuperer_site' => 'Récupérer la latence et le poids pour ce site',
 	'form_resultat' => 'Résultats',
 	'form_retry' => 'Retry',
 	'form_score' => 'Score',
