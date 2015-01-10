@@ -29,5 +29,5 @@
 
 	<!--menu nom="monitor_configuration" titre="monitor:icone_monitor_configuration" parent="menu_configuration" icone="images/monitor-16.png" action="configurer_monitor" /-->
 	<!--menu nom="monitor_ping" titre="monitor:icone_monitor_editer" parent="menu_edition" icone="images/monitor-16.png" action="liste_monitor" /-->
-- 
+
 </paquet>
