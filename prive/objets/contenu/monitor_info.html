@@ -1,0 +1,4 @@
+	<BOUCLE_monitor(MONITOR){type="ping"}{statut=oui}{id_syndic}>
+		[(#ALERT|>={5}|oui)
+		<div class="alert-erreur"><:monitor:alert_affichage_milieu{alert=#ALERT}:></div>]
+	</BOUCLE_monitor>

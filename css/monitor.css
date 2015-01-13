@@ -1,3 +1,9 @@
+.alert-erreur { 
+	background-color: #fbe3e4; 
+	color: #8a1f11; 
+	padding: .2em;
+}
+
 .axis path,
 .axis line {
   	fill: none;

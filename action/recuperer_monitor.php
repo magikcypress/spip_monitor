@@ -31,9 +31,9 @@ function action_recuperer_monitor_dist() {
         $alert = $alert_site+1;
         // Insert les data dans monitor_log
         genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);                
-        if($alert >= 5) {
+        if($alert >= 5 && $alert <= 10) {
 	    	// Notification du site malade
-	    	notification_monitor($site['url_site']);
+	    	notification_monitor($site['url_site'], "down");
         }
 
     } else {
@@ -47,11 +47,14 @@ function action_recuperer_monitor_dist() {
 	        genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);                
 	    } elseif($result['latency'] >= 10 && $alert_site >= 5) {
 	    	// Notification du site malade
-	    	notification_monitor($site['url_site']);
+	    	notification_monitor($site['url_site'], "latence");
 	        // Insert les data dans monitor_log
 	        $alert = $alert_site+1;
 	        genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);
 	    } else {
+            if($alert_site>=5)
+                notification_monitor($site['url_site'], "restart");
+
 	        $alert = 0;
 	        // Insert les data dans monitor_log
 	        genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);

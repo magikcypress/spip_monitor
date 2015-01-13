@@ -14,24 +14,17 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
 
 function puce_statut_monitor_dist($id, $statut, $ajax='', $menu_rapide=_ACTIVER_PUCE_RAPIDE){
 
-    $t = sql_getfetsel("statut_log", "spip_syndic", "id_syndic=" . intval($id));
+    $alert = sql_fetsel("alert", "spip_monitor", "id_syndic=" . intval($id));
 
     // cas particulier des sites en panne de ping :
     // on envoi une puce speciale, et pas de menu de changement rapide
-    if ($t) {
-        switch ($statut) {
-            case "non":
+    if ($alert) {
+        if($alert['alert'] >= 5) {
                 $puce = 'puce-verte-anim.gif';
                 $title = _T('monitor:info_site_noping');
-                break;
-            case "oui":
+        } else {
                 $puce = 'puce-publier-8.gif';
                 $title = _T('monitor:info_site_ping');
-                break;
-            default:
-                $puce = 'puce-publier-8.gif';
-                $title = _T('monitor:info_site_ping');
-                break;
         }
         return http_img_pack($puce, $title);
     }   
