@@ -12,6 +12,38 @@
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
+
+function monitor_affiche_gauche($flux) {
+	return monitor_boite_info($flux, 'affiche_gauche');
+}
+function monitor_affiche_droite($flux) {
+	return monitor_boite_info($flux, 'affiche_droite');
+}
+
+/**
+ * Afficher l'activation de monitor dans la colonne de gauche
+ * @param array $flux
+ * @return array
+ */
+function monitor_boite_info($flux, $pipeline) {
+	include_spip('inc/presentation');
+
+	$flux['args']['pipeline'] = $pipeline;
+ 
+	if (lire_config('monitor/activer_monitor') == "oui" and trouver_objet_exec($flux['args']['exec'] == "site")){
+		$id_syndic = _request('id_syndic');
+		$texte = recuperer_fond('prive/squelettes/extra/monitor',
+				array(
+					'id_syndic'=>$id_syndic
+				)
+		);
+
+		$flux['data'] .= $texte;
+	}
+
+	return $flux;
+}
+
 /**
  * Afficher monitor milieu page site
  * @param array $flux
@@ -22,18 +54,19 @@ function monitor_affiche_milieu($flux){
 	// si on est sur un site ou il faut activer le monitor...
 	if (lire_config('monitor/activer_monitor') == "oui" and trouver_objet_exec($flux['args']['exec'] == "site")){
 		$id_syndic = _request('id_syndic');
-		
+
 		$texte = recuperer_fond(
-				'prive/objets/contenu/monitor_stats',
+				'prive/objets/contenu/monitor_info',
 				array(
 					'id_syndic'=>$id_syndic,
 					'id_monitor_stats'=>$id_monitor_stats
 				)
 		);
 		$texte .= recuperer_fond(
-				'prive/objets/editer/monitor',
+				'prive/objets/contenu/monitor_stats',
 				array(
-					'id_syndic'=>$id_syndic
+					'id_syndic'=>$id_syndic,
+					'id_monitor_stats'=>$id_monitor_stats
 				)
 		);
 		$texte .= recuperer_fond(
@@ -50,6 +83,13 @@ function monitor_affiche_milieu($flux){
 					'id_syndic'=>$id_syndic,
 					'type'=>'poids',
 					'titre'=>_T('monitor:titre_page_monitor_poids'),
+				)
+		);
+		$texte .= recuperer_fond(
+				'prive/objets/contenu/monitor_recupinfo',
+				array(
+					'id_syndic'=>$id_syndic,
+					'id_monitor_stats'=>$id_monitor_stats
 				)
 		);
 		$texte .= recuperer_fond(
@@ -91,23 +131,6 @@ function monitor_affiche_milieu($flux){
 		else
 			$flux['data'] .= $texte;
 	}
-
-	return $flux;
-}
-
-/**
- * Ajout des scripts de dc-js dans le head des pages privées
- *
- * @pipeline header_prive
- * @param  string $flux Contenu du head
- * @return string Contenu du head
- */
-function monitor_insert_head_prive($flux){
-	$js_crossfilter = find_in_path('lib/dc.js/web/js/crossfilter.js');
-	$js_dcjs = find_in_path('lib/dc.js/web/js/dc.js');
-	$flux = porte_plume_inserer_head($flux, $GLOBALS['spip_lang'], $prive=true)
-		. "<script type='text/javascript' src='$js_crossfilter'></script>\n"
-		. "<script type='text/javascript' src='$js_dcjs'></script>\n";
 
 	return $flux;
 }

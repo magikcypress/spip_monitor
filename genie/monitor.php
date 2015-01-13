@@ -7,9 +7,20 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
  *
  * @return string resultat
  */
-function notification_monitor($href) {
-        $sujet = "[" . $GLOBALS['meta']["nom_site"] ."] " . _T('monitor:alert_latence_sujet');
-        $body = _T('monitor:alert_latence_corps', array('url_site' => $href));
+function notification_monitor($href, $type) {
+		if($type=="latence") {
+			$texte_sujet = _T('monitor:alert_latence_sujet');
+			$texte_corps = _T('monitor:alert_latence_corps', array('url_site' => $href));
+        } elseif($type=="restart") {
+            $texte_sujet = _T('monitor:alert_restart_sujet');
+            $texte_corps = _T('monitor:alert_restart_corps', array('url_site' => $href));            
+		} else {
+			$texte_sujet = _T('monitor:alert_couper_sujet');
+			$texte_corps = _T('monitor:alert_couper_corps', array('url_site' => $href));			
+		}
+
+        $sujet = "[" . $GLOBALS['meta']["nom_site"] ."] " . $texte_sujet;
+        $body = $texte_corps;
         $envoyer_mail = charger_fonction('envoyer_mail','inc');
         $envoyer_mail($GLOBALS['meta']['email_webmaster'], $sujet, $body);
 
@@ -41,8 +52,6 @@ function genie_monitor_dist($t) {
 
         foreach ($sites as $site) {
             $result = updateWebsite($site['url_site']);
-            spip_log($site['url_site'], 'test.' . _LOG_ERREUR);
-            spip_log($result['result'], 'test.' . _LOG_ERREUR);
 
 	        if($result['result']==false) {
 
@@ -50,12 +59,12 @@ function genie_monitor_dist($t) {
 			    // Prendre la dernière valeur d'un site
 		        $alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
 		        $alert = $alert_site+1;
-		        spip_log($alert, 'test.' . _LOG_ERREUR);
+
 		        // Insert les data dans monitor_log
 		        genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);                
-		        if($alert >= 5) {
+		        if($alert >= 5 && $alert <= 10) {
 			    	// Notification du site malade
-			    	notification_monitor($site['url_site']);
+			    	notification_monitor($site['url_site'], "down");
 		        }
 
 	    	} else {
@@ -64,17 +73,20 @@ function genie_monitor_dist($t) {
 	            // Prendre la dernière valeur d'un site
 	            $alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
 
-	            if($result['latency'] >= 10 && $alert_site >= 0) {
+	            if($result['latency'] >= 10) {
 	                $alert = $alert_site+1;
 	                // Insert les data dans monitor_log
 	                genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);                
 	            } elseif($result['latency'] >= 10 && $alert_site >= 5) {
 	            	// Notification du site malade
-					notification_monitor($site['url_site']);
+					notification_monitor($site['url_site'], "latence");
 	                // Insert les data dans monitor_log
 	                $alert = $alert_site+1;
 	                genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);
 	            } else {
+                    if($alert_site>=5)
+                        notification_monitor($site['url_site'], "restart");
+
 	                $alert = 0;
 	                // Insert les data dans monitor_log
 	                genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? "oui" : "non"), $result['latency'], $alert);
@@ -96,8 +108,8 @@ function genie_monitor_dist($t) {
         }
 
         // Archive logs
-        // On supprime les logs de plus de 6 mois
-        $date_delete = date('Y-m-d', strtotime('-6 month', time()));
+        // On supprime les logs de plus d'un an
+        $date_delete = date('Y-m-d', strtotime('-12 month', time()));
         $logs_sites = sql_allfetsel('id_monitor', 'spip_monitor', ' statut = "oui" and maj < "' . $date_delete . '"');
         foreach ($logs_sites as $id_site) {
             sql_delete('spip_monitor', 'id_monitor=' . $id_site);

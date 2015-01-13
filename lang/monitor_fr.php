@@ -10,11 +10,31 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'activer_monitor_ping' => 'Activer le ping',
 	'activer_monitor_poids' => 'Activer le poids des pages',
 	'afficher_plugins' => 'Afficher la liste des plugins',
-	'alert_latence_sujet' => 'Alert latence',
+	'alert_affichage_milieu' => 'Le nombre d\'alerte est de @alert@ points pour ce site. Le site est peut-être coupé ou sa latence est supérieur à 10 ms.',
+	'alert_couper_sujet' => 'Alert: le site est coupé',
+	'alert_couper_corps' => 'Bonjour,
+
+Je suis le robot qui vérifie la disponibilité des sites internet via spip_monitor.
+
+Le site @url_site@ est coupé.
+
+Passe une bonne journée,
+Nono',
+	'alert_latence_sujet' => 'Alert: Latence est < 10',
 	'alert_latence_corps' => 'Bonjour,
 
 Je suis le robot qui vérifie la latence des sites internet via spip_monitor.
-Le site @url_site@ rencontre peut-être une latence de plus de 10 ou il est coupé.
+
+Le site @url_site@ rencontre une latence de plus de 10ms.
+
+Passe une bonne journée,
+Nono',	
+	'alert_restart_sujet' => 'Alert: le site est reparti',
+	'alert_restart_corps' => 'Bonjour,
+
+Je suis le robot qui vérifie la disponibilité des sites internet via spip_monitor.
+
+Le site @url_site@ est reparti.
 
 Passe une bonne journée,
 Nono',

@@ -1,9 +1,5 @@
-<BOUCLE_site(SYNDIC){id_syndic}{statut="publie"}>
+<BOUCLE_site(SYNDIC){id_syndic=#ENV{id_syndic}}{statut="publie"}>
 	<div class="ajax">
 		#FORMULAIRE_EDITER_MONITOR{#ENV{id_syndic}}
-	</div>
-
-	<div style="text-align: right" class="ajax">
-	    [(#BOUTON_ACTION{<:monitor:form_recuperer_site:>, [(#URL_ACTION_AUTEUR{recuperer_monitor, #ENV{id_syndic}, [(#SELF|parametre_url{'var_mode', 'recalcul'})]})],ajax})]
 	</div>
 </BOUCLE_site>

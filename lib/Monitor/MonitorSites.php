@@ -39,7 +39,7 @@ function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agen
 
         // if size page
         if($status) {
-                $result = curl_getinfo($ch, $status);
+			$result = curl_getinfo($ch, $status);
         }
 
         curl_close($ch);
