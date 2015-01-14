@@ -1,3 +1,11 @@
-<B_latence_monitor>
-date,valeur<BOUCLE_latence_monitor(MONITOR_LOG){id_syndic}{statut=ping}{par maj}{inverse}>
-#MAJ,[(#VALEUR|round{4})]</BOUCLE_latence_monitor>
+<B_latence_monitor_semaine>
+date,valeur<BOUCLE_latence_monitor_semaine(MONITOR_LOG){si #ENV{periode,semaine}|=={'semaine'}}{id_syndic}{statut=ping}{par maj}{inverse}{diff_par_semaine maj}>
+#MAJ,[(#VALEUR|round{4})]</BOUCLE_latence_monitor_semaine>
+
+<B_latence_monitor_mois>
+date,valeur<BOUCLE_latence_monitor_mois(MONITOR_LOG){si #ENV{periode,semaine}|=={'mois'}}{id_syndic}{statut=ping}{par maj}{inverse}{diff_par_mois maj}>
+#MAJ,[(#VALEUR|round{4})]</BOUCLE_latence_monitor_mois>
+
+<B_latence_monitor_annee>
+date,valeur<BOUCLE_latence_monitor_annee(MONITOR_LOG){si #ENV{periode,semaine}|=={'annee'}}{id_syndic}{statut=ping}{par maj}{inverse}{diff_par_annee maj}>
+#MAJ,[(#VALEUR|round{4})]</BOUCLE_latence_monitor_annee>
