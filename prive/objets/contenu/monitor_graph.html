@@ -3,9 +3,9 @@
 #SET{type,#ENV{type}}
 
 <div class="pagination">
-  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{annee,#GET{type},#ID_SYNDIC}})]" class="ajax"><:monitor:graph_annee:></a> |
-  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{mois,#GET{type},#ID_SYNDIC}})]" class="ajax"><:monitor:graph_mois:></a> |
-  <a href="[(#SELF|parametre_url{duree,#GET{duree}|duree_affiche_graph{semaine,#GET{type},#ID_SYNDIC}})]" class="ajax"><:monitor:graph_semaine:></a>
+  <a href="[(#SELF|parametre_url{'periode', 'annee'})]" class="ajax"><:monitor:graph_annee:></a> |
+  <a href="[(#SELF|parametre_url{'periode', 'mois'})]" class="ajax"><:monitor:graph_mois:></a> |
+  <a href="[(#SELF)]" class="ajax"><:monitor:graph_semaine:></a>
 </div>
 
 <div class="box_graph #ENV{type}"></div>
@@ -53,7 +53,7 @@ var svg_#ENV{type} = d3.select(".box_graph.#ENV{type}").append("svg")
     .attr("class", "tooltip")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("#URL_SITE_SPIP/spip.php?page=monitor_csv&id_syndic=#ID_SYNDIC&type=#ENV{type}", function(error, data) {
+d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre_url{type,#ENV{type},&}|parametre_url{periode,#ENV{periode},&})]", function(error, data) {
   
   data.forEach(function(d) {
     d.date = parseDate(d.date);

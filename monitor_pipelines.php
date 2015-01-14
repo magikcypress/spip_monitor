@@ -54,6 +54,8 @@ function monitor_affiche_milieu($flux){
 	// si on est sur un site ou il faut activer le monitor...
 	if (lire_config('monitor/activer_monitor') == "oui" and trouver_objet_exec($flux['args']['exec'] == "site")){
 		$id_syndic = _request('id_syndic');
+		$id_monitor_stats = _request('id_monitor_stats');
+		$periode = _request('periode');
 
 		$texte = recuperer_fond(
 				'prive/objets/contenu/monitor_info',
@@ -97,6 +99,7 @@ function monitor_affiche_milieu($flux){
 				array(
 					'id_syndic'=>$id_syndic,
 					'type'=>'ping',
+					'periode'=>$periode
 				)
 		);
 		$texte .= recuperer_fond(
@@ -104,6 +107,7 @@ function monitor_affiche_milieu($flux){
 				array(
 					'id_syndic'=>$id_syndic,
 					'type'=>'poids',
+					'periode'=>$periode
 				)
 		);
 		if (lire_config('monitor/activer_pagespeed') == "oui") {
