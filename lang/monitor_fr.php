@@ -96,6 +96,7 @@ Nono',
 	'item_non_utiliser_monitor' => 'Désactiver Monitor',
 	'item_non_utiliser_monitor_ping' => 'Désactiver ping',
 	'item_non_utiliser_monitor_poids' => 'Désactiver poids page',
+	'item_activer_nb_site' => 'Nombre de sites a analyser par le cron',
 
 	// T
 	'texte_monitor' => '<p>Activer Monitor, puis renseigner le formulaire de configuration du plugin</p>',
@@ -118,4 +119,5 @@ Nono',
 	'titre_page_monitor_ping' => 'Liste des sites sous monitor (ping)',
 	'titre_page_monitor_poids' => 'Liste des sites sous monitor (poids)',
 	'titre_pagespeed' => 'Monitor site avec pageSpeed Google',
+	'titre_activer_nb_site' => 'Nombre de site',
 );
