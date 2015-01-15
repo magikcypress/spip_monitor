@@ -3,9 +3,9 @@
 #SET{type,#ENV{type}}
 
 <div class="pagination">
-  <a href="[(#SELF|parametre_url{'periode', 'annee'})]" class="ajax"><:monitor:graph_annee:></a> |
-  <a href="[(#SELF|parametre_url{'periode', 'mois'})]" class="ajax"><:monitor:graph_mois:></a> |
-  <a href="[(#SELF)]" class="ajax"><:monitor:graph_semaine:></a>
+  <a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'annee'})]" class="ajax"><:monitor:graph_annee:></a> |
+  <a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'mois'})]" class="ajax"><:monitor:graph_mois:></a> |
+  <a href="[(#SELF|parametre_url{'periode', 'semaine'})]" class="ajax"><:monitor:graph_semaine:></a>
 </div>
 
 <div class="box_graph #ENV{type}"></div>
