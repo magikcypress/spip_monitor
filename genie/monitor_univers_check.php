@@ -7,6 +7,9 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
 function genie_monitor_univers_check_dist($t) {
     include_spip('inc/univers_analyser');
 
+    $nb_site = lire_config('monitor/nb_site');
+    if(!$nb_site) $nb_site = 5;
+
     // On insert 5 sites qui ne sont pas encore traités
     $sites = sql_allfetsel('monitor.id_syndic, site.statut_stats,  site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic AND monitor.type = "ping" AND site.statut="publie"', 'site.statut_stats!="oui"', '', '', '0,'.$nb_site.'');
     foreach ($sites as $row) {

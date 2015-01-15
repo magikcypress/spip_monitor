@@ -48,6 +48,8 @@ function genie_monitor_dist($t) {
         include_once(find_in_path("lib/Monitor/MonitorSites.php"));
 
         $nb_site = lire_config('monitor/nb_site');
+        if(!$nb_site) $nb_site = 5;
+        
         // Aller chercher les 5 derniers ping dans spip_syndic
         $sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui" and site.statut="publie"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
         
