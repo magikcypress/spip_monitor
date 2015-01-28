@@ -1,4 +1,13 @@
-<BOUCLE_site(SYNDIC){id_syndic}{statut="publie"}>
+<B_monitor_active>
+<BOUCLE_monitor_active(MONITOR){id_syndic}{si type=={ping}}{si type=={poids}}{statut="oui"}>
+    [(#SET{activer_action, #STATUT})]
+</BOUCLE_monitor_active>
+
+<BOUCLE_si_activer(CONDITION){si #CONFIG{monitor/activer_monitor}|=={oui}}{si #GET{activer_action}|=={oui}}>
+
+<BOUCLE_liste_monitor(MONITOR){type=#ENV{type}}{statut=oui}{id_syndic}>
+<BOUCLE_site_monitor(SYNDIC){id_syndic}{statut IN prop,publie}>
+
 #SET{duree,#ENV{duree,0}}
 #SET{type,#ENV{type}}
 
@@ -112,4 +121,8 @@ d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre
           });
 });
 </script>
-</BOUCLE_site>
+
+</BOUCLE_site_monitor>
+</BOUCLE_liste_monitor>
+
+</BOUCLE_si_activer>

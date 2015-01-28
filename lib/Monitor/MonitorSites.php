@@ -8,6 +8,50 @@
  * @licence    GNU/GPL3
  */
 
+include_spip('inc/distant');
+include_spip('inc/univers_analyser');
+
+if (!defined("_ECRIRE_INC_VERSION")) return;
+
+function recupererLapage($url,$cookie="") {
+    $ref = $GLOBALS['meta']["adresse_site"];
+    // let's say we're coming from google, after all...
+    $GLOBALS['meta']["adresse_site"] = "http://www.google.fr";
+    $datas = ""
+#    ."Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n"
+#    ."Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3\r\n"
+#    ."Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\r\n"
+#    ."Keep-Alive: 300\r\n"
+#    ."Connection: keep-alive\r\n"
+     ."Cookie: $cookie\r\n"
+#    ."If-Modified-Since: Sat, 08 May 2010 20:49:37 GMT\r\n"
+#    ."Cache-Control: max-age=0\r\n"
+     ."\r\n"
+    ;
+    $site = $url;
+    $max_redir = 10;
+    while ($site AND is_string($site) AND $max_redir--) {
+        $url = $site;
+        $site = recuperer_lapage($url,false,'GET',1048576,$datas);
+    }
+    $GLOBALS['meta']["adresse_site"] = $ref;
+    if (!$site)
+        return $site;
+    if (is_string($site) AND !$max_redir)
+        return false;
+    list($header, $page) = $site;
+    // if a cookie set, accept it an retry with it
+    if (preg_match(",Set-Cookie: (.*)(;.*)?$,Uims",$header,$r)) {
+        //ne pas relancer si le cookie est déjà présent
+        if (strpos($cookie,$r[1])===FALSE) {
+            $cookie .= $r[1] . ";";
+            spip_log("Cookie : $cookie on repart pour un tour ", "univers_check");
+            return univers_recuperer_lapage($url, $cookie);
+        }
+    }
+    return $site;
+}
+
 /**
  * Regroupement de curl_init(), curl_exec et curl_close()
  *
@@ -32,7 +76,7 @@ function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agen
         curl_setopt($ch, CURLOPT_ENCODING, '');
         curl_setopt($ch, CURLOPT_URL, $href);
         if($add_agent) {
-                curl_setopt ($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; spip/; +http://www.spip.net)');
+            curl_setopt ($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; spip/; +http://www.spip.net)');
         }
 
         $result = curl_exec($ch);
@@ -57,33 +101,12 @@ function updateWebsite($href) {
 
         $starttime = microtime(true);
  
-        $result = curl_get($href, true);
+        if (function_exists("curl_init"))
+            $result = curl_get($href, true);
+        else
+            $result = recupererLapage($href);
 
         $latency = (microtime(true) - $starttime);
-
-        $status_code = strtok($result, "\r\n");
-        // keep it general
-        // $code[1][0] = status code
-        // $code[2][0] = name of status code
-        $code_matches = array();
-        preg_match_all("/[A-Z]{2,5}\/\d\.\d\s(\d{3})\s(.*)/", $status_code, $code_matches);
-
-        if(empty($code_matches[0])) {
-                // somehow we dont have a proper response.
-                $error = 'no response from server';
-                $result = false;
-        } else {
-                $code = $code_matches[1][0];
-                $msg = $code_matches[2][0];
-
-                // All status codes starting with a 4 or higher mean trouble!
-                if(substr($code, 0, 1) >= '4') {
-                        $error = $code . ' ' . $msg;
-                        $result = false;
-                } else {
-                        $result = true;
-                }
-        }
 
         return array('result' => $result, 'latency' => $latency);
 }
