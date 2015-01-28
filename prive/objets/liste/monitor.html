@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     <BOUCLE_liste_monitor(MONITOR){type=#ENV{type}}{statut=oui}{tri #GET{defaut_tri}}{pagination #ENV{nb,10}}>
-    <BOUCLE_site_monitor(SYNDIC){id_syndic}>
+    <BOUCLE_site_monitor(SYNDIC){id_syndic}{statut IN publie,prop}>
         <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
             <td class='statut'>[(#STATUT_LOG|puce_statut{monitor,#ID_SYNDIC})]</td>
             <td class='url_site principale'>                
