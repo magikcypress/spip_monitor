@@ -51,13 +51,12 @@ function genie_monitor_dist($t) {
         if(!$nb_site) $nb_site = 5;
         
         // Aller chercher les 5 derniers ping dans spip_syndic
-        $sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui" and site.statut="publie"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
-        
+        $sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
+        // spip_log($sites, 'test.' . _LOG_ERREUR);
         foreach ($sites as $site) {
             $result = updateWebsite($site['url_site']);
 
 	        if($result['result']==false) {
-
 		    	// Gestion des alertes
 			    // Prendre la dernière valeur d'un site
 		        $alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
@@ -99,7 +98,7 @@ function genie_monitor_dist($t) {
         }
 
         // Aller chercher les 5 dernier poids dans spip_syndic
-        $sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "poids" and monitor.statut = "oui" and site.statut="publie"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
+        $sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "poids" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
 
         foreach ($sites as $site) {
             $result = sizePage($site['url_site']);

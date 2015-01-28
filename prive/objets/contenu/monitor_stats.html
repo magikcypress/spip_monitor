@@ -1,3 +1,10 @@
+<B_monitor_active>
+<BOUCLE_monitor_active(MONITOR){id_syndic}{si type=={ping}}{si type=={poids}}{statut="oui"}>
+    [(#SET{activer_action, #STATUT})]
+</BOUCLE_monitor_active>
+
+<BOUCLE_si_activer(CONDITION){si #CONFIG{monitor/activer_monitor}|=={oui}}{si #GET{activer_action}|=={oui}}>
+
 <B_stats_monitor>
 <div class="liste-objets sites syndic">
 <table class='liste'>
@@ -70,3 +77,5 @@
 </B_stats_monitor>[
 <div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
 ]<//B_stats_monitor>
+
+</BOUCLE_si_activer>

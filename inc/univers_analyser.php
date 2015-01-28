@@ -13,6 +13,7 @@
 include_spip('inc/filtres');
 include_spip('inc/distant');
 include_spip('inc/meta');
+include_spip('lib/Monitor/MonitorSites');
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
@@ -28,44 +29,9 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
  *
  */
 function univers_recuperer_lapage($url,$cookie="") {
-	$ref = $GLOBALS['meta']["adresse_site"];
-	// let's say we're coming from google, after all...
-	$GLOBALS['meta']["adresse_site"] = "http://www.google.fr";
-	$datas = ""
-#	 ."Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n"
-#	 ."Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3\r\n"
-#	 ."Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\r\n"
-#	 ."Keep-Alive: 300\r\n"
-#	 ."Connection: keep-alive\r\n"
-	 ."Cookie: $cookie\r\n"
-#	 ."If-Modified-Since: Sat, 08 May 2010 20:49:37 GMT\r\n"
-#	 ."Cache-Control: max-age=0\r\n"
-	 ."\r\n"
-	;
 
-	$site = $url;
-	$max_redir = 10;
-	while ($site AND is_string($site) AND $max_redir--) {
-		$url = $site;
-		$site = recuperer_lapage($url,false,'GET',1048576,$datas);
-	}
+	$site = updateWebsite($url);
 
-	$GLOBALS['meta']["adresse_site"] = $ref;
-	if (!$site)
-		return $site;
-	if (is_string($site) AND !$max_redir)
-		return false;
-	list($header, $page) = $site;
-
-	// if a cookie set, accept it an retry with it
-	if (preg_match(",Set-Cookie: (.*)(;.*)?$,Uims",$header,$r)) {
-		//ne pas relancer si le cookie est déjà présent
-		if (strpos($cookie,$r[1])===FALSE  ) {
-			$cookie .= $r[1] . ";";
-			spip_log("Cookie : $cookie on repart pour un tour ", "univers_check");
-			return univers_recuperer_lapage($url, $cookie);
-		}
-	}
 	return $site;
 }
 
@@ -109,6 +75,9 @@ function univers_analyser($url, $debug=false) {
 	}
 
 	list($header, $page) = $site;
+
+	spip_log($header, 'test.' . _LOG_ERREUR);
+	spip_log($page, 'test.' . _LOG_ERREUR);
 
 	// get some generic informations (server, php, gzip)
 	if (preg_match(',Server: (.*)$,m', $header, $r)) {
@@ -205,6 +174,7 @@ function univers_analyser($url, $debug=false) {
 	else {
 		$res['response'] = true;
 	}
+	// spip_log($res, 'test.' . _LOG_ERREUR);
 	return $res;
 
 }
@@ -281,6 +251,7 @@ function univers_analyser_un($row,$debug = false){
 	}
 
 	$set['date'] = date('Y-m-d H:i:s');
+	// spip_log($set, 'test.' . _LOG_ERREUR);
 	sql_updateq("spip_monitor_stats", $set, "id_monitor_stats=".intval($id_monitor_stats));
 
 	if (time() >= _TIME_OUT)
