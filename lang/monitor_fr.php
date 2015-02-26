@@ -82,7 +82,7 @@ Nono',
 	'form_statstechnic' => 'Données techniques',
 	'form_status' => 'Status',
 	'form_url_site' => 'Nom du site',
-	
+	'form_version' => 'Version écran de sécurité',
 
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',

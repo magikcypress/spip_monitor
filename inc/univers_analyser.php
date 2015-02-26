@@ -29,9 +29,7 @@ if (!defined("_ECRIRE_INC_VERSION")) return;
  *
  */
 function univers_recuperer_lapage($url,$cookie="") {
-
 	$site = updateWebsite($url);
-
 	return $site;
 }
 
@@ -74,10 +72,36 @@ function univers_analyser($url, $debug=false) {
 		return $res;
 	}
 
-	list($header, $page) = $site;
+	// get the complete ecran de sécurité page
+	// Not work without curl
+	if (function_exists("curl_init")) {
+		$ecran_secu = univers_recuperer_lapage($path['scheme'] . "://" . $path['host'] . "/?test_ecran_securite=1");
+		if (!$ecran_secu) {
+			$res['response'] = false;
+			return $res;
+		}
 
-	spip_log($header, 'test.' . _LOG_ERREUR);
-	spip_log($page, 'test.' . _LOG_ERREUR);
+		if (preg_match(",test\s*([0-9.]+),",$ecran_secu['result'],$r))
+			$res['version'] = $r[1];
+
+		$header = $site['result'];
+
+	} else {
+		list($header, $page) = $site['result'];
+	}
+
+	$res = parse_header($header, $res, $page);
+	return $res;
+
+}
+
+/**
+ * Parse header and check version and more informations
+ *
+ * @param string $header
+ * @return array
+ */
+function parse_header($header, $res, $page='') {
 
 	// get some generic informations (server, php, gzip)
 	if (preg_match(',Server: (.*)$,m', $header, $r)) {
@@ -95,11 +119,11 @@ function univers_analyser($url, $debug=false) {
 		// essayer de choper local/config.txt si il est la car plus complet si le header semble coupe
 		if (substr($header,-1)!==")"){
 			$url_config = suivre_lien($url,"local/config.txt");
+
 			$config = univers_recuperer_lapage($url_config);
 			if ($config AND preg_match($regexp, $config, $rc))
 				$r = $rc;
 		}
-		// $res['spip'] = trim(preg_replace(',^[^0-9]*,','',$r[1]));
 		$res['spip'] = $r[1]?trim(preg_replace(',^[^0-9]*,','',$r[1])):trim(preg_replace('(.*)','',$r[1]));
 
 		if (!$res['spip'])
@@ -174,7 +198,7 @@ function univers_analyser($url, $debug=false) {
 	else {
 		$res['response'] = true;
 	}
-	// spip_log($res, 'test.' . _LOG_ERREUR);
+
 	return $res;
 
 }
@@ -218,10 +242,11 @@ function univers_analyser_un($row,$debug = false){
 		$set['server'] = $res['server']?$res['server']:'';
 		$set['php'] = $res['php']?$res['php']:'';
 		$set['gzip'] = $res['gzip']?'oui':'';
+		$set['version'] = $res['version'];
+		$set['pays'] = univers_geoip($set['ip']);
 
 		if (isset($res['spip'])){
-			$set['pays'] = univers_geoip($set['ip']);
-
+			
 			// c'est un SPIP !
 			$set['spip'] = $res['spip'];
 			$set['plugins'] = count($res['plugins']);
@@ -235,7 +260,6 @@ function univers_analyser_un($row,$debug = false){
 			}
 		}
 		if (isset($res['otherscms'])){
-			$set['pays'] = univers_geoip($set['ip']);
 
 			// c'est un WordPress
 			$set['spip'] = $res['otherscms']?$res['otherscms']:'';
@@ -251,7 +275,6 @@ function univers_analyser_un($row,$debug = false){
 	}
 
 	$set['date'] = date('Y-m-d H:i:s');
-	// spip_log($set, 'test.' . _LOG_ERREUR);
 	sql_updateq("spip_monitor_stats", $set, "id_monitor_stats=".intval($id_monitor_stats));
 
 	if (time() >= _TIME_OUT)

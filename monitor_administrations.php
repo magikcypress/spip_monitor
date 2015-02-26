@@ -40,6 +40,11 @@ function monitor_upgrade($nom_meta_base_version,$version_cible){
 	 	array('maj_tables', array('spip_syndic', 'spip_monitor_stats', 'spip_monitor_stats_plugins'))
 	);
 
+	$maj['1.4'] = array(	
+		// Ajout de la table spip_monitor_stats, spip_monitor_stats_plugins
+	 	array('maj_tables', array('spip_monitor_stats'))
+	);
+
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
