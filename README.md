@@ -23,4 +23,6 @@ Les relevés sont réalisés avec la commande curl qui doit être prise en charg
 
 # Version 1.0.0
 
+# TODO
 
+- Supprimer le support curl
