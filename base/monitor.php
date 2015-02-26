@@ -80,6 +80,7 @@ function monitor_declarer_tables_objets_sql($tables){
 			"server" => "varchar(255) default '' NOT NULL",
 			"php" => "varchar(255) default '' NOT NULL",
 			"gzip" => "varchar(3) default '' NOT NULL",
+			"version" => "varchar(255) default '' NOT NULL",
 			"plugins" => "bigint(21) default NULL",
 			"pays" => "char(3) default '' NOT NULL",
 			"date" => "datetime DEFAULT '0000-00-00 00:00:00' NOT NULL",

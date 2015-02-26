@@ -16,29 +16,29 @@
     </thead>
     <tbody>
     <BOUCLE_stats_monitor(MONITOR_STATS){id_syndic}>
-        <tr>
+        [<tr>
             <th class='ip' scope='col'><:monitor:form_ip:></th>
-            <td class='ip'>[(#IP)]</td>
-        </tr>
-        <tr>
+            <td class='ip'>(#IP)</td>
+        </tr>]
+        [<tr>
             <th class='spip' scope='col'><:monitor:form_spip:></th>
-            <td class='spip'>[(#SPIP)]</td>
-        </tr>
-        <tr>
+            <td class='spip'>(#SPIP)</td>
+        </tr>]
+        [<tr>
         	<th class='server' scope='col'><:monitor:form_server:></th>
-        	<td class='server'>[(#SERVER)]</td>
-        </tr>
-        <tr>
+        	<td class='server'>(#SERVER)</td>
+        </tr>]
+        [<tr>
         	<th class='php' scope='col'><:monitor:form_php:></th>
-        	<td class='php'>[(#PHP)]</td>
-        </tr>
-        <tr>
+        	<td class='php'>(#PHP)</td>
+        </tr>]
+        [<tr>
         	<th class='gzip' scope='col'><:monitor:form_gzip:></th>
-        	<td class='gzip'>[(#GZIP)]</td>
-        </tr>
-        <tr>
+        	<td class='gzip'>(#GZIP)</td>
+        </tr>]
+        [<tr>
         	<th class='plugins' scope='col'><:monitor:form_nbplugins:></th>
-        	<td class='plugins'>[(#PLUGINS)]  
+        	<td class='plugins'>(#PLUGINS)
         	<span  style="float: right;">
 	        	<a href="[(#SELF|parametre_url{id_monitor_stats,#ID_MONITOR_STATS}|ancre_url{plugins_#ID_MONITOR_STATS})]" class="ajax">
 	        	<:monitor:afficher_plugins:></a>
@@ -49,29 +49,33 @@
 				]
 			</div>
         	</td>
-        </tr>
-        <tr>
+        </tr>]
+        [<tr>
+            <th class='pays' scope='col'><:monitor:form_version:></th>
+            <td class='pays'>(#VERSION)</td>
+        </tr>]
+        [<tr>
         	<th class='pays' scope='col'><:monitor:form_pays:></th>
-        	<td class='pays'>[(#PAYS)]</td>
-        </tr>
-        <tr>
+        	<td class='pays'>(#PAYS)</td>
+        </tr>]
+        [<tr>
         	<th class='date' scope='col'><:monitor:form_date:></th>
-        	<td class='date'>[(#DATE)]</td>
-        </tr>
-        <tr>
+        	<td class='date'>(#DATE)</td>
+        </tr>]
+        [<tr>
         	<th class='retry' scope='col'><:monitor:form_retry:></th>
-        	<td class='retry'>[(#RETRY)]</td>
-        </tr>
-        <tr>
+        	<td class='retry'>(#RETRY)</td>
+        </tr>]
+        [<tr>
         	<th class='status' scope='col'><:monitor:form_status:></th>
-        	<td class='status'>[(#STATUS)]</td>
-        </tr>
+        	<td class='status'>(#STATUS)</td>
+        </tr>]
 
     </BOUCLE_stats_monitor>
     </tbody>
 </table>
 	<div style="text-align: right">
-		[(#BOUTON_ACTION{<:monitor:form_recuperer_stats:>, [(#URL_ACTION_AUTEUR{instituer_monitor_stats, #ID_SYNDIC, [(#SELF|parametre_url{'var_mode', 'recalcul'})]})]})]
+		[(#BOUTON_ACTION{<:monitor:form_recuperer_stats:>, [(#URL_ACTION_AUTEUR{instituer_monitor_stats, #ID_SYNDIC, [(#SELF)]})]})]
 	</div>
 </div>
 </B_stats_monitor>[
