@@ -1,4 +1,13 @@
 <?php
+/**
+ * Monitor
+ *
+ * @plugin     Monitor
+ * @copyright  2014
+ * @author     cyp
+ * @licence    GNU/GPL
+ * @package    SPIP\genie\monitor
+ */
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 

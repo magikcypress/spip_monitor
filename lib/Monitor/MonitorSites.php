@@ -2,10 +2,11 @@
 /**
  * MonitorSites
  *
- * @version    1.7.0
- * @copyright  2013
- * @author     Vincent L
- * @licence    GNU/GPL3
+ * @plugin     Monitor
+ * @copyright  2014
+ * @author     cyp
+ * @licence    GNU/GPL
+ * @package    SPIP\lib\Monitor\MonitorSites
  */
 
 include_spip('inc/distant');
@@ -83,7 +84,10 @@ function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agen
 			curl_setopt ($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; spip/; +http://www.spip.net)');
 		}
 
-		$result = curl_exec($ch);
+	    if(!$result = curl_exec($ch)) 
+	    { 
+	        trigger_error(curl_error($ch)); 
+	    }
 
 		// if size page
 		if($status) {
@@ -177,7 +181,6 @@ function getPageSpeedGoogle($href) {
 			$result = $result[1];
 		}
 
-		spip_log($result, 'test.' . _LOG_ERREUR);
 		$result = json_decode($result, false);
 
 		if(isset($result) && isset($result->{'responseCode'})) {
