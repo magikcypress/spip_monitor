@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Pipeline pour Monitor
+ * Administrations pour Monitor
  *
  * @plugin     Monitor
  * @copyright  2014
- * @author     Vincent
+ * @author     cyp
  * @licence    GNU/GPL
  * @package    SPIP\Monitor\administrations
  */

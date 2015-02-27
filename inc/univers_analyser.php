@@ -1,9 +1,11 @@
 <?php
-/*
- * Plugin Univers SPIP
- * (c) 2010 Cedric
- * Distribue sous licence GPL
+/**
+ * Univers Analyse SPIP
  *
+ * @version    1.0.0
+ * @copyright  2015
+ * @author     Cedric, cyp 
+ * @licence    GNU/GPL3
  */
 
 // User agent used to load the page
@@ -90,7 +92,7 @@ function univers_analyser($url, $debug=false) {
 		list($header, $page) = $site['result'];
 	}
 
-	$res = parse_header($header, $res, $page);
+	$res = parse_header($header, $res, $page, $url);
 	return $res;
 
 }
@@ -101,7 +103,7 @@ function univers_analyser($url, $debug=false) {
  * @param string $header
  * @return array
  */
-function parse_header($header, $res, $page='') {
+function parse_header($header, $res, $page='', $url) {
 
 	// get some generic informations (server, php, gzip)
 	if (preg_match(',Server: (.*)$,m', $header, $r)) {
@@ -119,7 +121,6 @@ function parse_header($header, $res, $page='') {
 		// essayer de choper local/config.txt si il est la car plus complet si le header semble coupe
 		if (substr($header,-1)!==")"){
 			$url_config = suivre_lien($url,"local/config.txt");
-
 			$config = univers_recuperer_lapage($url_config);
 			if ($config AND preg_match($regexp, $config, $rc))
 				$r = $rc;
@@ -129,11 +130,15 @@ function parse_header($header, $res, $page='') {
 		if (!$res['spip'])
 			$res['spip'] = '?';
 		$res['plugins'] = array();
-		if ($p = array_filter(explode(',', $r[4]))) {
-			foreach ($p as $plugin) {
-				$plugin = trim($plugin);
-				$res['plugins'][preg_replace(',[(].*,','', $plugin)] = $plugin;
+		if($r[4]==0){
+			if ($p = array_filter(explode(',', $r[4]))) {
+				foreach ($p as $plugin) {
+					$plugin = trim($plugin);
+					$res['plugins'][preg_replace(',[(].*,','', $plugin)] = $plugin;
+				}
 			}
+		} else {
+			$res['plugins'] = false;
 		}
 	} else {
 		// Check if the header says "Hey, i'm made with otherCMS"
