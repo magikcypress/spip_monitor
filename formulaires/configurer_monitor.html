@@ -32,6 +32,13 @@
 						<input type="checkbox" name="#GET{name}" id="#GET{name}" value="oui" [(#ENV{#GET{name}}|=={oui}|oui)checked="checked")] /><label for="#GET{name}"><:monitor:item_activer_pagespeed:></label>
 				</div>
 			</li>
+			#SET{name,activer_yellowlab}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
+			<li class="editer editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]"[(#ENV{activer_monitor}|=={oui}|non)style="display:none;"]>
+				<label><:monitor:titre_activer_yellowlab:></label>
+				<div class="choix">
+						<input type="checkbox" name="#GET{name}" id="#GET{name}" value="oui" [(#ENV{#GET{name}}|=={oui}|oui)checked="checked")] /><label for="#GET{name}"><:monitor:item_activer_yellowlab:></label>
+				</div>
+			</li>
 			#SET{name,nb_site}#SET{erreurs,#ENV**{erreurs}|table_valeur{#GET{name}}}
 			<li class="editer editer_[(#GET{name})][ (#GET{obli})][ (#GET{erreurs}|oui)erreur]"[(#ENV{activer_monitor}|=={oui}|non)style="display:none;"]>
 				<label><:monitor:titre_activer_nb_site:></label>

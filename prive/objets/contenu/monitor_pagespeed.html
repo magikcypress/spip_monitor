@@ -51,8 +51,8 @@
     <tbody>
         <BOUCLE_liste_pagestats(DATA){source table, #PAGESTATS|monitor_tableau_pagestats}>
         <tr>
-            <td><strong>#CLE</strong></td>
-            <td>#VALEUR</td>
+            [<th class='label' scope='col'>(#CLE)</th>]
+            [<td class='categoryScore'>(#VALEUR)</td>]
         </tr>
         </BOUCLE_liste_pagestats>
     </tbody>

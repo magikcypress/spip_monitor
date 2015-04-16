@@ -14,7 +14,7 @@ include_spip('inc/univers_analyser');
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
-function recupererLapage($url,$cookie="") {
+function recupererLapage($url,$cookie="",$href="",$post=false) {
 	$ref = $GLOBALS['meta']["adresse_site"];
 	// let's say we're coming from google, after all...
 	$GLOBALS['meta']["adresse_site"] = "http://www.google.fr";
@@ -35,9 +35,15 @@ function recupererLapage($url,$cookie="") {
 	// 	$url = $site;
 	// 	$site = recuperer_lapage($url,false,'GET',1048576,$datas);
 	// }
-	$site = recuperer_lapage($url,false,'GET',1048576,$datas);
-	
+	if($post==false)
+		$site = recuperer_lapage($url,false,'GET',1048576,$datas);	
+	else
+		$site = recuperer_page($href, $trans = false, $get_headers = false,
+						$taille_max = null, $datas = 'url='.$url, $boundary = '', $refuser_gz = false,
+						$date_verif = '', $uri_referer = '');
+
 	$GLOBALS['meta']["adresse_site"] = $ref;
+	spip_log($site, 'test.' . _LOG_ERREUR);
 	if (!$site)
 		return $site;
 	if (is_string($site) AND !$max_redir)
@@ -67,36 +73,52 @@ function recupererLapage($url,$cookie="") {
  * @param boolean $add_agent Ajout d'un user agent
  * @return string cURL resultat
  */
-function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agent = true, $status = false) {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_HEADER, $header);
-		curl_setopt($ch, CURLOPT_NOBODY, (!$body));
-		if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off'))
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		else
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-		curl_setopt($ch, CURLOPT_ENCODING, '');
-		curl_setopt($ch, CURLOPT_URL, $href);
-		if($add_agent) {
-			curl_setopt ($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; spip/; +http://www.spip.net)');
-		}
+function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agent = true, $status = false, $post = false, $params = "") {
 
-	    if(!$result = curl_exec($ch)) 
-	    { 
-	        trigger_error(curl_error($ch)); 
-	    }
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_HEADER, $header);
+	curl_setopt($ch, CURLOPT_NOBODY, (!$body));
 
-		// if size page
-		if($status) {
-			$result = curl_getinfo($ch, $status);
-		}
+	if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off'))
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+	else
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 
-		curl_close($ch);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+	curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+	curl_setopt($ch, CURLOPT_ENCODING, '');
+	curl_setopt($ch, CURLOPT_URL, $href);
+	if($add_agent) {
+		curl_setopt ($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; spip/; +http://www.spip.net)');
+	}
 
-		return $result;
+	if($post == true) {
+		// TODO
+		// for yellowlab only, adjust with others services
+		$var_post = '{"url":"'. $params . '"}';
+		spip_log($var_post, 'test.' . _LOG_ERREUR);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $var_post);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				"Content-type: application/json",
+			)
+		);
+	}
+
+	if(!$result = curl_exec($ch)) 
+	{ 
+		trigger_error(curl_error($ch)); 
+	}
+
+	// if size page
+	if($status) {
+		$result = curl_getinfo($ch, $status);
+	}
+
+	curl_close($ch);
+
+	return $result;
 }
 
 /**
@@ -211,4 +233,59 @@ function getPageSpeedGoogle($href) {
 					'minifyhtml_msg' => $minifyhtml_msg,
 					'minifyjavascript' => $minifyjavascript,
 					'minifyjavascript_msg' => $minifyjavascript_msg);
+}
+
+
+/**
+ * Récupére les données depuis l'api de yellowlab
+ *
+ * @param string $href
+ * @return array resultat
+ */
+function getYellowLab($href) {
+		// form URL
+		// return API key
+		// POST http://yellowlab.tools/api/runs
+		// result
+		// GET http://yellowlab.tools/api/runs/<runId>
+		if (function_exists("curl_init")) {
+			$href = str_replace('http://', '', $href);
+			$href = str_replace('/', '', $href);
+			$get_api = curl_get("http://yellowlab.tools/api/runs", false, false, 80, false, false, true, $href);
+			// Result
+			// Moved Temporarily. Redirecting to /api/results/e2gn05k8pzc
+			$get_api=explode('to',$get_api);
+			spip_log("http://yellowlab.tools" . trim($get_api[1]), 'test.' . _LOG_ERREUR);
+			$result = curl_get("http://yellowlab.tools" . trim($get_api[1]), false);
+		}
+		else {
+			$get_api = recupererLapage("http://yellowlab.tools/api/runs","",true);
+			spip_log($get_api, 'test.' . _LOG_ERREUR);
+			$result = recupererLapage("http://yellowlab.tools/api/runs/" . $get_api,"",true);
+			$result = $result[1];
+		}
+
+		// For test
+		// include_spip('inc/distant');
+		// $result = recuperer_page('http://lipousse.org/tilt/test_yellowlab.json');
+
+		$donnees = array();
+		$donnees_rules = array();
+		$result = json_decode($result, false);
+		$scoreProfiles = $result->{'scoreProfiles'}->{'generic'}->{'categories'};
+		$globalScore = $result->{'scoreProfiles'}->{'generic'}->{'globalScore'};
+		foreach ($scoreProfiles as $valueScore) {
+
+			foreach ($valueScore as $cle => $valeur) {
+				array_push($donnees, array($cle => $valeur));
+				if(is_array($valeur)) {
+					foreach ($valeur as $key => $val) {
+						$rules = $result->{'rules'}->{'' .$val . ''};
+						array_push($donnees, $rules);
+					}
+				}
+			}
+		}
+		
+		return array('donnees' => $donnees, 'globalscore' => $globalScore);
 }
