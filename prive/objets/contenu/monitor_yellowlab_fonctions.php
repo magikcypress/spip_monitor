@@ -12,25 +12,31 @@
 
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
-function monitor_pageSpeed($href) {
+function monitor_yellowLab($href) {
 
 	if (lire_config('monitor/activer_monitor') == "oui") {
 		
 		include_once(_DIR_PLUGIN_MONITOR."lib/Monitor/MonitorSites.php");
 
-		$result[] = getPageSpeedGoogle($href);
+		$result[] = getYellowLab($href);
 	}
 
 	return $result;
 }
 
-function monitor_tableau_pagestats($texte) {
-
+function monitor_tableau_yellowLab($texte) {
 	if(isset($texte)) {
 		foreach ($texte as $cle => $valeur) {
-			$pagestats[$cle] = $valeur;
+			$donnees[$cle] = $valeur;
 		}
 	}
+	return $donnees;
+}
 
-	return $pagestats;
+function score($nombre) {
+	if ($nombre > 80) return 'A';
+	if ($nombre > 60) return 'B';
+	if ($nombre > 40) return 'C';
+	if ($nombre > 20) return 'D';
+	if ($nombre > 0) return 'E';
 }

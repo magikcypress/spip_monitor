@@ -53,7 +53,7 @@ function formulaires_editer_monitor_verifier_dist($id_syndic){
 **/
 function formulaires_editer_monitor_traiter_dist($id_syndic){
 
-	$syndic = sql_allfetsel('id_syndic', 'spip_monitor', 'id_syndic=' . $id_syndic);
+	$syndic = sql_allfetsel('id_syndic', 'spip_monitor', 'id_syndic=' . intval($id_syndic));
 
 	foreach (array('ping', 'poids') as $key) {
 		$type = sql_getfetsel('id_syndic', 'spip_monitor', 'id_syndic=' . intval($id_syndic) . ' and type=' . sql_quote($key));
