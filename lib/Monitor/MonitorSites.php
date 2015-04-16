@@ -265,9 +265,10 @@ function getYellowLab($href) {
 			$result = $result[1];
 		}
 
-		// For test
-		// include_spip('inc/distant');
-		// $result = recuperer_page('http://lipousse.org/tilt/test_yellowlab.json');
+		if($result == "Too many requests")
+			return false;
+		if($result)
+			return false;
 
 		$donnees = array();
 		$donnees_rules = array();
