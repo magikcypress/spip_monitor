@@ -43,7 +43,7 @@ function recupererLapage($url,$cookie="",$href="",$post=false) {
 						$date_verif = '', $uri_referer = '');
 
 	$GLOBALS['meta']["adresse_site"] = $ref;
-	spip_log($site, 'test.' . _LOG_ERREUR);
+	
 	if (!$site)
 		return $site;
 	if (is_string($site) AND !$max_redir)
@@ -97,7 +97,6 @@ function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agen
 		// TODO
 		// for yellowlab only, adjust with others services
 		$var_post = '{"url":"'. $params . '"}';
-		spip_log($var_post, 'test.' . _LOG_ERREUR);
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $var_post);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -249,25 +248,22 @@ function getYellowLab($href) {
 		// result
 		// GET http://yellowlab.tools/api/runs/<runId>
 		if (function_exists("curl_init")) {
-			$href = str_replace('http://', '', $href);
-			$href = str_replace('/', '', $href);
+			$href = preg_replace('#^http(s)?://#', '', $href);
 			$get_api = curl_get("http://yellowlab.tools/api/runs", false, false, 80, false, false, true, $href);
 			// Result
 			// Moved Temporarily. Redirecting to /api/results/e2gn05k8pzc
 			$get_api=explode('to',$get_api);
-			spip_log("http://yellowlab.tools" . trim($get_api[1]), 'test.' . _LOG_ERREUR);
 			$result = curl_get("http://yellowlab.tools" . trim($get_api[1]), false);
 		}
 		else {
 			$get_api = recupererLapage("http://yellowlab.tools/api/runs","",true);
-			spip_log($get_api, 'test.' . _LOG_ERREUR);
 			$result = recupererLapage("http://yellowlab.tools/api/runs/" . $get_api,"",true);
 			$result = $result[1];
 		}
 
 		if($result == "Too many requests")
 			return false;
-		if($result)
+		if(!$result)
 			return false;
 
 		$donnees = array();
@@ -287,6 +283,5 @@ function getYellowLab($href) {
 				}
 			}
 		}
-		
 		return array('donnees' => $donnees, 'globalscore' => $globalScore);
 }
