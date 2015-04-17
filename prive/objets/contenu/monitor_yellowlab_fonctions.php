@@ -13,10 +13,21 @@
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
 function monitor_yellowLab($href) {
+<<<<<<< HEAD
 	if (lire_config('monitor/activer_monitor') == "oui") {
 		include_once(_DIR_PLUGIN_MONITOR."lib/Monitor/MonitorSites.php");
 		$result[] = getYellowLab($href);
 	}
+=======
+
+	if (lire_config('monitor/activer_monitor') == "oui") {
+		
+		include_once(_DIR_PLUGIN_MONITOR."lib/Monitor/MonitorSites.php");
+
+		$result[] = getYellowLab($href);
+	}
+
+>>>>>>> acd692f88b67bad3feb23916fa641ba39d562082
 	return $result;
 }
 
@@ -30,10 +41,18 @@ function monitor_tableau_yellowLab($texte) {
 }
 
 function score($nombre) {
+<<<<<<< HEAD
 	if (is_numeric($nombre) && $nombre > 80) return 'A';
 	if (is_numeric($nombre) && $nombre > 60) return 'B';
 	if (is_numeric($nombre) && $nombre > 40) return 'C';
 	if (is_numeric($nombre) && $nombre > 20) return 'D';
 	if (is_numeric($nombre) && $nombre > 0) return 'E';
 	if (is_numeric($nombre) && $nombre == 0) return 'F';
+=======
+	if ($nombre > 80) return 'A';
+	if ($nombre > 60) return 'B';
+	if ($nombre > 40) return 'C';
+	if ($nombre > 20) return 'D';
+	if ($nombre > 0) return 'E';
+>>>>>>> acd692f88b67bad3feb23916fa641ba39d562082
 }

@@ -45,9 +45,12 @@ Nono',
 	'bouton_desactiver_ping' => 'Désactiver le "ping" sur l\'ensemble des sites',
 	'bouton_desactiver_poids' => 'Désactiver le "poids" sur l\'ensemble des sites',
 
+<<<<<<< HEAD
 	// D
 	'details_yellowlab' => 'Plus d\'informations',
 
+=======
+>>>>>>> acd692f88b67bad3feb23916fa641ba39d562082
 	// L
 	'legend_obligatoire_monitor' => 'Variables fixes et obligatoires',
 	'legend_explication_obligatoire_monitor' => ' ',

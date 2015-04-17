@@ -30,6 +30,7 @@
 				<tr>
 					[<th colspan="3" class="label-yellowlab" scope="col">(#VALEUR|table_valeur{label})</th>]
 					[<td colspan="3">
+<<<<<<< HEAD
 						<div class="boite-subscore [(#VALEUR|table_valeur{categoryScore}|score)]">
 							(#VALEUR|table_valeur{categoryScore}|score)
 						</div>
@@ -37,11 +38,15 @@
 					[<td colspan="3">
 						<div class="boite-subscore">
 							(#VALEUR|table_valeur{rule})
+=======
+						<div class="boite-subscore [(#VALEUR|table_valeur{categoryScore}|score)]">(#VALEUR|table_valeur{categoryScore}|score)
+>>>>>>> acd692f88b67bad3feb23916fa641ba39d562082
 						</div>
 					</td>]
 				</tr>
 				<tr>
 					[<th class="rules">(#VALEUR|table_valeur{policy/label})</th>]
+<<<<<<< HEAD
 					[<td class="rules">
 						(#VALEUR|table_valeur{policy/message})
 						<div style="text-align: right;">
@@ -51,10 +56,17 @@
 							[(#VALEUR|table_valeur{offendersObj/count})]
 						</div>
 					</td>]
+=======
+					[<td class="rules"><a href="#SELF" onclick="">(#VALEUR|table_valeur{policy/message})</a></td>]
+>>>>>>> acd692f88b67bad3feb23916fa641ba39d562082
 					[<td class="score [(#VALEUR|table_valeur{score}|score)]">(#VALEUR|table_valeur{value})</td>]
 				</tr>
 				</BOUCLE_liste_yellowLab_donnees>
 			</BOUCLE_liste_yellowlab>
+<<<<<<< HEAD
+=======
+		
+>>>>>>> acd692f88b67bad3feb23916fa641ba39d562082
 	</tbody>
 </table>
 <hr />
