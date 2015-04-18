@@ -1,6 +1,6 @@
 <B_monitor_active>
 <BOUCLE_monitor_active(MONITOR){id_syndic}{si type=={ping}}{si type=={poids}}{statut="oui"}>
-    [(#SET{activer_action, #STATUT})]
+	[(#SET{activer_action, #STATUT})]
 </BOUCLE_monitor_active>
 
 <BOUCLE_si_activer(CONDITION){si #CONFIG{monitor/activer_monitor}|=={oui}}{si #GET{activer_action}|=={oui}}>
@@ -26,99 +26,103 @@
 <script type="text/javascript">
 
 var margin = {top: 20, right: 20, bottom: 50, left: 50},
-    width = 560 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+	width = 560 - margin.left - margin.right,
+	height = 500 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
 var tooltipDate = d3.time.format("%e %b");
 
 var x = d3.time.scale()
-    .range([0, width]);
+	.range([0, width]);
 
 var y = d3.scale.linear()
-    .range([height, 0]);
+	.range([height, 0]);
 
 var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+	.scale(x)
+	.orient("bottom");
 
 var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+	.scale(y)
+	.orient("left");
 
 var line = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.valeur); });
+	.x(function(d) { return x(d.date); })
+	.y(function(d) { return y(d.valeur); });
 
 var div = d3.select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+	.append("div")
+	.attr("class", "tooltip")
+	.style("opacity", 0);
 
 var svg_#ENV{type} = d3.select(".box_graph.#ENV{type}").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("class", "tooltip")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	.attr("width", width + margin.left + margin.right)
+	.attr("height", height + margin.top + margin.bottom)
+	.append("g")
+	.attr("class", "tooltip")
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre_url{type,#ENV{type},&}|parametre_url{periode,#ENV{periode},&})]", function(error, data) {
   
-  data.forEach(function(d) {
-    d.date = parseDate(d.date);
-    d.valeur = +d.valeur;
-  });
+	data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.valeur = +d.valeur;
+  	});
 
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain(d3.extent(data, function(d) { return d.valeur; }));
+	x.domain(d3.extent(data, function(d) { return d.date; }));
+	y.domain(d3.extent(data, function(d) { return d.valeur; }));
 
-  svg_#ENV{type}.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-      .selectAll("text")  
-          .style("text-anchor", "end")
-          .attr("dx", "-.8em")
-          .attr("dy", ".15em")
-          .attr("transform", function(d) {
-              return "rotate(-65)" 
-              });
+	svg_#ENV{type}.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + height + ")")
+		.call(xAxis)
+		.selectAll("text")  
+		.style("text-anchor", "end")
+		.attr("dx", "-.8em")
+		.attr("dy", ".15em")
+		.attr("transform", function(d) {
+		return "rotate(-65)" 
+		});
 
-  svg_#ENV{type}.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("#GET{titre_y}");
+	svg_#ENV{type}.append("g")
+		.attr("class", "y axis")
+		.call(yAxis)
+		.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 6)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.text("#GET{titre_y}");
 
-  svg_#ENV{type}.append("path")
-      .datum(data)
-      .attr("class", "line")
-      .attr("d", line);
+	svg_#ENV{type}.append("path")
+		.datum(data)
+		.attr("class", "line")
+		.attr("d", line);
 
-  // draw the scatterplot
-  svg_#ENV{type}.selectAll("dot")                                    
-      .data(data)                                            
-      .enter().append("circle")                                
-      .attr("fill", "steelblue")
-      .attr("r", 1)    
-      .attr("cx", function(d) { return x(d.date); })         
-      .attr("cy", function(d) { return y(d.valeur); })
-      .on("mouseover", function(d) {        
-          div.transition()
-              .duration(500)
-              .style("opacity", 0);
-          div.transition()
-              .duration(200)
-              .style("opacity", .9);    
-          div.html(tooltipDate(d.date) + "<br/>"  + d.valeur + " #GET{titre_tooltip}")
-              .style("left", (d3.event.pageX) + "px")
-              .style("top", (d3.event.pageY - 28) + "px")
-              .style("z-index", 5000); 
-          });
+	// draw the scatterplot
+	svg_#ENV{type}.selectAll("dot")
+		.data(data)
+		.enter().append("circle")
+		.attr("fill", "steelblue")
+		.attr("class", "circle")
+		.attr("r", 3)
+		.attr("cx", function(d) { return x(d.date); })         
+		.attr("cy", function(d) { return y(d.valeur); })
+		.on("mouseover", function(d) {
+			div.transition()
+				.duration(500)
+				.style("opacity", 0);
+			div.transition()
+				.duration(200)
+				.style("opacity", .9);    
+			div.html(tooltipDate(d.date) + "<br/>"  + d.valeur + " #GET{titre_tooltip}")
+				.style("left", (d3.event.pageX) + "px")
+				.style("top", (d3.event.pageY - 48) + "px")
+				.style("z-index", 5000); 
+		})
+		.on("mouseout", function(d) {
+			div.selectAll('.tooltip').remove();
+		});
 });
 </script>
 
