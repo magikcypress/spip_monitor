@@ -271,14 +271,15 @@ function getYellowLab($href) {
 		$result = json_decode($result, false);
 		$scoreProfiles = $result->{'scoreProfiles'}->{'generic'}->{'categories'};
 		$globalScore = $result->{'scoreProfiles'}->{'generic'}->{'globalScore'};
-		foreach ($scoreProfiles as $valueScore) {
-
-			foreach ($valueScore as $cle => $valeur) {
-				array_push($donnees, array($cle => $valeur));
-				if(is_array($valeur)) {
-					foreach ($valeur as $key => $val) {
-						$rules = $result->{'rules'}->{'' .$val . ''};
-						array_push($donnees, $rules);
+		if($scoreProfiles) {
+			foreach ($scoreProfiles as $valueScore) {
+				foreach ($valueScore as $cle => $valeur) {
+					array_push($donnees, array($cle => $valeur));
+					if(is_array($valeur)) {
+						foreach ($valeur as $key => $val) {
+							$rules = $result->{'rules'}->{'' .$val . ''};
+							array_push($donnees, $rules);
+						}
 					}
 				}
 			}
