@@ -4,29 +4,6 @@
 	padding: .2em;
 }
 
-.axis path,
-.axis line {
-	fill: none;
-	stroke: #000;
-	shape-rendering: crispEdges;
-}
-
-.x.axis path {
-	display: none;
-}
-
-.line-monitor {
-	fill: none;
-	stroke: steelblue;
-	stroke-width: 2.5px;
-}
-
-.circle-monitor {
-	stroke: white;
-	fill: steelblue;
-	stroke-width: 1.5px;
-}
-
 .boite-score, .boite-subscore, .score-yellowlab, .score, .subscore-yellowlab, .label-yellowlab { text-align: center; }
 
 .boite-score { display: block; padding: .5em; }

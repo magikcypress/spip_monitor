@@ -25,7 +25,7 @@
 [(#REM) Graphique de latence]
 <script type="text/javascript">
 
-var margin = {top: 20, right: 20, bottom: 50, left: 50},
+var margin = {top: 20, right: 40, bottom: 50, left: 40},
 	width = 560 - margin.left - margin.right,
 	height = 500 - margin.top - margin.bottom;
 
@@ -59,7 +59,6 @@ var svg_#ENV{type} = d3.select(".box_graph.#ENV{type}").append("svg")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
 	.append("g")
-	.attr("class", "tooltip")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre_url{type,#ENV{type},&}|parametre_url{periode,#ENV{periode},&})]", function(error, data) {
@@ -103,8 +102,7 @@ d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre
 	svg_#ENV{type}.selectAll("dot")
 		.data(data)
 		.enter().append("circle")
-		.attr("fill", "steelblue")
-		.attr("class", "circle-monitor")
+		.attr("class", "circle")
 		.attr("r", 3)
 		.attr("cx", function(d) { return x(d.date); })         
 		.attr("cy", function(d) { return y(d.valeur); })
@@ -120,8 +118,12 @@ d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre
 				.style("top", (d3.event.pageY - 48) + "px")
 				.style("z-index", 5000); 
 		})
+		.on("mousemove", function (d) {
+			div.style("left", (d3.event.pageX)+ "px")
+				.style("top",(d3.event.pageY - 48) + "px");
+		})
 		.on("mouseout", function(d) {
-			div.selectAll('.tooltip').remove();
+			div.style("opacity", 0);
 		});
 });
 </script>
