@@ -183,13 +183,11 @@ function monitor_insert_head_css($flux) {
  * @return array
  */
 function monitor_taches_generales_cron($taches_generales){
-    include_spip('inc/config');
+	include_spip('inc/config');
 	if (lire_config('monitor/activer_monitor') == "oui") {
 		$taches_generales['monitor'] = 90; 
 		$taches_generales['monitor_univers_check'] = 90; 
 	}
-		
+
 	return $taches_generales;
 }
-
-?>
