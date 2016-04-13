@@ -116,10 +116,8 @@ function genie_monitor_dist($t) {
 		// Archive logs
 		// On supprime les logs de plus d'un an
 		$date_delete = date('Y-m-d', strtotime('-12 month', time()));
-		$logs_sites = sql_allfetsel('id_monitor', 'spip_monitor', ' statut = "oui" and maj < "' . $date_delete . '"');
-		foreach ($logs_sites as $site) {
-			sql_delete('spip_monitor', 'id_monitor=' . $site['id_monitor']);
-		}
+		sql_delete('spip_monitor', ' statut = "oui" and maj < "'.sql_quote($date_delete));
+		sql_delete('spip_monitor_log', 'maj < "'.sql_quote($date_delete));
 
 		if (time() >= _TIME_OUT) {
 			return 0;
