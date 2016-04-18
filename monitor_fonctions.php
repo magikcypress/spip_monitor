@@ -61,5 +61,3 @@ function critere_diff_par_annee_dist($idb, &$boucles, $crit) {
 	$date = date('Y-m-d', strtotime('-1 year', time()));
 	monitor_critere_diff_xx('%Y',$idb, $boucles, $crit, $date);
 }
-
-?>
