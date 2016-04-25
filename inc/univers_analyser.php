@@ -122,7 +122,7 @@ function parse_header($header, $res, $page='', $url) {
 		if (substr($header,-1)!==")"){
 			$url_config = suivre_lien($url,"local/config.txt");
 			$config = univers_recuperer_lapage($url_config);
-			if ($config AND preg_match($regexp, $config, $rc))
+			if ($config AND preg_match($regexp, $config['result'], $rc))
 				$r = $rc;
 		}
 		$res['spip'] = $r[1]?trim(preg_replace(',^[^0-9]*,','',$r[1])):trim(preg_replace('(.*)','',$r[1]));

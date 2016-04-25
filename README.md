@@ -15,6 +15,10 @@ Dans l'édition d'un site web vous avez 3 outils :
 
 # Version 1.0.x
 
+## Version 1.0.2
+
+* Fix erreur log php
+
 ## Version 1.0.1
 
 * Faire fonctionner la suppression des monitoring plus vieux d'un an
