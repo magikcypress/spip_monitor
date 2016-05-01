@@ -14,7 +14,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'alert_couper_sujet' => 'Alert: le site est coupé',
 	'alert_couper_corps' => 'Bonjour,
 
-Je suis le robot qui vérifie la disponibilité des sites internet via spip_monitor.
+Je suis le robot qui vérifie la disponibilité des sites internet via spip monitor.
 
 Le site @url_site@ est coupé.
 
@@ -23,7 +23,7 @@ Nono',
 	'alert_latence_sujet' => 'Alert: Latence est < 10',
 	'alert_latence_corps' => 'Bonjour,
 
-Je suis le robot qui vérifie la latence des sites internet via spip_monitor.
+Je suis le robot qui vérifie la latence des sites internet via spip monitor.
 
 Le site @url_site@ rencontre une latence de plus de 10ms.
 
@@ -32,9 +32,20 @@ Nono',
 	'alert_restart_sujet' => 'Alert: le site est reparti',
 	'alert_restart_corps' => 'Bonjour,
 
-Je suis le robot qui vérifie la disponibilité des sites internet via spip_monitor.
+Je suis le robot qui vérifie la disponibilité des sites internet via spip monitor.
 
 Le site @url_site@ est reparti.
+
+Passe une bonne journée,
+Nono',
+	'alert_latence_recap_sujet' => 'Alert matinale: liste des sites est coupés',
+	'alert_latence_recap_corps' => 'Bonjour,
+
+Je suis le robot qui vérifie la latence des sites internet via spip monitor.
+
+Cette nuit les sites suivants ont rencontrés un problème de latence supérieur à 10ms.
+
+	@url_sites@
 
 Passe une bonne journée,
 Nono',
@@ -108,12 +119,12 @@ Nono',
 	'texte_monitor_site' => '<p>Activer le monitoring en choisissant d\'activer les résultats du ping ou du poids pour ce site.</p>',
 	'texte_monitor_sites' => '<p>Activer le monitoring pour tous les sites</p>',
 	'texte_monitor_poids' => '<p>Activer le monitoring (poids page) pour ce site</p>',
-	'texte_monitor_compteur_aucun_ping' => 'Il n\'y a aucun site qui a "ping" d\'activé sur @site_publie@ sites',
-	'texte_monitor_compteur_aucun_poids' => 'Il n\'y a aucun site qui a "poids" d\'activé sur @site_publie@ sites',
-	'texte_monitor_compteur_ping' => 'Il y a @nb@ site qui a "ping" d\'activé sur @site_publie@ sites',
-	'texte_monitor_compteur_poids' => 'Il y a @nb@ site qui a "poids" d\'activé sur @site_publie@ sites',
-	'texte_monitor_compteurs_ping' => 'Il y a @nb@ sites qui ont "ping" d\'activé sur @site_publie@ sites',
-	'texte_monitor_compteurs_poids' => 'Il y a @nb@ sites qui ont "poids" d\'activé sur @site_publie@ sites',
+	'texte_monitor_compteur_aucun_ping' => 'Il n\'y a aucun site qui a "ping" d\'activé sur @site_publie@ sites publiés',
+	'texte_monitor_compteur_aucun_poids' => 'Il n\'y a aucun site qui a "poids" d\'activé sur @site_publie@ sites publiés',
+	'texte_monitor_compteur_ping' => 'Il y a @nb@ site qui a "ping" d\'activé sur @site_publie@ sites publiés',
+	'texte_monitor_compteur_poids' => 'Il y a @nb@ site qui a "poids" d\'activé sur @site_publie@ sites publiés',
+	'texte_monitor_compteurs_ping' => 'Il y a @nb@ sites qui ont "ping" d\'activé sur @site_publie@ sites publiés',
+	'texte_monitor_compteurs_poids' => 'Il y a @nb@ sites qui ont "poids" d\'activé sur @site_publie@ sites publiés',
 	'titre_activer_pagespeed' => 'Activer page speed',
 	'titre_activer_yellowlab' => 'Activer yellowlab',
 	'titre_configurer' => 'Configurer Monitor',

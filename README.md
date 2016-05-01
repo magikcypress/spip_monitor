@@ -3,7 +3,7 @@ SPIP monitor
 
 Monitorer site web syndiqué.
 
-Plugin SPIP réalisé pour monitorer des sites web syndiqués
+Plugin SPIP réalisé pour monitorer des sites web syndiqués.
 
 En publiant un site web sur spip, vous avez la possibilité de le monitorer. 
 
@@ -13,7 +13,16 @@ Dans l'édition d'un site web vous avez 3 outils :
 - Activer le poids des pages;
 - Récupération des infos importantes du site;
 
+Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 10ms. La nuit vous êtes alerté une seul fois a partir de 22h jusqu'à 8h que le site est planté. Un récapitulatif est envoyé le matin pour signaler les sites plantés. Le reste de la journée vous êtes notifié par email.
+
 # Version 1.0.x
+
+## Version 1.0.3
+
+* Ajout d'un index pour id_syndic sur la table spip_monitor
+* Ne pas alerter des sites down la nuit sauf lors du premier plantage (5 alertes)
+* Supprimer les données d'un site quand il est mis à la poubelle de plus de 3 mois
+* Déplacer univers_analyse.php dans lib/Monitor, suppression du répertoire inc
 
 ## Version 1.0.2
 
@@ -37,12 +46,10 @@ Les relevés sont réalisés avec la commande curl qui doit être prise en charg
 ## Plugins SPIP
 
 * sites (http://zone.spip.org/trac/spip-zone/browser/_core_/plugins/sites) 
-* d3js (https://github.com/magikcypress/spip_d3js)
-
+* d3js (http://zone.spip.org/trac/spip-zone/browser/_plugins_/d3js/trunk)
 
 # TODO
 
-- Supprimer le support curl
-- Ne pas alerter des sites down la nuit sauf lors du premier plantage
-- Rappeler en journée les sites down dans un email avec la liste des sites plantés
-- Supprimer les données d'un site quand il est mis à la poubelle
+* Supprimer le support curl
+* Rappeler en journée les sites down dans un email avec la liste des sites plantés
+

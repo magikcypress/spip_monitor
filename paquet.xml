@@ -1,12 +1,12 @@
 <paquet
 	prefix="monitor"
 	categorie="statistique"
-	version="1.0.2"
+	version="1.0.3"
 	etat="dev"
 	compatibilite="[3.0.0;3.1.*]"
 	logo="prive/themes/spip/images/monitor-32.png"
 	documentation=""
-	schema="1.4"
+	schema="1.5"
 >
 
 	<nom>Monitor</nom>

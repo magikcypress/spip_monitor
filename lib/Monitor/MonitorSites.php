@@ -10,7 +10,7 @@
  */
 
 include_spip('inc/distant');
-include_spip('inc/univers_analyser');
+include_spip('lib/Monitor/univers_analyser');
 
 if (!defined("_ECRIRE_INC_VERSION")) return;
 
