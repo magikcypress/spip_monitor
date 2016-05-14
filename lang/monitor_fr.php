@@ -1,7 +1,9 @@
 <?php
 // This is a SPIP language file  --  Ceci est un fichier langue de SPIP
 // Fichier source, a modifier dans svn://zone.spip.org/spip-zone/_core_/plugins/monitor/lang/
-if (!defined('_ECRIRE_INC_VERSION')) return;
+if (!defined('_ECRIRE_INC_VERSION')) {
+	return;
+}
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
@@ -28,7 +30,7 @@ Je suis le robot qui vérifie la latence des sites internet via spip monitor.
 Le site @url_site@ rencontre une latence de plus de 10ms.
 
 Passe une bonne journée,
-Nono',	
+Nono',
 	'alert_restart_sujet' => 'Alert: le site est reparti',
 	'alert_restart_corps' => 'Bonjour,
 

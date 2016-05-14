@@ -10,7 +10,9 @@
  * @package    SPIP\Monitor\fonctions
  */
 
-if (!defined('_ECRIRE_INC_VERSION')) return;
+if (!defined('_ECRIRE_INC_VERSION')) {
+	return;
+}
 
 /**
  * fonction sous jacente pour les 3 criteres
@@ -22,8 +24,8 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  * @param object $boucles
  * @param object $crit
  */
-function monitor_critere_diff_xx($format, $idb, &$boucles, $crit, $date){
-	$boucles[$idb]->where[] = array("'>='", "maj", '"' . sql_quote($date) . '"');
+function monitor_critere_diff_xx($format, $idb, &$boucles, $crit, $date) {
+	$boucles[$idb]->where[] = array("'>='", 'maj', '"' . sql_quote($date) . '"');
 }
 
 /**
@@ -35,7 +37,7 @@ function monitor_critere_diff_xx($format, $idb, &$boucles, $crit, $date){
  */
 function critere_diff_par_semaine_dist($idb, &$boucles, $crit) {
 	$date = date('Y-m-d', strtotime('-7 day', time()));
-	monitor_critere_diff_xx('%Y-%m-%d',$idb, $boucles, $crit, $date);
+	monitor_critere_diff_xx('%Y-%m-%d', $idb, $boucles, $crit, $date);
 }
 
 /**
@@ -47,7 +49,7 @@ function critere_diff_par_semaine_dist($idb, &$boucles, $crit) {
  */
 function critere_diff_par_mois_dist($idb, &$boucles, $crit) {
 	$date = date('Y-m-d', strtotime('-1 month', time()));
-	monitor_critere_diff_xx('%Y-%m',$idb, $boucles, $crit, $date);
+	monitor_critere_diff_xx('%Y-%m', $idb, $boucles, $crit, $date);
 }
 
 /**
@@ -59,5 +61,5 @@ function critere_diff_par_mois_dist($idb, &$boucles, $crit) {
  */
 function critere_diff_par_annee_dist($idb, &$boucles, $crit) {
 	$date = date('Y-m-d', strtotime('-1 year', time()));
-	monitor_critere_diff_xx('%Y',$idb, $boucles, $crit, $date);
+	monitor_critere_diff_xx('%Y', $idb, $boucles, $crit, $date);
 }

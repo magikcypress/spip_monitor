@@ -12,8 +12,17 @@ Dans l'édition d'un site web vous avez 3 outils :
 - Activer le ping;
 - Activer le poids des pages;
 - Récupération des infos importantes du site;
+	- Nom du serveur
+	- Adresse IP de l'hébergement
+	- Version de SPIP 
+	- Nombre de plugins
+	- Pays de l'hébergement
 
-Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 10ms. La nuit vous êtes alerté une seul fois a partir de 22h jusqu'à 8h que le site est planté. Un récapitulatif est envoyé le matin pour signaler les sites plantés. Le reste de la journée vous êtes notifié par email.
+Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 10ms. La nuit vous êtes alerté une seule fois a partir de 22h jusqu'à 8h que le site est planté. Un récapitulatif est envoyé le matin pour signaler les sites plantés. Le reste de la journée vous êtes notifié par email.
+
+- pageSpeed Google
+- Yellowlab
+
 
 # Version 1.0.x
 

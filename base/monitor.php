@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Base pour Monitor
  *
@@ -10,7 +9,9 @@
  * @package    SPIP\Monitor\base
  */
 
-if (!defined('_ECRIRE_INC_VERSION')) return;
+if (!defined('_ECRIRE_INC_VERSION')) {
+	return;
+}
 
 /**
  * Interfaces des tables Monitor pour le compilateur
@@ -27,11 +28,11 @@ function monitor_declarer_tables_interfaces($interfaces) {
 	return $interfaces;
 }
 
-function monitor_declarer_tables_objets_sql($tables){
+function monitor_declarer_tables_objets_sql($tables) {
 	// On ajoute un champ date_ping et statut_log dans spip_syndic
-	$tables['spip_syndic']['field']['date_ping'] = "datetime NOT NULL";
-	$tables['spip_syndic']['field']['statut_log'] = "varchar(3) NOT NULL";
-	$tables['spip_syndic']['field']['statut_stats'] = "varchar(3) NOT NULL";
+	$tables['spip_syndic']['field']['date_ping'] = 'datetime NOT NULL';
+	$tables['spip_syndic']['field']['statut_log'] = 'varchar(3) NOT NULL';
+	$tables['spip_syndic']['field']['statut_stats'] = 'varchar(3) NOT NULL';
 
 	$tables['spip_monitor'] = array(
 		'texte_retour' => 'icone_retour',
@@ -41,71 +42,69 @@ function monitor_declarer_tables_objets_sql($tables){
 		'texte_creer' => 'monitor:icone_nouveau_monitor',
 		'principale' => 'oui',
 		'field'=> array(
-			"id_monitor" => "bigint(21) unsigned NOT NULL AUTO_INCREMENT",
-			"id_syndic" => "bigint(21) NOT NULL",
-			"alert" => "int(11) NOT NULL",
-			"type"	=> "varchar(255) NOT NULL",
-			"statut" => "varchar(255) NOT NULL default 'oui'",
-			"date_modif" => "datetime DEFAULT '0000-00-00 00:00:00' NOT NULL",
-			"maj"	=> "TIMESTAMP",
+			'id_monitor' => 'bigint(21) unsigned NOT NULL AUTO_INCREMENT',
+			'id_syndic' => 'bigint(21) NOT NULL',
+			'alert' => 'int(11) NOT NULL',
+			'type'	=> 'varchar(255) NOT NULL',
+			'statut' => "varchar(255) NOT NULL default 'oui'",
+			'date_modif' => "datetime DEFAULT '0000-00-00 00:00:00' NOT NULL",
+			'maj'	=> 'TIMESTAMP',
 		),
 		'key' => array(
-			"PRIMARY KEY"	=> "id_monitor",
-			"UNIQUE KEY"	=> "id_syndic,type",
+			'PRIMARY KEY'	=> 'id_monitor',
+			'UNIQUE KEY'	=> 'id_syndic,type',
 		)
 	);
 
 	$tables['spip_monitor_log'] = array(
 		'principale' => 'non',
 		'field'=> array(
-			"id_monitor_log" => "bigint(21) unsigned NOT NULL AUTO_INCREMENT",
-			"id_syndic" => "bigint(21) NOT NULL",
-			"statut"	=> "varchar(255) NOT NULL default 'ping'",
-			"log" => "varchar(3) NOT NULL",
-			"valeur" => "varchar(255) NOT NULL",
-			"maj"	=> "TIMESTAMP"
+			'id_monitor_log' => 'bigint(21) unsigned NOT NULL AUTO_INCREMENT',
+			'id_syndic' => 'bigint(21) NOT NULL',
+			'statut'	=> "varchar(255) NOT NULL default 'ping'",
+			'log' => 'varchar(3) NOT NULL',
+			'valeur' => 'varchar(255) NOT NULL',
+			'maj'	=> 'TIMESTAMP'
 		),
 		'key' => array(
-			"PRIMARY KEY"	=> "id_monitor_log",
+			'PRIMARY KEY'	=> 'id_monitor_log',
 		)
 	);
 
 	$tables['spip_monitor_stats'] = array(
 		'principale' => 'non',
 		'field'=> array(
-			"id_monitor_stats" => "bigint(21) unsigned NOT NULL AUTO_INCREMENT",
-			"id_syndic" => "bigint(21) NOT NULL",
-			"ip" => "varchar(255) default '' NOT NULL",
-			"spip" => "varchar(255) default '' NOT NULL",
-			"server" => "varchar(255) default '' NOT NULL",
-			"php" => "varchar(255) default '' NOT NULL",
-			"gzip" => "varchar(3) default '' NOT NULL",
-			"version" => "varchar(255) default '' NOT NULL",
-			"plugins" => "bigint(21) default NULL",
-			"pays" => "char(3) default '' NOT NULL",
-			"date" => "datetime DEFAULT '0000-00-00 00:00:00' NOT NULL",
-			"retry" 	=> "int(5) default 0 NOT NULL",
-			"status" 	=> "varchar(10) default '' NOT NULL",
+			'id_monitor_stats' => 'bigint(21) unsigned NOT NULL AUTO_INCREMENT',
+			'id_syndic' => 'bigint(21) NOT NULL',
+			'ip' => "varchar(255) default '' NOT NULL",
+			'spip' => "varchar(255) default '' NOT NULL",
+			'server' => "varchar(255) default '' NOT NULL",
+			'php' => "varchar(255) default '' NOT NULL",
+			'gzip' => "varchar(3) default '' NOT NULL",
+			'version' => "varchar(255) default '' NOT NULL",
+			'plugins' => 'bigint(21) default NULL',
+			'pays' => "char(3) default '' NOT NULL",
+			'date' => "datetime DEFAULT '0000-00-00 00:00:00' NOT NULL",
+			'retry' 	=> 'int(5) default 0 NOT NULL',
+			'status' 	=> "varchar(10) default '' NOT NULL",
 		),
 		'key' => array(
-			"PRIMARY KEY"	=> "id_monitor_stats",
+			'PRIMARY KEY'	=> 'id_monitor_stats',
 		)
 	);
 
 	$tables['spip_monitor_stats_plugins'] = array(
 		'principale' => 'non',
 		'field'=> array(
-			"id_monitor_stats"    => "bigint(21) NOT NULL",
-			"plugin" => "varchar(64) default '' NOT NULL",
-			"version" => "varchar(255) default '' NOT NULL",
+			'id_monitor_stats'    => 'bigint(21) NOT NULL',
+			'plugin' => "varchar(64) default '' NOT NULL",
+			'version' => "varchar(255) default '' NOT NULL",
 		),
 		'key' => array(
-			"PRIMARY KEY"	=> "id_monitor_stats,plugin",
+			'PRIMARY KEY'	=> 'id_monitor_stats,plugin',
 		)
 	);
 
 
 	return $tables;
 }
-
-?>

@@ -9,7 +9,9 @@
  * @package    SPIP\genie\monitor_univers_check
  */
 
-if (!defined("_ECRIRE_INC_VERSION")) return;
+if (!defined('_ECRIRE_INC_VERSION')) {
+	return;
+}
 
 include_spip('lib/Monitor/univers_analyser');
 
@@ -17,10 +19,12 @@ include_spip('lib/Monitor/univers_analyser');
 // Source: http://zone.spip.org/trac/spip-zone/browser/_dev_/univers_spip/
 function genie_monitor_univers_check_dist($t) {
 
-	if (lire_config('monitor/activer_monitor') == "oui") {
+	if (lire_config('monitor/activer_monitor') == 'oui') {
 
 		$nb_site = lire_config('monitor/nb_site');
-		if(!$nb_site) $nb_site = 5;
+		if (!$nb_site) {
+			$nb_site = 5;
+		}
 
 		// On insert 5 sites qui ne sont pas encore traités
 		$sites = sql_allfetsel('monitor.id_syndic, site.statut_stats,  site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic AND monitor.type = "ping"', 'site.statut_stats!="oui"', '', '', '0,'.$nb_site.'');
@@ -28,14 +32,14 @@ function genie_monitor_univers_check_dist($t) {
 			univers_analyser_un($row);
 		}
 
-		$il_y_a_une_heure = date('Y-m-d H:i:s',time()-3600);
+		$il_y_a_une_heure = date('Y-m-d H:i:s', time()-3600);
 		// 2 sites en attente de validation
 		$sites = sql_allfetsel('monitor_stats.id_syndic, site.statut_stats, site.url_site', 'spip_monitor_stats as monitor_stats left join spip_syndic as site on monitor_stats.id_syndic = site.id_syndic', 'site.statut_stats="oui" AND (monitor_stats.retry=0 OR monitor_stats.date<'.sql_quote($il_y_a_une_heure).')', '', 'monitor_stats.date,monitor_stats.retry', '0,2');
 		foreach ($sites as $row) {
 			univers_analyser_un($row);
 		}
 
-		$il_y_a_quatre_heure = date('Y-m-d H:i:s',time()-4*3600);
+		$il_y_a_quatre_heure = date('Y-m-d H:i:s', time()-4*3600);
 		// revisiter 5 sites deja vu, en commencant par les plus anciens
 		$sites = sql_allfetsel('monitor_stats.id_syndic, site.statut_stats, site.url_site', 'spip_monitor_stats as monitor_stats left join spip_syndic as site on monitor_stats.id_syndic = site.id_syndic', 'site.statut_stats="oui" AND (monitor_stats.retry=0 OR monitor_stats.date<'.sql_quote($il_y_a_une_heure).')', '', 'monitor_stats.date,monitor_stats.retry', '0,'.$nb_site.'');
 		foreach ($sites as $row) {
@@ -60,5 +64,3 @@ function genie_monitor_univers_check_dist($t) {
 	}
 	return 0;
 }
-
-?>
