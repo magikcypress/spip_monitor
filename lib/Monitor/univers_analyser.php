@@ -8,6 +8,10 @@
  * @licence    GNU/GPL3
  */
 
+if (!defined('_ECRIRE_INC_VERSION')) {
+	return;
+}
+
 // User agent used to load the page
 @define('_INC_DISTANT_USER_AGENT', 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; fr; rv:1.9.1.9) Gecko/20100315 Firefox/3.5.9');
 @define('_INC_DISTANT_VERSION_HTTP', 'HTTP/1.0');
@@ -16,10 +20,6 @@ include_spip('inc/filtres');
 include_spip('inc/distant');
 include_spip('inc/meta');
 include_spip('lib/Monitor/MonitorSites');
-
-if (!defined('_ECRIRE_INC_VERSION')) {
-	return;
-}
 
 /**
  * Get the complete page.

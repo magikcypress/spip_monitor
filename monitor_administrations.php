@@ -51,6 +51,10 @@ function monitor_upgrade($nom_meta_base_version, $version_cible) {
 		// Ajouter un index à la table spip_shortcut_urls_logs
 		array('sql_alter', 'TABLE spip_monitor ADD INDEX (id_syndic)'));
 
+	$maj['1.6'] = array(
+		// Ajouter un index à la table spip_monitor_log
+		array('sql_alter', 'TABLE spip_monitor_log ADD INDEX (valeur)'));
+
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

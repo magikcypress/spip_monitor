@@ -20,11 +20,16 @@ Dans l'édition d'un site web vous avez 3 outils :
 
 Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 10ms. La nuit vous êtes alerté une seule fois a partir de 22h jusqu'à 8h que le site est planté. Un récapitulatif est envoyé le matin pour signaler les sites plantés. Le reste de la journée vous êtes notifié par email.
 
-- pageSpeed Google
-- Yellowlab
-
-
 # Version 1.0.x
+
+## Version 1.0.4
+
+* La notification matinale spam trop quand on est sur le site la nuit
+* Rappeler en journée les sites down dans un email avec la liste des sites plantés
+* Suppression de yellowlab
+* Suppression de pagespeed
+* Ajout d'un index sur le champs valeur dans spip_monitor_log pour accélerer les graphs
+* On limite le lancement du cron à l'IP du serveur pour ne pas pénaliser les utilisateurs
 
 ## Version 1.0.3
 
@@ -59,6 +64,5 @@ Les relevés sont réalisés avec la commande curl qui doit être prise en charg
 
 # TODO
 
-* Supprimer le support curl
-* Rappeler en journée les sites down dans un email avec la liste des sites plantés
+
 

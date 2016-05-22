@@ -67,7 +67,7 @@ function monitor_notification_recap_matin() {
 	$date_matin_debut = strtotime('8am', time());
 	$date_matin_fin = strtotime('9am', time());
 
-	if ($now <= $date_matin_debut) {
+	if ($now >= $date_matin_debut) {
 
 		$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui" and alert >= 5');
 
@@ -80,7 +80,7 @@ function monitor_notification_recap_matin() {
 		$texte_corps = _T('monitor:alert_latence_recap_corps', array('url_sites' => $site['url_site']));
 		notification_envoyer($texte_sujet, $texte_corps);
 
-	} elseif ($now <= $date_matin_fin) {
+	} elseif ($now >= $date_matin_fin) {
 		return false;
 	}
 
@@ -116,77 +116,81 @@ function genie_monitor_insert($id_syndic, $statut, $log, $valeur, $alert) {
  */
 function genie_monitor_dist($t) {
 	if (lire_config('monitor/activer_monitor') == 'oui') {
-		include_once(find_in_path('lib/Monitor/MonitorSites.php'));
+		include_spip('lib/Monitor/MonitorSites');
 
 		$nb_site = lire_config('monitor/nb_site');
 		if (!$nb_site) {
 			$nb_site = 5;
 		}
-		
-		// Aller chercher les derniers ping dans spip_syndic
-		$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
-		// spip_log($sites, 'test.' . _LOG_ERREUR);
-		foreach ($sites as $site) {
-			$result = updateWebsite($site['url_site']);
 
-			if ($result['result']==false) {
-				// Gestion des alertes
-				// Prendre la dernière valeur d'un site
-				$alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
-				$alert = $alert_site+1;
+		// On limite le genie à l'adresse ip du serveur pour ne pas embêter les utilisateurs
+		if ($GLOBALS['ip'] == $_SERVER['SERVER_ADDR']) {
+			// Aller chercher les derniers ping dans spip_syndic
+			$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
+			// spip_log($sites, 'test.' . _LOG_ERREUR);
+			foreach ($sites as $site) {
+				$result = updateWebsite($site['url_site']);
 
-				// Insert les data dans monitor_log
-				genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
-				if ($alert >= 5 && $alert <= 10) {
-					// Notification du site malade
-					notification_monitor($site['url_site'], 'down');
-				}
-			} else {
-
-				// Gestion des alertes
-				// Prendre la dernière valeur d'un site
-				$alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
-
-				if ($result['latency'] >= 10) {
+				if ($result['result']==false) {
+					// Gestion des alertes
+					// Prendre la dernière valeur d'un site
+					$alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
 					$alert = $alert_site+1;
+
 					// Insert les data dans monitor_log
 					genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
-				} elseif ($result['latency'] >= 10 && $alert_site >= 5) {
-					// Notification du site malade
-					notification_monitor($site['url_site'], 'latence');
-					// Insert les data dans monitor_log
-					$alert = $alert_site+1;
-					genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
-				} else {
-					if ($alert_site>=5) {
-						notification_monitor($site['url_site'], 'restart');
+					if ($alert >= 5 && $alert <= 10) {
+						// Notification du site malade
+						notification_monitor($site['url_site'], 'down');
 					}
-					$alert = 0;
-					// Insert les data dans monitor_log
-					genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
+				} else {
+
+					// Gestion des alertes
+					// Prendre la dernière valeur d'un site
+					$alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
+
+					if ($result['latency'] >= 10) {
+						$alert = $alert_site+1;
+						// Insert les data dans monitor_log
+						genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
+					} elseif ($result['latency'] >= 10 && $alert_site >= 5) {
+						// Notification du site malade
+						notification_monitor($site['url_site'], 'latence');
+						// Insert les data dans monitor_log
+						$alert = $alert_site+1;
+						genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
+					} else {
+						if ($alert_site>=5) {
+							notification_monitor($site['url_site'], 'restart');
+						}
+						$alert = 0;
+						// Insert les data dans monitor_log
+						genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
+					}
 				}
 			}
-		}
 
-		// Aller chercher les 5 dernier poids dans spip_syndic
-		$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "poids" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
+			// Aller chercher les 5 dernier poids dans spip_syndic
+			$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "poids" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
 
-		foreach ($sites as $site) {
-			$result = sizePage($site['url_site']);
-			if ($result['result']!=false) {
-				// Insert les data dans monitor_log
-				$insert_poids = sql_insertq('spip_monitor_log', array('id_syndic' => $site['id_syndic'], 'statut' => 'poids', 'log' => ($result['result'] ? 'oui' : 'non'), 'valeur' => $result['poids']));
+			foreach ($sites as $site) {
+				$result = sizePage($site['url_site']);
+				if ($result['result']!=false) {
+					// Insert les data dans monitor_log
+					$insert_poids = sql_insertq('spip_monitor_log', array('id_syndic' => $site['id_syndic'], 'statut' => 'poids', 'log' => ($result['result'] ? 'oui' : 'non'), 'valeur' => $result['poids']));
+				}
 			}
+
+			// Archive logs
+			// On supprime les logs de plus d'un an
+			$date_delete = date('Y-m-d', strtotime('-12 month', time()));
+			sql_delete('spip_monitor', ' statut = "oui" and maj < '.sql_quote($date_delete));
+			sql_delete('spip_monitor_log', 'maj < '.sql_quote($date_delete));
+
+			monitor_optimiser_sites_effaces();
+			monitor_notification_recap_matin();
+			spip_log('passe ici monitor', 'test.' . _LOG_ERREUR);
 		}
-
-		// Archive logs
-		// On supprime les logs de plus d'un an
-		$date_delete = date('Y-m-d', strtotime('-12 month', time()));
-		sql_delete('spip_monitor', ' statut = "oui" and maj < '.sql_quote($date_delete));
-		sql_delete('spip_monitor_log', 'maj < '.sql_quote($date_delete));
-
-		monitor_optimiser_sites_effaces();
-		monitor_notification_recap_matin();
 	}
 }
 

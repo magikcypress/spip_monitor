@@ -101,22 +101,6 @@ function monitor_affiche_milieu($flux) {
 							'periode'=>$periode
 						)
 		);
-		if (lire_config('monitor/activer_pagespeed') == 'oui') {
-				$texte .= recuperer_fond(
-								'prive/objets/contenu/monitor_pagespeed',
-								array(
-									'id_syndic'=>$id_syndic
-								)
-				);
-		}
-		if (lire_config('monitor/activer_yellowlab') == 'oui') {
-				$texte .= recuperer_fond(
-								'prive/objets/contenu/monitor_yellowlab',
-								array(
-									'id_syndic'=>$id_syndic
-								)
-				);
-		}
 		if ($p=strpos($flux['data'], '<!--affiche_milieu-->')) {
 			$flux['data'] = substr_replace($flux['data'], $texte, $p, 0);
 		} else {

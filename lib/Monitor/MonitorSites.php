@@ -9,12 +9,12 @@
  * @package    SPIP\lib\Monitor\MonitorSites
  */
 
-include_spip('inc/distant');
-include_spip('lib/Monitor/univers_analyser');
-
 if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
+
+include_spip('inc/distant');
+include_spip('lib/Monitor/univers_analyser');
 
 function recupererLapage($url, $cookie = '', $href = '', $post = false) {
 	$ref = $GLOBALS['meta']['adresse_site'];
@@ -31,12 +31,7 @@ function recupererLapage($url, $cookie = '', $href = '', $post = false) {
 #    ."Cache-Control: max-age=0\r\n"
 	. '\r\n'
 	;
-	// $site = $url;
-	// $max_redir = 10;
-	// while ($site AND is_string($site) AND $max_redir--) {
-	// 	$url = $site;
-	// 	$site = recuperer_lapage($url,false,'GET',1048576,$datas);
-	// }
+
 	if ($post==false) {
 		$site = recuperer_lapage($url, false, 'GET', 1048576, $datas);
 	} else {
@@ -52,16 +47,6 @@ function recupererLapage($url, $cookie = '', $href = '', $post = false) {
 		return false;
 	}
 	list($header, $page) = $site;
-
-	// if a cookie set, accept it an retry with it
-	// if (preg_match(",Set-Cookie: (.*)(;.*)?$,Uims",$header,$r)) {
-	// 	//ne pas relancer si le cookie est déjà présent
-	// 	if (strpos($cookie,$r[1])===FALSE) {
-	// 		$cookie .= $r[1] . ";";
-	// 		spip_log("Cookie : $cookie on repart pour un tour ", "univers_check");
-	// 		return univers_recuperer_lapage($url, $cookie);
-	// 	}
-	// }
 	
 	return $site;
 }
@@ -95,15 +80,6 @@ function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agen
 	curl_setopt($ch, CURLOPT_URL, $href);
 	if ($add_agent) {
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; spip/; +http://www.spip.net)');
-	}
-
-	if ($post == true) {
-		// TODO
-		// for yellowlab only, adjust with others services
-		$var_post = '{"url":"'. $params . '"}';
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $var_post);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
 	}
 
 	if (!$result = curl_exec($ch)) {
@@ -189,111 +165,4 @@ function sizePage($href) {
 		}
 
 		return array('result' => $result, 'poids' => $poids);
-}
-
-/**
- * Récupére les données depuis l'api google pageSpeed
- *
- * @param string $href
- * @return array resultat
- */
-function getPageSpeedGoogle($href) {
-		$url_pagespeed = 'https://www.googleapis.com/pagespeedonline/v1/runPagespeed?url=';
-		if (function_exists('curl_init')) {
-			$result = curl_get($url_pagespeed.$href, false);
-		} else {
-			$result = recupererLapage($url_pagespeed.$href);
-			$result = $result[1];
-		}
-
-		$result = json_decode($result, false);
-
-		if (isset($result) && isset($result->{'responseCode'})) {
-			$score = $result->{'score'};
-			$pagestats = $result->{'pageStats'};
-			$minifycss = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyCss'}->{'ruleImpact'};
-			$minifycss_msg = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyCss'}->{'urlBlocks'};
-			foreach ($minifycss_msg[0]->{'header'} as $key => $value) {
-				if ($key == 'format') {
-					$minifycss_msg = $value;
-				}
-			}
-			$minifyhtml = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyHTML'}->{'ruleImpact'};
-			$minifyhtml_msg = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyHTML'}->{'urlBlocks'};
-			foreach ($minifyhtml_msg[0]->{'header'} as $key => $value) {
-				if ($key == 'format') {
-					$minifyhtml_msg = $value;
-				}
-			}
-			$minifyjavascript = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyJavaScript'}->{'ruleImpact'};
-			$minifyjavascript_msg = $result->{'formattedResults'}->{'ruleResults'}->{'MinifyJavaScript'}->{'urlBlocks'};
-			foreach ($minifyjavascript_msg[0]->{'header'} as $key => $value) {
-				if ($key == 'format') {
-					$minifyjavascript_msg = $value;
-				}
-			}
-		}
-		
-		return array('score' => $score,
-					'pagestats' => $pagestats,
-					'minifycss' => $minifycss,
-					'minifycss_msg' => $minifycss_msg,
-					'minifyhtml' => $minifyhtml,
-					'minifyhtml_msg' => $minifyhtml_msg,
-					'minifyjavascript' => $minifyjavascript,
-					'minifyjavascript_msg' => $minifyjavascript_msg);
-}
-
-
-/**
- * Récupére les données depuis l'api de yellowlab
- *
- * @param string $href
- * @return array resultat
- */
-function getYellowLab($href) {
-		// form URL
-		// return API key
-		// POST http://yellowlab.tools/api/runs
-		// result
-		// GET http://yellowlab.tools/api/runs/<runId>
-		if (function_exists('curl_init')) {
-			$href = preg_replace('#^http(s)?://#', '', $href);
-			$get_api = curl_get('http://yellowlab.tools/api/runs', false, false, 80, false, false, true, $href);
-			// Result
-			// Moved Temporarily. Redirecting to /api/results/e2gn05k8pzc
-			$get_api = explode('to', $get_api);
-			$result = curl_get('http://yellowlab.tools' . trim($get_api[1]), false);
-		} else {
-			$get_api = recupererLapage('http://yellowlab.tools/api/runs', '', true);
-			$result = recupererLapage('http://yellowlab.tools/api/runs/' . $get_api, '', true);
-			$result = $result[1];
-		}
-
-		if ($result == 'Too many requests') {
-			return false;
-		}
-		if (!$result) {
-			return false;
-		}
-
-		$donnees = array();
-		$donnees_rules = array();
-		$result = json_decode($result, false);
-		$scoreProfiles = $result->{'scoreProfiles'}->{'generic'}->{'categories'};
-		$globalScore = $result->{'scoreProfiles'}->{'generic'}->{'globalScore'};
-		if ($scoreProfiles) {
-			foreach ($scoreProfiles as $valueScore) {
-				foreach ($valueScore as $cle => $valeur) {
-					array_push($donnees, array($cle => $valeur));
-					if (is_array($valeur)) {
-						foreach ($valeur as $key => $val) {
-							$rules = $result->{'rules'}->{'' .$val . ''};
-							array_push($donnees, $rules);
-						}
-					}
-				}
-			}
-		}
-		return array('donnees' => $donnees, 'globalscore' => $globalScore);
 }

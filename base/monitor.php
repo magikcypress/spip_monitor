@@ -52,7 +52,7 @@ function monitor_declarer_tables_objets_sql($tables) {
 		),
 		'key' => array(
 			'PRIMARY KEY'	=> 'id_monitor',
-			'UNIQUE KEY'	=> 'id_syndic,type',
+			'UNIQUE KEY'	=> 'id_syndic, type',
 		)
 	);
 
@@ -101,7 +101,7 @@ function monitor_declarer_tables_objets_sql($tables) {
 			'version' => "varchar(255) default '' NOT NULL",
 		),
 		'key' => array(
-			'PRIMARY KEY'	=> 'id_monitor_stats,plugin',
+			'PRIMARY KEY'	=> 'id_monitor_stats, plugin',
 		)
 	);
 

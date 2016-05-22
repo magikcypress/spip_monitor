@@ -4,19 +4,3 @@
 	color: #8a1f11; 
 	padding: .2em;
 }
-
-.boite-score, .boite-subscore, .score-yellowlab, .score, .subscore-yellowlab, .label-yellowlab { text-align: center; }
-
-.boite-score { display: block; padding: .5em; }
-.boite-subscore { padding: .1em; }
-.score-yellowlab { font-size: 2em; }
-.score { font-weight: bold; }
-.boite-score, .boite-subscore, .subscore-yellowlab, .label-yellowlab { font-size: 1.2em; }
-
-.A { background: #0C4; }
-.B { background: #CD0; }
-.C { background: #FD2; }
-.D { background: #FA2; }
-.E { background: #F60; }
-.F { background: #F22; }
-.NA { background: #CCC; }
