@@ -1,12 +1,12 @@
 <paquet
 	prefix="monitor"
 	categorie="statistique"
-	version="1.0.4"
+	version="1.0.5"
 	etat="dev"
 	compatibilite="[3.0.0;3.1.*]"
 	logo="prive/themes/spip/images/monitor-32.png"
 	documentation=""
-	schema="1.6"
+	schema="1.7"
 >
 
 	<nom>Monitor</nom>
@@ -18,11 +18,13 @@
 
 	<necessite nom="sites" />
 	<necessite nom="d3js" />
+	<necessite nom="geoip" />
 
 	<pipeline nom="declarer_tables_interfaces" inclure="base/monitor.php" />
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/monitor.php" />
 	<pipeline nom="affiche_milieu" inclure="monitor_pipelines.php" />
 	<pipeline nom="affiche_gauche" inclure="monitor_pipelines.php" />
+	<pipeline nom="d3js_plugins" inclure="monitor_pipelines.php" />
 	<pipeline nom="insert_head_css" action="insert_head_css" inclure="monitor_pipelines.php" />
 	<pipeline nom="taches_generales_cron" inclure="monitor_pipelines.php" />
 	<pipeline nom="header_prive_css" action="header_prive_css" inclure="monitor_pipelines.php" />

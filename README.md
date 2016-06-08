@@ -22,6 +22,10 @@ Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 
 
 # Version 1.0.x
 
+## Version 1.0.5
+
+* Déplacement de la lib geoIP dans le bon répertoire
+
 ## Version 1.0.4
 
 * La notification matinale spam trop quand on est sur le site la nuit

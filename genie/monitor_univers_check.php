@@ -15,19 +15,20 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 
 include_spip('lib/Monitor/univers_analyser');
 
-// http://doc.spip.org/@genie_monitor_univers_check
-// Source: http://zone.spip.org/trac/spip-zone/browser/_dev_/univers_spip/
+/**
+ * Tâche de fond pour le monitoring
+ *
+ * @param string $t
+ *
+ */
 function genie_monitor_univers_check_dist($t) {
 
 	if (lire_config('monitor/activer_monitor') == 'oui') {
 
-		$nb_site = lire_config('monitor/nb_site');
-		if (!$nb_site) {
-			$nb_site = 5;
-		}
+		$nb_site = lire_config('monitor/nb_site', 5);
 
 		// On limite le genie à l'adresse ip du serveur pour ne pas embêter les utilisateurs
-		if ($GLOBALS['ip'] == $_SERVER['SERVER_ADDR']) {
+		if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
 			// On insert 5 sites qui ne sont pas encore traités
 			$sites = sql_allfetsel('monitor.id_syndic, site.statut_stats,  site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic AND monitor.type = "ping"', 'site.statut_stats!="oui"', '', '', '0,'.$nb_site.'');
 			foreach ($sites as $row) {

@@ -19,7 +19,7 @@ function action_recuperer_monitor_dist() {
 	$arg = $securiser_action();
 
 	include_spip('lib/Monitor/MonitorSites');
-	include_spip('genie/monitor.php');
+	include_spip('genie/monitor');
 
 	$site = sql_fetsel('id_syndic, url_site', 'spip_syndic', 'id_syndic=' . intval($arg));
 	$result = updateWebsite($site['url_site']);

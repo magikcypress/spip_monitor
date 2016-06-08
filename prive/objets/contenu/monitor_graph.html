@@ -12,9 +12,9 @@
 #SET{type,#ENV{type}}
 
 <div class="pagination">
-  <a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'annee'})]" class="ajax"><:monitor:graph_annee:></a> |
-  <a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'mois'})]" class="ajax"><:monitor:graph_mois:></a> |
-  <a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'semaine'})]" class="ajax"><:monitor:graph_semaine:></a>
+	<a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'annee'})]" class="ajax"><:monitor:graph_annee:></a> |
+	<a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'mois'})]" class="ajax"><:monitor:graph_mois:></a> |
+	<a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'semaine'})]" class="ajax"><:monitor:graph_semaine:></a>
 </div>
 
 <div class="box_graph #ENV{type}"></div>
@@ -44,7 +44,7 @@ var margin = {top: 20, right: 40, bottom: 50, left: 40},
 	height = 500 - margin.top - margin.bottom;
 
 var parseDate = d3_locale_fr.timeFormat("%Y-%m-%d %H:%M:%S").parse;
-var tooltipDate = d3_locale_fr.timeFormat("%e %b");
+var tooltipDate = d3_locale_fr.timeFormat("%e %b %H:%M:%S");
 
 var x = d3.time.scale()
 	.range([0, width]);
@@ -62,8 +62,8 @@ var yAxis = d3.svg.axis()
 	.orient("left");
 
 var line = d3.svg.line()
-	.x(function(d) { return x(d.date); })
-	.y(function(d) { return y(d.valeur); });
+	.x(function(d) { return x(parseDate(d.label)); })
+	.y(function(d) { return y(d.value); });
 
 var div = d3.select("body")
 	.append("div")
@@ -76,15 +76,10 @@ var svg_#ENV{type} = d3.select(".box_graph.#ENV{type}").append("svg")
 	.append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre_url{type,#ENV{type},&}|parametre_url{periode,#ENV{periode},&})]", function(error, data) {
-  
-	data.forEach(function(d) {
-		d.date = parseDate(d.date);
-		d.valeur = +d.valeur;
-  	});
+var data = [(#INCLURE{fond=json/monitor_json,id_syndic,type,periode})];
 
-	x.domain(d3.extent(data, function(d) { return d.date; }));
-	y.domain(d3.extent(data, function(d) { return d.valeur; }));
+	x.domain(d3.extent(data, function(d) { return parseDate(d.label); }));
+	y.domain(d3.extent(data, function(d) { return d.value; }));
 
 	svg_#ENV{type}.append("g")
 		.attr("class", "x axis")
@@ -119,8 +114,8 @@ d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre
 		.enter().append("circle")
 		.attr("class", "circle")
 		.attr("r", 6)
-		.attr("cx", function(d) { return x(d.date); })         
-		.attr("cy", function(d) { return y(d.valeur); })
+		.attr("cx", function(d) { return x(parseDate(d.label)); })
+		.attr("cy", function(d) { return y(d.value); })
 		.on("mouseover", function(d) {
 			div.transition()
 				.duration(500)
@@ -128,7 +123,7 @@ d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre
 			div.transition()
 				.duration(200)
 				.style("opacity", .9);    
-			div.html(tooltipDate(d.date) + "<br/>"  + d.valeur + " #GET{titre_tooltip}")
+			div.html(tooltipDate(parseDate(d.label)) + "<br/>"  + d.value + " #GET{titre_tooltip}")
 				.style("left", (d3.event.pageX) + "px")
 				.style("top", (d3.event.pageY - 48) + "px")
 				.style("z-index", 5000); 
@@ -140,7 +135,7 @@ d3.csv("[(#URL_PAGE{monitor_csv}|parametre_url{id_syndic,#ID_SYNDIC,&}|parametre
 		.on("mouseout", function(d) {
 			div.style("opacity", 0);
 		});
-});
+//});
 </script>
 
 </BOUCLE_site_monitor>

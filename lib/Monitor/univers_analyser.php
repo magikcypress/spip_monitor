@@ -258,7 +258,10 @@ function univers_analyser_un($row, $debug = false) {
 		$set['php'] = $res['php']?$res['php']:'';
 		$set['gzip'] = $res['gzip']?'oui':'';
 		$set['version'] = $res['version'];
-		$set['pays'] = univers_geoip($set['ip']);
+		
+		if(function_exists('geoip_lite_code_by_addr')) {
+			$set['pays'] = geoip_lite_code_by_addr($set['ip']);
+		}
 
 		if (isset($res['spip'])) {
 			
@@ -295,27 +298,4 @@ function univers_analyser_un($row, $debug = false) {
 		return;
 	}
 
-}
-
-
-/**
- * Find state information from IP adress with GeoIP tool
- *
- * @staticvar string $gi
- * @param string $ip
- * @return string
- */
-function univers_geoip($ip = null) {
-	static $gi = null;
-	if (is_null($ip)) {
-		include_spip('geoip/geoip');
-		geoip_close($gi);
-		return;
-	}
-	if (is_null($gi)) {
-		include_spip('geoip/geoip');
-		$gi = geoip_open(find_in_path('geoip/GeoIP.dat'), GEOIP_STANDARD);
-	}
-
-	return geoip_country_code_by_addr($gi, $ip);
 }

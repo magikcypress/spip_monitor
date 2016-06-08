@@ -1,0 +1,24 @@
+<B_poids_monitor_semaine>[
+<BOUCLE_poids_monitor_semaine(MONITOR_LOG){si #ENV{periode,semaine}|=={'semaine'}}{id_syndic}{statut=poids}{par maj}{inverse}{diff_par_semaine maj}{','}>
+{ 
+	"label" : "#MAJ",
+	"value" : "[(#VALEUR|div{1024}|round{2})]"
+}</BOUCLE_poids_monitor_semaine>
+]</B_poids_monitor_semaine>
+
+<B_poids_monitor_mois>[
+<BOUCLE_poids_monitor_mois(MONITOR_LOG){si #ENV{periode,semaine}|=={'mois'}}{id_syndic}{statut=poids}{par maj}{inverse}{diff_par_mois maj}{','}>
+{ 
+	"label" : "#MAJ",
+	"value" : "[(#VALEUR|div{1024}|round{2})]"
+}</BOUCLE_poids_monitor_mois>
+]</B_poids_monitor_mois>
+
+<B_poids_monitor_annee>[
+<BOUCLE_poids_monitor_annee(MONITOR_LOG){si #ENV{periode,semaine}|=={'annee'}}{id_syndic}{statut=poids}{par maj}{inverse}{diff_par_annee maj}{','}>
+{ 
+	"label" : "#MAJ",
+	"value" : "[(#VALEUR|div{1024}|round{2})]"
+}</BOUCLE_poids_monitor_annee>
+]</B_poids_monitor_annee>
+#FILTRE{trim}

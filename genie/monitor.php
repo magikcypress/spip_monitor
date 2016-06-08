@@ -16,6 +16,10 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 /**
  * Notification envoi
  *
+ * @param string $texte_sujet
+ * @param string $texte_corps
+ * @return string structure du message
+ *
  */
 function notification_envoyer($texte_sujet, $texte_corps) {
 	$sujet = '[' . $GLOBALS['meta']['nom_site'] .'] ' . $texte_sujet;
@@ -26,6 +30,10 @@ function notification_envoyer($texte_sujet, $texte_corps) {
 
 /**
  * Notification par email des sites à problème
+ *
+ * @param string $href
+ * @param string $type
+ * @return string envoi de la notification
  *
  */
 function notification_monitor($href, $type) {
@@ -45,12 +53,13 @@ function notification_monitor($href, $type) {
 	$date_soir = strtotime('10pm', time());
 	$date_matin = strtotime('8am', time());
 
-	if ($now >= $date_soir) {
-		$id_syndic = sql_getfetsel('id_syndic', 'spip_monitor', 'statut = "oui" and alert=5');
-		if ($id_syndic) {
-			notification_envoyer($texte_sujet, $texte_corps);
-		}
-	} elseif ($now >= $date_matin) {
+	// if ($now <= $date_soir) {
+	// 	$id_syndic = sql_getfetsel('id_syndic', 'spip_monitor', 'statut = "oui" and alert=5');
+	// 	if ($id_syndic) {
+	// 		notification_envoyer($texte_sujet, $texte_corps);
+	// 	}
+	// } else
+	if ($now >= $date_matin and $now <= $date_soir) {
 		notification_envoyer($texte_sujet, $texte_corps);
 	}
 
@@ -60,14 +69,16 @@ function notification_monitor($href, $type) {
 /**
  * Notification par email des sites tombés pendant la nuit
  *
+ * @return string envoi de la notification de la nuit
+ *
  */
 function monitor_notification_recap_matin() {
 
 	$now = time();
 	$date_matin_debut = strtotime('8am', time());
-	$date_matin_fin = strtotime('9am', time());
+	$date_matin_fin = strtotime('8:10am', time());
 
-	if ($now >= $date_matin_debut) {
+	if ($now >= $date_matin_debut and $now <= $date_matin_fin) {
 
 		$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui" and alert >= 5');
 
@@ -80,8 +91,6 @@ function monitor_notification_recap_matin() {
 		$texte_corps = _T('monitor:alert_latence_recap_corps', array('url_sites' => $site['url_site']));
 		notification_envoyer($texte_sujet, $texte_corps);
 
-	} elseif ($now >= $date_matin_fin) {
-		return false;
 	}
 
 	return false;
@@ -115,19 +124,18 @@ function genie_monitor_insert($id_syndic, $statut, $log, $valeur, $alert) {
  *
  */
 function genie_monitor_dist($t) {
+	spip_timer('genie_monitor');
 	if (lire_config('monitor/activer_monitor') == 'oui') {
 		include_spip('lib/Monitor/MonitorSites');
 
-		$nb_site = lire_config('monitor/nb_site');
-		if (!$nb_site) {
-			$nb_site = 5;
-		}
+		$nb_site = lire_config('monitor/nb_site', '5');
 
 		// On limite le genie à l'adresse ip du serveur pour ne pas embêter les utilisateurs
-		if ($GLOBALS['ip'] == $_SERVER['SERVER_ADDR']) {
+		if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
+			
 			// Aller chercher les derniers ping dans spip_syndic
 			$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
-			// spip_log($sites, 'test.' . _LOG_ERREUR);
+
 			foreach ($sites as $site) {
 				$result = updateWebsite($site['url_site']);
 
@@ -189,16 +197,15 @@ function genie_monitor_dist($t) {
 
 			monitor_optimiser_sites_effaces();
 			monitor_notification_recap_matin();
-			spip_log('passe ici monitor', 'test.' . _LOG_ERREUR);
 		}
 	}
+
+	return 0;
 }
 
 /**
  * Supprimer les donnees pour les sites refusés de plus de 3 mois
  *
- * @param array $flux
- * @return array
  */
 function monitor_optimiser_sites_effaces() {
 

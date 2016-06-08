@@ -14,6 +14,19 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
 
+/**
+ * Ajoute des scripts D3JS dans l'espace privé
+ *
+ * @param string $plugins 
+ * @return string
+**/
+function monitor_d3js_plugins($plugins) {
+	// if (test_espace_prive()) {
+		$plugins[] = 'crossfilter.v1';
+	// }
+	return $plugins;
+}
+
 function monitor_affiche_gauche($flux) {
 	return monitor_boite_info($flux, 'affiche_gauche');
 }
@@ -91,7 +104,8 @@ function monitor_affiche_milieu($flux) {
 							'id_syndic'=>$id_syndic,
 							'type'=>'ping',
 							'periode'=>$periode
-						)
+						),
+						'ajax'
 		);
 		$texte .= recuperer_fond(
 						'prive/objets/contenu/monitor_graph',
@@ -99,7 +113,8 @@ function monitor_affiche_milieu($flux) {
 							'id_syndic'=>$id_syndic,
 							'type'=>'poids',
 							'periode'=>$periode
-						)
+						),
+						'ajax'
 		);
 		if ($p=strpos($flux['data'], '<!--affiche_milieu-->')) {
 			$flux['data'] = substr_replace($flux['data'], $texte, $p, 0);
