@@ -14,19 +14,6 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
 
-/**
- * Ajoute des scripts D3JS dans l'espace privé
- *
- * @param string $plugins 
- * @return string
-**/
-function monitor_d3js_plugins($plugins) {
-	// if (test_espace_prive()) {
-		$plugins[] = 'crossfilter.v1';
-	// }
-	return $plugins;
-}
-
 function monitor_affiche_gauche($flux) {
 	return monitor_boite_info($flux, 'affiche_gauche');
 }

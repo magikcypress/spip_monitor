@@ -22,6 +22,11 @@ Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 
 
 # Version 1.0.x
 
+## Version 1.0.6
+
+- Optimisation des graphs en utilisant JSON au lieu de CSV
+- Petites pétouilles
+
 ## Version 1.0.5
 
 * Déplacement de la lib geoIP dans le bon répertoire

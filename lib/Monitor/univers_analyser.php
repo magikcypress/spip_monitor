@@ -259,8 +259,8 @@ function univers_analyser_un($row, $debug = false) {
 		$set['gzip'] = $res['gzip']?'oui':'';
 		$set['version'] = $res['version'];
 		
-		if(function_exists('geoip_lite_code_by_addr')) {
-			$set['pays'] = geoip_lite_code_by_addr($set['ip']);
+		if(function_exists('geoip_informations')) {
+			$set['pays'] = geoip_informations($set['ip']);
 		}
 
 		if (isset($res['spip'])) {

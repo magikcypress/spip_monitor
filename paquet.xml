@@ -12,7 +12,8 @@
 	<nom>Monitor</nom>
 	<!--Ce plugin permet de monitorer des sites web-->
 
-	<auteur>cyp</auteur>
+	<auteur mail="cyp@rouquin.me">cyp</auteur>
+	<auteur lien="http://www.kent1.info">kent1</auteur>
 
 	<licence>GNU/GPL</licence>
 
