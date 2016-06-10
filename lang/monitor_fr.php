@@ -53,10 +53,14 @@ Passe une bonne journée,
 Nono',
 
 	// B
-	'bouton_activer_ping' => 'Activer le "ping" sur l\'ensemble des sites',
-	'bouton_activer_poids' => 'Activer le "poids" sur l\'ensemble des sites',
-	'bouton_desactiver_ping' => 'Désactiver le "ping" sur l\'ensemble des sites',
-	'bouton_desactiver_poids' => 'Désactiver le "poids" sur l\'ensemble des sites',
+	'bouton_activer_ping' => 'Activer le "ping" sur tous les sites',
+	'bouton_activer_poids' => 'Activer le "poids" sur tous les sites',
+	'bouton_desactiver_ping' => 'Désactiver le "ping" sur tous les sites',
+	'bouton_desactiver_poids' => 'Désactiver le "poids" sur tous les sites',
+
+	// C
+	'c_sites_monitores' => 'Comment monitorer un site ?',
+	'c_sites_monitores_texte' => 'Vous ne pourrez monitorer un site depuis cette page qu’à partir du moment où vous avez activé le plugins dans la configuration et que vous avez ajouté un nouveau site syndiqué. Vous pouvez syndiquer un site depuis le menu « Édition », puis « Site Référencés ».',
 
 	// L
 	'legend_obligatoire_monitor' => 'Variables fixes et obligatoires',
@@ -85,7 +89,7 @@ Nono',
 	'form_recuperer_site' => 'Récupérer la latence et le poids pour ce site',
 	'form_resultat' => 'Résultats',
 	'form_retry' => 'Retry',
-	'form_server' => 'Nom du serveur',
+	'form_server' => 'Type de serveur',
 	'form_spip' => 'Version du CMS',
 	'form_statstechnic' => 'Données techniques',
 	'form_status' => 'Status',
@@ -122,8 +126,8 @@ Nono',
 	'titre_monitor_sites' => 'Activer Monitor pour les sites',
 	'titre_monitor_ping' => 'Activer le monitoring (ping) pour ce site',
 	'titre_monitor_poids' => 'Activer le monitoring (poids page) pour ce site',
-	'titre_page_monitor_ping' => 'Liste des sites sous monitor (ping)',
-	'titre_page_monitor_poids' => 'Liste des sites sous monitor (poids)',
+	'titre_page_monitor_ping' => 'Liste des sites monitorés (ping)',
+	'titre_page_monitor_poids' => 'Liste des sites monitorés (poids)',
 	'titre_monitor_liste' => 'Liste des sites sous monitor',
 	'titre_activer_nb_site' => 'Nombre de site',
 );

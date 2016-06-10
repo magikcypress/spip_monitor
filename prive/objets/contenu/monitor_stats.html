@@ -6,6 +6,7 @@
 <BOUCLE_si_activer(CONDITION){si #CONFIG{monitor/activer_monitor}|=={oui}}{si #GET{activer_action}|=={oui}}>
 
 <B_stats_monitor>
+
 <div class="liste-objets sites syndic">
 <table class='liste'>
 <caption><strong class="caption"><:monitor:form_statstechnic:></strong></caption>
@@ -15,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-    <BOUCLE_stats_monitor(MONITOR_STATS){id_syndic}>
+    <BOUCLE_stats_monitor(MONITOR_STATS){id_syndic}{par date}{inverse}{0,1}>
         [<tr>
             <th class='ip' scope='col'><:monitor:form_ip:></th>
             <td class='ip'>(#IP)</td>
@@ -74,12 +75,10 @@
     </BOUCLE_stats_monitor>
     </tbody>
 </table>
-	<div style="text-align: right">
-		[(#BOUTON_ACTION{<:monitor:form_recuperer_stats:>, [(#URL_ACTION_AUTEUR{instituer_monitor_stats, #ID_SYNDIC, [(#SELF)]})]})]
-	</div>
 </div>
-</B_stats_monitor>[
-<div class="liste-objets sites caption-wrap"><strong class="caption">(#ENV*{sinon,''})</strong></div>
-]<//B_stats_monitor>
+</B_stats_monitor>
+    <div class="liste-objets sites caption-wrap"><strong class="caption">Aucun résultat</strong>
+</div>
+<//B_stats_monitor>
 
 </BOUCLE_si_activer>

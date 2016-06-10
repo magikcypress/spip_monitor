@@ -23,6 +23,7 @@
 
 	<pipeline nom="declarer_tables_interfaces" inclure="base/monitor.php" />
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/monitor.php" />
+	<pipeline nom="compagnon_messages" inclure="monitor_pipelines.php" />
 	<pipeline nom="affiche_milieu" inclure="monitor_pipelines.php" />
 	<pipeline nom="affiche_gauche" inclure="monitor_pipelines.php" />
 	<pipeline nom="d3js_plugins" inclure="monitor_pipelines.php" />

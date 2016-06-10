@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-    <BOUCLE_liste_monitor(MONITOR){type=#ENV{type}}{statut=oui}{id_syndic}>
+    <BOUCLE_liste_monitor(MONITOR){type=#ENV{type}}{statut="oui"}{id_syndic}>
     <BOUCLE_site_monitor(SYNDIC){id_syndic}{statut IN prop,publie}>
         <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
             <td class='statut'>[(#STATUT_LOG|puce_statut{monitor,#ID_SYNDIC})]</td>

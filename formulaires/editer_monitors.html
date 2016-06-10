@@ -17,7 +17,7 @@
 	<table>
 		<tr>
 			<BOUCLE_bouton(DATA){source table, #LISTE{'ping', 'poids'}}>
-			<td>					
+			<td class="center">					
 				[(#BOUTON_ACTION{[(#VAL{monitor:bouton_activer_}|concat{#VALEUR}|_T)],#URL_ACTION_AUTEUR{instituer_monitor,#VALEUR-oui,#SELF},ajax})]
 				[(#BOUTON_ACTION{[(#VAL{monitor:bouton_desactiver_}|concat{#VALEUR}|_T)],#URL_ACTION_AUTEUR{instituer_monitor,#VALEUR-non,#SELF},ajax})]
 			</td>

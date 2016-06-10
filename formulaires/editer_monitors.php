@@ -61,9 +61,10 @@ function formulaires_editer_monitors_traiter_dist() {
 	foreach (array('ping', 'poids') as $key) {
 		$type = sql_getfetsel('id_syndic', 'spip_monitor', 'id_syndic=' . intval($id_syndic) . ' and type=' . sql_quote($key));
 		if (!$type) {
-			sql_insertq('spip_monitor', array('id_syndic'=>$id_syndic, 'statut'=>_request('activer_monitor_'. $key) ,'type'=>$key, 'date_modif' => date('Y-m-d H:i:s')));
+			sql_insertq('spip_monitor', array('id_syndic' => intval($id_syndic), 'statut' => _request('activer_monitor_'. $key) ,'type' => $key, 'date_modif' => date('Y-m-d H:i:s')));
+			sql_updateq('spip_syndic', array('statut_log' => 'non', 'statut_stats' => 'non'), 'id_syndic = ' . intval($id_syndic));
 		} else {
-			sql_updateq('spip_monitor', array('statut'=>_request('activer_monitor_' . $key)), 'id_syndic=' . intval($id_syndic) . ' and type=' . sql_quote($key));
+			sql_updateq('spip_monitor', array('statut' => _request('activer_monitor_' . $key)), 'id_syndic=' . intval($id_syndic) . ' and type = ' . sql_quote($key));
 		}
 	}
 		

@@ -63,6 +63,13 @@ function monitor_affiche_milieu($flux) {
 						)
 		);
 		$texte .= recuperer_fond(
+						'prive/objets/contenu/monitor_recupstats',
+						array(
+							'id_syndic'=>$id_syndic,
+							'id_monitor_stats'=>$id_monitor_stats
+						)
+		);
+		$texte .= recuperer_fond(
 						'prive/objets/contenu/monitor_details',
 						array(
 							'id_syndic'=>$id_syndic,
@@ -121,6 +128,51 @@ function monitor_affiche_milieu($flux) {
 		} else {
 			$flux['data'] .= $texte;
 		}
+	}
+
+	return $flux;
+}
+
+
+/**
+ * Définition des messages de compagnon par défaut en fonction
+ *
+ * Retourne une liste de messages d'aides en fonction du pipeline
+ * demandé
+ *
+ * @pipeline compagnon_messages
+ *
+ * @param array $flux
+ *     Données du pipeline
+ * @return array $flux
+ *     Données du pipeline
+ **/
+function monitor_compagnon_messages($flux) {
+
+	$exec = $flux['args']['exec'];
+	$pipeline = $flux['args']['pipeline'];
+	$vus = $flux['args']['deja_vus'];
+	$aides = &$flux['data'];
+
+	switch ($pipeline) {
+
+		case 'affiche_milieu':
+			switch ($exec) {
+
+				case 'liste_monitor':
+					// eviter si possible une requete sql.
+					if (!isset($vus['liste_monitor']) and !sql_countsel('spip_monitor')) {
+						$aides[] = array(
+							'id' => 'liste_monitor',
+							'titre' => _T('monitor:c_sites_monitores'),
+							'texte' => _T('monitor:c_sites_monitores_texte'),
+							'statuts' => array('webmestre')
+						);
+					}
+					break;
+			}
+			break;
+
 	}
 
 	return $flux;

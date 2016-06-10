@@ -1,6 +1,1 @@
-.alert-erreur { 
-    border-top-radius: 5px;
-	background-color: #fbe3e4; 
-	color: #8a1f11; 
-	padding: .2em;
-}
+.boutons_droite { margin: 20px 0; text-align: right; }

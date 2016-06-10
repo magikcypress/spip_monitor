@@ -22,11 +22,9 @@ include_spip('inc/meta');
 include_spip('lib/Monitor/MonitorSites');
 
 /**
- * Get the complete page.
- * Should be sub.something.tld/spip.php
+ * Récupérer la page compléte.
+ * Peut-être sub.something.tld/spip.php
  *
- * Some site set a cookie then redirect before everything else
- * so we have to accept it
  *
  * @param string $url
  * @param string $cookie
@@ -38,8 +36,8 @@ function univers_recuperer_lapage($url, $cookie = '') {
 }
 
 /**
- * Get address by host.
- * Use nslookup instead of php function
+ * Récupérer l'adresse host
+ * Utilise nslookup à la place de la fonction php
  *
  * @param string $host
  * @param int $timeout
@@ -54,7 +52,7 @@ function univers_getaddrbyhost($host, $timeout = 3) {
 }
 
 /**
- * Analyse a site to check it's made with SPIP and find versions and plugins
+ * Analyser le site et vérifier si c'est du SPIP et trouver les versions et les plugins
  *
  * @param string $url
  * @param bool $debug
@@ -71,15 +69,14 @@ function univers_analyser($url, $debug = false) {
 
 	$res['ip'] = $ip;
 
-	// get the complete page
+	// Récupérer la page compléte
 	$site = univers_recuperer_lapage($url);
 	if (!$site) {
 		$res['response'] = false;
 		return $res;
 	}
 
-	// get the complete ecran de sécurité page
-	// Not work without curl
+	// Récupérer lécran de sécurité
 	if (function_exists('curl_init')) {
 		$ecran_secu = univers_recuperer_lapage($path['scheme'] . '://' . $path['host'] . '/?test_ecran_securite=1');
 		if (!$ecran_secu) {
@@ -103,14 +100,14 @@ function univers_analyser($url, $debug = false) {
 }
 
 /**
- * Parse header and check version and more informations
+ * Parser l'entête et vérifier la version et plus d'informations
  *
  * @param string $header
  * @return array
  */
 function parse_header($header, $res, $page = '', $url) {
 
-	// get some generic informations (server, php, gzip)
+	// Récupérer les informations génériques (serveur, php, gzip)
 	if (preg_match(',Server: (.*)$,m', $header, $r)) {
 		$res['server'] = $r[1];
 	}
@@ -121,7 +118,7 @@ function parse_header($header, $res, $page = '', $url) {
 		$res['gzip'] = true;
 	}
 
-	// check if the header says "Hey, i'm made with SPIP"
+	// Vérifier si l'entête dit "Hey, c'est fabriqué avec SPIP"
 	if (preg_match($regexp = ',Composed-By: (.*)( @ www.spip.net)( ?\+ ?(.*))?$,m', $header, $r)) {
 		// essayer de choper local/config.txt si il est la car plus complet si le header semble coupe
 		if (substr($header, -1) !== ')') {
@@ -148,20 +145,20 @@ function parse_header($header, $res, $page = '', $url) {
 			$res['plugins'] = false;
 		}
 	} else {
-		// Check if the header says "Hey, i'm made with otherCMS"
+		// Vérifier si l'entête dit "Hey, c'est fabriqué avec un autre CMS"
 		$res['otherscms'] = '?';
 	}
 
-	// else, find another clue
-	// if 'spip' is in the html, there are some chance that it is a SPIP site
+	// Sinon, trouver un autre indice
+	// Si "spip" est dans le code HTML, une chance que ce soit un site SPIP
 	if (!isset($res['spip'])) {
 		if (preg_match(',spip,i', $page)) {
 			$res['spip'] = '';
 		}
 	}
 
-	// if maybe but not sure, try to get the login page
-	// it should have some information that says "SPIP"
+	// Si peut-être, mais pas sûr, essayez d'obtenir la page de connexion
+	// Il devrait avoir quelques informations qui parle de "spip"
 	if (isset($res['spip']) and (!$res['spip'] or $res['spip']=='?')) {
 		// recuperer la page de login
 		$login = preg_replace(',spip[.]php.*$,', '', $url) . 'ecrire/';
@@ -175,9 +172,9 @@ function parse_header($header, $res, $page = '', $url) {
 		}
 	}
 
-	// if we did'nt found login page, or there whas no information
-	// try to get the htaccess.txt delivered with SPIP,
-	// it has some extra informations
+	// Si nous ne trouvons pas de page de connexion, ou aucune information 
+	// essayer d'obtenir le htaccess.txt livré avec SPIP, 
+	// il a quelques informations supplémentaires
 	if (isset($res['spip']) and (!$res['spip'] or $res['spip']=='?')) {
 		// tenter de recup le htaccess.txt qui contient un numero de version
 		$ht = preg_replace(',spip[.]php.*$,', '', $url) . 'htaccess.txt';
@@ -188,14 +185,14 @@ function parse_header($header, $res, $page = '', $url) {
 			}
 		}
 
-		// if we did'nt found a confirmation and there was only 'spip' in the html
-		// maybe it's an old spip site, but whe mark it apart as it is suspect
+		// Si nous ne trouvons pas de confirmation et qu'il y a 'spip' dans le html 
+		// peut-être une ancienne version de spip
 		if (!$res['spip']) {
 			$res['spip'] = '<1.8?';
 		}
 	}
 
-	// if maybe but not sure, try to get the admin wordpress page
+	// Si c'est une version de wordpress mais pas sure
 	if (isset($res['otherscms']) and (!$res['otherscms'] or $res['otherscms']=='?')) {
 		// recuperer la page d'admin de wordpress
 		$login = preg_replace(',wp-login[.]php.*$,', '', $url);
@@ -209,7 +206,7 @@ function parse_header($header, $res, $page = '', $url) {
 		}
 	}
 
-	// if it is a 404, that was a bad adress
+	// Si c'est une 404
 	if (count($res)==1 and preg_match(',404 ,', $header)) {
 		$res['response'] = '404';
 	} else {
@@ -221,13 +218,14 @@ function parse_header($header, $res, $page = '', $url) {
 }
 
 /**
- * Take one record to check in database, and process it
+ * Prendre un enregistrement pour vérifier dans la base de données
+ * et traiter les données recueillies
  *
  * @param array $row
  * @param bool $debug
  */
 function univers_analyser_un($row, $debug = false) {
-	$id = $row['id_syndic'];
+	$id_syndic = $row['id_syndic'];
 	$url = $row['url_site'];
 	$statut = $row['statut_stats'];
 
@@ -245,6 +243,7 @@ function univers_analyser_un($row, $debug = false) {
 	$res = univers_analyser($url, $debug);
 
 	$set = array();
+	$set['id_syndic'] = $id_syndic;
 	if ($res===false) {
 		$set['retry'] = ++$row['retry'];
 		$set['status'] = 'no-dns';

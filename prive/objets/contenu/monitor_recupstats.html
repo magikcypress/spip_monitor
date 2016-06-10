@@ -5,6 +5,6 @@
 
 <BOUCLE_si_activer(CONDITION){si #CONFIG{monitor/activer_monitor}|=={oui}}{si #GET{activer_action}|=={oui}}>
 	<div class="boutons_droite" class="ajax">
-	    [(#BOUTON_ACTION{<:monitor:form_recuperer_site:>, [(#URL_ACTION_AUTEUR{recuperer_monitor, #ENV{id_syndic}, [(#SELF|parametre_url{'var_mode', 'recalcul'})]})],ajax})]
+	    [(#BOUTON_ACTION{<:monitor:form_recuperer_stats:>, [(#URL_ACTION_AUTEUR{instituer_monitor_stats, #ID_SYNDIC, [(#SELF)],ajax})]})]
 	</div>
 </BOUCLE_si_activer>

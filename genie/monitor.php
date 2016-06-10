@@ -124,15 +124,15 @@ function genie_monitor_insert($id_syndic, $statut, $log, $valeur, $alert) {
  *
  */
 function genie_monitor_dist($t) {
-	spip_timer('genie_monitor');
+
 	if (lire_config('monitor/activer_monitor') == 'oui') {
 		include_spip('lib/Monitor/MonitorSites');
 
 		$nb_site = lire_config('monitor/nb_site', '5');
 
 		// On limite le genie à l'adresse ip du serveur pour ne pas embêter les utilisateurs
-		if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
-			
+		// if ($GLOBALS['ip'] == $_SERVER['SERVER_ADDR']) {
+
 			// Aller chercher les derniers ping dans spip_syndic
 			$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
 
@@ -194,13 +194,11 @@ function genie_monitor_dist($t) {
 			$date_delete = date('Y-m-d', strtotime('-12 month', time()));
 			sql_delete('spip_monitor', ' statut = "oui" and maj < '.sql_quote($date_delete));
 			sql_delete('spip_monitor_log', 'maj < '.sql_quote($date_delete));
-
+			
 			monitor_optimiser_sites_effaces();
 			monitor_notification_recap_matin();
-		}
+		// }
 	}
-
-	return 0;
 }
 
 /**
