@@ -8,6 +8,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
+	'aucun_resultat' => 'Aucun résultat',
 	'activer_monitor' => 'Activer',
 	'activer_monitor_ping' => 'Activer le ping',
 	'activer_monitor_poids' => 'Activer le poids des pages',

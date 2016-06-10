@@ -6,6 +6,6 @@
 <BOUCLE_si_activer(CONDITION){si #CONFIG{monitor/activer_monitor}|=={oui}}{si #GET{activer_action}|=={oui}}>
 	<BOUCLE_monitor(MONITOR){type="ping"}{statut=oui}{id_syndic}>
 		[(#ALERT|>={5}|oui)
-		<div class="error ajax-error none"><:monitor:alert_affichage_milieu{alert=#ALERT}:></div>]
+		<div class="error ajax-error"><:monitor:alert_affichage_milieu{alert=#ALERT}:></div>]
 	</BOUCLE_monitor>
 </BOUCLE_si_activer>

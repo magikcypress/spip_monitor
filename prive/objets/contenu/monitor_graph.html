@@ -11,16 +11,18 @@
 #SET{duree,#ENV{duree,0}}
 #SET{type,#ENV{type}}
 
+[(#ENV*{type}|=={ping}|?{[(#SET{titre_y, 'Latence (en ms)'})],[(#SET{titre_y, 'Poids (en kb)'})]})]
+[(#ENV*{type}|=={ping}|?{[(#SET{titre_tooltip, ' ms'})],[(#SET{titre_tooltip, ' kb'})]})]
+
+[(#ENV*{type}|=={ping}|oui)
 <div class="pagination">
 	<a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'annee'})]" class="ajax"><:monitor:graph_annee:></a> |
 	<a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'mois'})]" class="ajax"><:monitor:graph_mois:></a> |
 	<a href="[(#SELF|parametre_url{'type', #ENV{type}}|parametre_url{'periode', 'semaine'})]" class="ajax"><:monitor:graph_semaine:></a>
-</div>
+</div>]
 
 <div class="box_graph #ENV{type}"></div>
 
-[(#ENV*{type}|=={ping}|?{[(#SET{titre_y, 'Latence (en ms)'})],[(#SET{titre_y, 'Poids (en kb)'})]})]
-[(#ENV*{type}|=={ping}|?{[(#SET{titre_tooltip, ' ms'})],[(#SET{titre_tooltip, ' kb'})]})]
 
 [(#REM) Graphique de latence]
 <script type="text/javascript">
