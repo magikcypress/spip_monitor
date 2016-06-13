@@ -100,6 +100,7 @@ Nono',
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',
 	'icone_monitor_editer' => 'Lister sites Monitorés',
+	'icone_monitor_stats' => 'Stats des sites Monitorés',
 	'info_site_ping' => 'Le site ping bien.',
 	'info_site_noping' => 'Le site ne ping plus.',
 	'item_utiliser_monitor' => 'Activer Monitor',
@@ -109,6 +110,12 @@ Nono',
 	'item_non_utiliser_monitor_ping' => 'Désactiver ping',
 	'item_non_utiliser_monitor_poids' => 'Désactiver poids page',
 	'item_activer_nb_site' => 'Nombre de sites a analyser par le cron',
+
+	// S
+	'statistiques_sites' => 'Statistiques des sites monitoriés',
+	'stats_affiche_tout' => 'Afficher tout',
+	'stats_affiche_bubble' => 'Afficher bubble',
+	'stats_affiche_version' => 'Afficher version',
 
 	// T
 	'texte_monitor' => '<p>Activer Monitor, puis renseigner le formulaire de configuration du plugin</p>',

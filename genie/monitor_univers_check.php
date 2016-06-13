@@ -28,7 +28,7 @@ function genie_monitor_univers_check_dist($t) {
 		$nb_site = lire_config('monitor/nb_site', 5);
 
 		// On limite le genie à l'adresse ip du serveur pour ne pas embêter les utilisateurs
-		// if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
+		if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
 			// On insert 5 sites qui ne sont pas encore traités
 			$sites = sql_allfetsel('monitor.id_syndic, site.statut_stats,  site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic AND monitor.type = "ping"', 'site.statut_stats!="oui"', '', '', '0,'.$nb_site.'');
 			foreach ($sites as $row) {
@@ -55,7 +55,7 @@ function genie_monitor_univers_check_dist($t) {
 				univers_analyser_un($row);
 			}
 			return false;
-		// }
+		}
 
 	}
 	return false;

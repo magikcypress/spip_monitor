@@ -232,12 +232,12 @@ function univers_analyser_un($row, $debug = false) {
 	if ($statut=='oui') {
 		// incrementer le retry et la date avant tout pour ne pas tourner en rond
 		// sur ce site si il timeout
-		sql_updateq('spip_monitor_stats', array('retry'=>$row['retry']+1,'date'=>date('Y-m-d H:i:s'),'status'=>'timeout?'), 'id_monitor_stats=' . intval($id));
-		$id_monitor_stats = sql_getfetsel('id_monitor_stats', 'spip_monitor_stats', 'id_syndic=' . intval($id));
+		sql_updateq('spip_monitor_stats', array('retry'=>$row['retry']+1,'date'=>date('Y-m-d H:i:s'),'status'=>'timeout?'), 'id_syndic=' . intval($id_syndic));
+		$id_monitor_stats = sql_getfetsel('id_monitor_stats', 'spip_monitor_stats', 'id_syndic=' . intval($id_syndic));
 	} else {
-		sql_updateq('spip_syndic', array('statut_stats' => 'oui'), 'id_syndic=' . intval($id));
-		sql_insertq('spip_monitor_stats', array('id_syndic'=>intval($id),'retry'=>$row['retry']+1,'date'=>date('Y-m-d H:i:s'),'status'=>'timeout?'));
-		$id_monitor_stats = sql_getfetsel('id_monitor_stats', 'spip_monitor_stats', 'id_syndic=' . intval($id));
+		sql_updateq('spip_syndic', array('statut_stats' => 'oui'), 'id_syndic=' . intval($id_syndic));
+		sql_insertq('spip_monitor_stats', array('id_syndic'=>intval($id_syndic),'retry'=>$row['retry']+1,'date'=>date('Y-m-d H:i:s'),'status'=>'timeout?'));
+		$id_monitor_stats = sql_getfetsel('id_monitor_stats', 'spip_monitor_stats', 'id_syndic=' . intval($id_syndic));
 	}
 
 	$res = univers_analyser($url, $debug);

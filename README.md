@@ -22,10 +22,16 @@ Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 
 
 # Version 1.0.x
 
+## Version 1.0.7
+
+- Ajout de la liste des stats dans l'interface privé
+- Necessite spip-bonux 
+
 ## Version 1.0.6
 
 - Optimisation des graphs en utilisant JSON au lieu de CSV
 - Petites pétouilles
+- Suppression de la lib geoIP pour necessite le plugin geoIP
 
 ## Version 1.0.5
 

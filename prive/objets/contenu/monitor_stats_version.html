@@ -11,7 +11,7 @@
 	</thead>
 	<tbody>
 	<BOUCLE_sitesspip(MONITOR_STATS){spip like #GET{likev}}{fusion spip}{compte spip}{!par compte_spip}>
-	<tr><td>#SPIP</td><td>#COMPTE{spip} ([(#COMPTE{spip}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+	<tr><td>#SPIP</td><td>[(#COMPTE{spip})] ([(#COMPTE{spip}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
 	</BOUCLE_sitesspip>
 	</tbody>
 </table>
@@ -26,7 +26,7 @@
 	</thead>
 	<tbody>
 		<BOUCLE_hasplug(MONITOR_STATS){spip like #GET{likev}}{fusion plugins}{compte plugins}{!par compte_plugins}{plugins>=1}>
-		<tr><td>#PLUGINS plugins</td><td>#COMPTE{plugins} ([(#COMPTE{plugins}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+		<tr><td>#PLUGINS plugins</td><td>[(#COMPTE{plugins})] ([(#COMPTE{plugins}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
 		</BOUCLE_hasplug>
 	</tbody>
 </table>
@@ -40,27 +40,11 @@
 	</thead>
 	<tbody>
 	<BOUCLE_plugins(monitor_stats_plugins monitor_stats){monitor_stats.spip like #GET{likev}}{fusion plugin}{!par compte_plugin}{compte plugin}>
-		<tr><td>#CHAMP_SQL{plugin}</td><td>#COMPTE{plugin} ([(#COMPTE{plugin}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+		<tr><td>#CHAMP_SQL{plugin}</td><td>[(#COMPTE{plugin})] ([(#COMPTE{plugin}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
 	</BOUCLE_plugins>
 	</tbody>
 </table>
 </B_plugins>
-
-<!--
-<B_pluginsv>
-<h3>Plugins, versionn&#233;s</h3>
-<table>
-	<thead>
-		<tr><th>Version de plugin</th><th>Nombre de sites</th></tr>
-	</thead>
-	<tbody>
-		<BOUCLE_pluginsv(monitor_stats_plugins monitor_stats){monitor_stats.spip like #GET{likev}}{fusion version}{!par compte_version}{compte version}>
-		<tr><td>#VERSION</td><td>#COMPTE{version}</td></tr>
-		</BOUCLE_pluginsv>
-	</tbody>
-</table>
-</B_pluginsv>
-	-->
 
 <B_pays>
 <h3>Pays</h3>
@@ -70,7 +54,7 @@
 	</thead>
 	<tbody>
 	<BOUCLE_pays(MONITOR_STATS){spip like #GET{likev}}{fusion pays}{!par compte_pays}{compte pays}>
-		<tr><td>#PAYS</td><td>#COMPTE{pays} ([(#COMPTE{pays}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+		<tr><td>#PAYS</td><td>[(#COMPTE{pays})] ([(#COMPTE{pays}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
 	</BOUCLE_pays>
 	</tbody>
 </table>

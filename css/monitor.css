@@ -1,1 +1,3 @@
 .boutons_droite { margin: 20px 0; text-align: right; }
+ul.version li { float: left; padding-right: 0.2em; }
+ul.version li:before { content: "- "; };

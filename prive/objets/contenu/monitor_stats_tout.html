@@ -35,14 +35,14 @@
 
 <B_hasplug>
 <h3>Nombre de plugins install&#233;s</h3>
-<p>Nombre total de sites ayant activé un ou plusieurs plugins: <BOUCLE_tothas(MONITOR_STATS){plugins>=1} />#TOTAL_BOUCLE/#GET{total} soit[ (#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%]<//B_tothas></p>
+<p>Nombre total de sites ayant activé un ou plusieurs plugins: <BOUCLE_tothas(MONITOR_STATS){plugins>=1} />#TOTAL_BOUCLE/#GET{total}&nbsp;soit[ (#TOTAL_BOUCLE|mult{100}|div{#GET{total}}|round{1})%]<//B_tothas></p>
 <table>
 	<thead>
 		<tr><th>Nombre de plugins</th><th>Nombre de sites</th></tr>
 	</thead>
 	<tbody>
 		<BOUCLE_hasplug(MONITOR_STATS){fusion plugins}{compte plugins}{!par compte_plugins}{plugins>=1}>
-		<tr><td>#PLUGINS plugins</td><td>#COMPTE{plugins} ([(#COMPTE{plugins}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+		<tr><td>#PLUGINS plugins</td><td>[(#COMPTE{plugins})] ([(#COMPTE{plugins}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
 		</BOUCLE_hasplug>
 	</tbody>
 </table>
@@ -56,13 +56,12 @@
 	</thead>
 	<tbody>
 	<BOUCLE_plugins(monitor_stats_plugins){fusion plugin}{!par compte_plugin}{compte plugin}>
-		<tr><td>#CHAMP_SQL{plugin}</td><td>#COMPTE{plugin} ([(#COMPTE{plugin}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
+		<tr><td>#CHAMP_SQL{plugin}</td><td>[(#COMPTE{plugin})] ([(#COMPTE{plugin}|mult{100}|div{#GET{total}}|round{1})%])</td></tr>
 	</BOUCLE_plugins>
 	</tbody>
 </table>
 </B_plugins>
 
-<!--
 <B_pluginsv>
 <h3>Plugins, versionn&#233;s</h3>
 <table>
@@ -76,7 +75,6 @@
 	</tbody>
 </table>
 </B_pluginsv>
--->
 
 <B_pays>
 <h3>Pays</h3>

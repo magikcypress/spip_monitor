@@ -1,0 +1,10 @@
+<h1 class="grostitre"><:monitor:statistiques_sites:></h1>
+
+<INCLURE{fond=prive/squelettes/contenu/stats_onglets,env} />
+
+[(#ENV{page}|=={tout}|oui)
+<INCLURE{fond=prive/objets/contenu/monitor_stats_tout,env} />]
+[(#ENV{page}|=={version}|oui)
+<INCLURE{fond=prive/objets/contenu/monitor_stats_version,env} />]
+[(#ENV{page}|=={bubble}|oui)
+<INCLURE{fond=prive/objets/contenu/monitor_stats_bubble,env} />]

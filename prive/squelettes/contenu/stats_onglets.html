@@ -1,0 +1,13 @@
+<div class="barre_onglet clearfix">
+	<ul>
+		<li>
+			[(#URL_ECRIRE{stats, page=tout}|lien_ou_expose{<:monitor:stats_affiche_tout:>,#ENV{page, ''}|=={tout}, ajax})]
+		</li>
+		<li>
+			[(#URL_ECRIRE{stats, page=version}|lien_ou_expose{<:monitor:stats_affiche_version:>,#ENV{page}|=={version}, ajax})]
+		</li>
+		<li>
+			[(#URL_ECRIRE{stats, page=bubble}|parametre_url{v,3.0}|lien_ou_expose{<:monitor:stats_affiche_bubble:>,#ENV{page,''}|=={bubble}, ajax})]
+		</li>
+	</ul>
+</div>

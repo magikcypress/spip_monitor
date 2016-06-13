@@ -53,12 +53,6 @@ function notification_monitor($href, $type) {
 	$date_soir = strtotime('10pm', time());
 	$date_matin = strtotime('8am', time());
 
-	// if ($now <= $date_soir) {
-	// 	$id_syndic = sql_getfetsel('id_syndic', 'spip_monitor', 'statut = "oui" and alert=5');
-	// 	if ($id_syndic) {
-	// 		notification_envoyer($texte_sujet, $texte_corps);
-	// 	}
-	// } else
 	if ($now >= $date_matin and $now <= $date_soir) {
 		notification_envoyer($texte_sujet, $texte_corps);
 	}
@@ -87,10 +81,11 @@ function monitor_notification_recap_matin() {
 			array_push($site, $site['url_site']);
 		}
 		
-		$texte_sujet = _T('monitor:alert_latence_recap_sujet');
-		$texte_corps = _T('monitor:alert_latence_recap_corps', array('url_sites' => $site['url_site']));
-		notification_envoyer($texte_sujet, $texte_corps);
-
+		if ($site['url_site']) {
+			$texte_sujet = _T('monitor:alert_latence_recap_sujet');
+			$texte_corps = _T('monitor:alert_latence_recap_corps', array('url_sites' => $site['url_site']));
+			notification_envoyer($texte_sujet, $texte_corps);
+		}
 	}
 
 	return false;
@@ -131,7 +126,7 @@ function genie_monitor_dist($t) {
 		$nb_site = lire_config('monitor/nb_site', '5');
 
 		// On limite le genie à l'adresse ip du serveur pour ne pas embêter les utilisateurs
-		// if ($GLOBALS['ip'] == $_SERVER['SERVER_ADDR']) {
+		if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
 
 			// Aller chercher les derniers ping dans spip_syndic
 			$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
@@ -197,7 +192,7 @@ function genie_monitor_dist($t) {
 			
 			monitor_optimiser_sites_effaces();
 			monitor_notification_recap_matin();
-		// }
+		}
 	}
 }
 
