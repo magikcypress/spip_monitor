@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-    <BOUCLE_liste_monitor(MONITOR){statut=oui}{type=ping}>
+    <BOUCLE_liste_monitor(MONITOR){statut=oui}{type=ping}{par maj}>
     <BOUCLE_site_monitor(SYNDIC){id_syndic}{statut IN publie,prop}>
         <tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
             <td class='statut'>[(#STATUT_LOG|puce_statut{monitor,#ID_SYNDIC})]</td>
@@ -23,7 +23,7 @@
                 <a href="[(#ID_SYNDIC|generer_url_entite{site})]"
                     title="<:info_numero_abbreviation|attribut_html:> #ID_SYNDIC">#NOM_SITE</a> [<span class='visiter'>&#91;<a href='(#URL_SITE)'><:lien_visite_site:></a>&#93;</span>]</td>
             <td class='date_ping secondaire'>[(#MAJ|date_relative)]</td>
-            <BOUCLE_latence_monitor(MONITOR_LOG){id_syndic}{statut=ping}{par maj}{0,1}>
+            <BOUCLE_latence_monitor(MONITOR_LOG){id_syndic}{statut=ping}{0,1}>
                 [(#SET{valeur, #VALEUR|round{4}})]
                 <td class='latence'>[(#GET{valeur})]</td>
             </BOUCLE_latence_monitor>
