@@ -35,6 +35,7 @@
 
 	<menu nom="monitor_configuration" titre="monitor:icone_monitor_configuration" parent="menu_configuration" icone="images/monitor-16.png" action="configurer_monitor" />
 	<menu nom="monitor_ping" titre="monitor:icone_monitor_editer" parent="menu_edition" icone="images/monitor-16.png" action="liste_monitor" />
+	<menu nom="monitor_etats" titre="monitor:icone_monitor_etats" parent="menu_edition" icone="images/monitor-16.png" action="liste_etats" />
 	<menu nom="monitor_stats" titre="monitor:icone_monitor_stats" parent="menu_edition" icone="images/monitor-16.png" action="stats&amp;page=tout" />
 
 </paquet>

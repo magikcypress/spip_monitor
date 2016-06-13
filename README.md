@@ -24,6 +24,7 @@ Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 
 
 ## Version 1.0.7
 
+- Ajout de la liste des états
 - Ajout de la liste des stats dans l'interface privé
 - Necessite spip-bonux 
 

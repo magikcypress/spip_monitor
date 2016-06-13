@@ -63,6 +63,10 @@ Nono',
 	'c_sites_monitores' => 'Comment monitorer un site ?',
 	'c_sites_monitores_texte' => 'Vous ne pourrez monitorer un site depuis cette page qu’à partir du moment où vous avez activé le plugins dans la configuration et que vous avez ajouté un nouveau site syndiqué. Vous pouvez syndiquer un site depuis le menu « Édition », puis « Site Référencés ».',
 
+	// E
+	'etats_sites' => 'États des sites Monitorés',
+
+
 	// L
 	'legend_obligatoire_monitor' => 'Variables fixes et obligatoires',
 	'legend_explication_obligatoire_monitor' => ' ',
@@ -100,6 +104,7 @@ Nono',
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',
 	'icone_monitor_editer' => 'Lister sites Monitorés',
+	'icone_monitor_etats' => 'États sites Monitorés',
 	'icone_monitor_stats' => 'Stats des sites Monitorés',
 	'info_site_ping' => 'Le site ping bien.',
 	'info_site_noping' => 'Le site ne ping plus.',
