@@ -145,6 +145,8 @@ function genie_monitor_dist($t) {
 					if ($alert >= 5 && $alert <= 10) {
 						// Notification du site malade
 						notification_monitor($site['url_site'], 'down');
+						// On log l'événement pour le site malade
+						sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'down', 'maj'=>date('Y-m-d H:i:s')));
 					}
 				} else {
 
@@ -162,9 +164,13 @@ function genie_monitor_dist($t) {
 						// Insert les data dans monitor_log
 						$alert = $alert_site+1;
 						genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
+						// On log l'événement pour le site malade
+						sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'down', 'maj'=>date('Y-m-d H:i:s')));
 					} else {
 						if ($alert_site>=5) {
 							notification_monitor($site['url_site'], 'restart');
+							// On log l'événement pour le site reparti
+							sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'up', 'maj'=>date('Y-m-d H:i:s')));
 						}
 						$alert = 0;
 						// Insert les data dans monitor_log

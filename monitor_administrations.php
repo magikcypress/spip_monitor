@@ -55,6 +55,11 @@ function monitor_upgrade($nom_meta_base_version, $version_cible) {
 		// Ajouter un index à la table spip_monitor_log
 		array('sql_alter', 'TABLE spip_monitor_log ADD INDEX (valeur)'));
 
+	$maj['1.8'] = array(
+		// Ajout de champs dans spip_monitor_evenements
+		array('maj_tables', array('spip_monitor_evenements'))
+	);
+
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

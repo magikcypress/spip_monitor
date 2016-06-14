@@ -24,6 +24,7 @@ function monitor_declarer_tables_interfaces($interfaces) {
 	$interfaces['table_des_tables']['monitor_log'] = 'monitor_log';
 	$interfaces['table_des_tables']['monitor_stats'] = 'monitor_stats';
 	$interfaces['table_des_tables']['monitor_stats_plugins'] = 'monitor_stats_plugins';
+	$interfaces['table_des_tables']['monitor_evenements'] = 'monitor_evenements';
 	
 	return $interfaces;
 }
@@ -105,6 +106,18 @@ function monitor_declarer_tables_objets_sql($tables) {
 		)
 	);
 
+	$tables['spip_monitor_evenements'] = array(
+		'principale' => 'non',
+		'field'=> array(
+			'id_monitor_evenements' => 'bigint(21) unsigned NOT NULL AUTO_INCREMENT',
+			'id_syndic' => 'bigint(21) NOT NULL',
+			'log' => 'text NOT NULL',
+			'maj'	=> 'TIMESTAMP'
+		),
+		'key' => array(
+			'PRIMARY KEY'	=> 'id_monitor_evenements',
+		)
+	);
 
 	return $tables;
 }

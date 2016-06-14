@@ -18,9 +18,21 @@ Dans l'édition d'un site web vous avez 3 outils :
 	- Nombre de plugins
 	- Pays de l'hébergement
 
+Les alertes :
+
 Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 10ms. La nuit vous êtes alerté une seule fois a partir de 22h jusqu'à 8h que le site est planté. Un récapitulatif est envoyé le matin pour signaler les sites plantés. Le reste de la journée vous êtes notifié par email.
 
+Dans l'admin, vous retrouvez 
+
+- L'état de tous les sites monitorés avec leurs latences
+- Les évenements des sites (quand ils tombent et qu'ils repartent)
+- Les stats globals sur les sites
+
 # Version 1.0.x
+
+## Version 1.0.8
+
+- Ajout des événements (mise à jour de base, schema 1.8)
 
 ## Version 1.0.7
 
@@ -77,8 +89,12 @@ Les relevés sont réalisés avec la commande curl qui doit être prise en charg
 
 * sites (http://zone.spip.org/trac/spip-zone/browser/_core_/plugins/sites) 
 * d3js (http://zone.spip.org/trac/spip-zone/browser/_plugins_/d3js/trunk)
+* geoip (http://zone.spip.org/trac/spip-zone/browser/_plugins_/geoip/branches/v1)
+* spip_bonux (http://zone.spip.org/trac/spip-zone/browser/_plugins_/spip-bonux-3)
 
 # TODO
 
-
-
+- Traiter les etats par maj (actuellement, se base sur maj de spip_monitor, mais devrait se passer sur maj de spip_monitor_log)
+- Essayer de trouver pourquoi le site est down et mettre un message explicite dans les événements
+- Faire une moyens par jour/mois/année sur les graphs pour éviter de les surcharger
+- Détecter quand le poids d'une page chute énormément (cas d'une attaque)

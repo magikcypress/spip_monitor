@@ -9,6 +9,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
 	'aucun_resultat' => 'Aucun résultat',
+	'aucun_evenement' => 'Aucun évenement pour le moment',
 	'activer_monitor' => 'Activer',
 	'activer_monitor_ping' => 'Activer le ping',
 	'activer_monitor_poids' => 'Activer le poids des pages',
@@ -52,6 +53,8 @@ Cette nuit les sites suivants ont rencontrés un problème de latence supérieur
 
 Passe une bonne journée,
 Nono',
+	'alert_latence_evenement_start' => 'Le site est reparti',
+	'alert_latence_evenement_stop' => 'Le site est arrêté',
 
 	// B
 	'bouton_activer_ping' => 'Activer le "ping" sur tous les sites',
@@ -65,7 +68,7 @@ Nono',
 
 	// E
 	'etats_sites' => 'États des sites Monitorés',
-
+	'evenements_sites' => 'Événements des sites Monitorés',
 
 	// L
 	'legend_obligatoire_monitor' => 'Variables fixes et obligatoires',
@@ -86,6 +89,7 @@ Nono',
 	'form_ip' => 'Adresse IP',
 	'form_gzip' => 'Compression Gzip',
 	'form_latence' => 'Latence (en ms)',
+	'form_log_evenement' => 'Message',
 	'form_nbplugins' => 'Nombre de plugins',
 	'form_pays' => 'Pays d\'hébergement',
 	'form_poids' => 'Poids (en Kb)',
@@ -104,6 +108,7 @@ Nono',
 	// I
 	'icone_monitor_configuration' => 'Configurer Monitor',
 	'icone_monitor_editer' => 'Lister sites Monitorés',
+	'icone_monitor_evenements' => 'Événements sites Monitorés',
 	'icone_monitor_etats' => 'États sites Monitorés',
 	'icone_monitor_stats' => 'Stats des sites Monitorés',
 	'info_site_ping' => 'Le site ping bien.',
