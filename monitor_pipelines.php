@@ -53,6 +53,7 @@ function monitor_affiche_milieu($flux) {
 		$id_syndic = _request('id_syndic');
 		$id_monitor_stats = _request('id_monitor_stats');
 		$periode = _request('periode');
+		$source = _request('source');
 
 		$texte = recuperer_fond('prive/objets/contenu/monitor_info', array('id_syndic'=>$id_syndic, 'id_monitor_stats'=>$id_monitor_stats));
 		$texte .= recuperer_fond(
@@ -97,7 +98,8 @@ function monitor_affiche_milieu($flux) {
 						array(
 							'id_syndic'=>$id_syndic,
 							'type'=>'ping',
-							'periode'=>$periode
+							'periode'=>$periode,
+							'source'=>$source
 						),
 						'ajax'
 		);
@@ -106,7 +108,8 @@ function monitor_affiche_milieu($flux) {
 						array(
 							'id_syndic'=>$id_syndic,
 							'type'=>'poids',
-							'periode'=>$periode
+							'periode'=>$periode,
+							'source'=>$source
 						),
 						'ajax'
 		);
@@ -155,24 +158,21 @@ function monitor_compagnon_messages($flux) {
 	$aides = &$flux['data'];
 
 	switch ($pipeline) {
-
 		case 'affiche_milieu':
-			switch ($exec) {
-
-				case 'liste_monitor':
-					// eviter si possible une requete sql.
-					if (!isset($vus['liste_monitor']) and !sql_countsel('spip_monitor')) {
-						$aides[] = array(
-							'id' => 'liste_monitor',
-							'titre' => _T('monitor:c_sites_monitores'),
-							'texte' => _T('monitor:c_sites_monitores_texte'),
-							'statuts' => array('webmestre')
-						);
-					}
-					break;
+		switch ($exec) {
+			case 'liste_monitor':
+				// eviter si possible une requete sql.
+				if (!isset($vus['liste_monitor']) and !sql_countsel('spip_monitor')) {
+					$aides[] = array(
+						'id' => 'liste_monitor',
+						'titre' => _T('monitor:c_sites_monitores'),
+						'texte' => _T('monitor:c_sites_monitores_texte'),
+						'statuts' => array('webmestre')
+					);
+				}
+				break;
 			}
-			break;
-
+		break;
 	}
 
 	return $flux;

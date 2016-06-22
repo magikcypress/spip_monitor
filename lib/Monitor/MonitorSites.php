@@ -84,7 +84,7 @@ function curl_get($href, $header = false, $body = true, $timeout = 10, $add_agen
 
 	if (!$result = curl_exec($ch)) {
 		// logger dans les logs de SPIP les erreurs de connexion curl
-		spip_log(curl_error($ch), 'monitor.' . _LOG_ERREUR);
+		spip_log(curl_error($ch) . ' ' . $href, 'monitor.' . _LOG_ERREUR);
 	}
 
 	// if size page

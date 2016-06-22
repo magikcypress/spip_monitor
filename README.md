@@ -30,21 +30,31 @@ Dans l'admin, vous retrouvez
 
 # Version 1.0.x
 
+## Version 1.0.9
+
+* Faire une moyens par jour/mois/année sur les graphs pour éviter de les surcharger
+* Corrections bugs sur l'affichage des graphs par semaine/mois/année
+* Nettoyage des fichiers inutiles
+* Ajout de tableaux caché en HTML sur les graphs pour la version sans javascript
+
 ## Version 1.0.8
 
-- Ajout des événements (mise à jour de base, schema 1.8)
+ (mise à jour de base, schema 1.9)
+* Ajout d'un drapeau pour éviter de spammer la liste des événements
+et les notifications par email
+* Ajout des événements
 
 ## Version 1.0.7
 
-- Ajout de la liste des états
-- Ajout de la liste des stats dans l'interface privé
-- Necessite spip-bonux 
+* Ajout de la liste des états
+* Ajout de la liste des stats dans l'interface privé
+* Necessite spip-bonux 
 
 ## Version 1.0.6
 
-- Optimisation des graphs en utilisant JSON au lieu de CSV
-- Petites pétouilles
-- Suppression de la lib geoIP pour necessite le plugin geoIP
+* Optimisation des graphs en utilisant JSON au lieu de CSV
+* Petites pétouilles
+* Suppression de la lib geoIP pour necessite le plugin geoIP
 
 ## Version 1.0.5
 
@@ -94,7 +104,6 @@ Les relevés sont réalisés avec la commande curl qui doit être prise en charg
 
 # TODO
 
-- Traiter les etats par maj (actuellement, se base sur maj de spip_monitor, mais devrait se passer sur maj de spip_monitor_log)
-- Essayer de trouver pourquoi le site est down et mettre un message explicite dans les événements
-- Faire une moyens par jour/mois/année sur les graphs pour éviter de les surcharger
-- Détecter quand le poids d'une page chute énormément (cas d'une attaque)
+* Traiter les etats par maj (actuellement, se base sur maj de spip_monitor, mais devrait se baser sur maj de spip_monitor_log)
+* Essayer de trouver pourquoi le site est down et mettre un message explicite dans les événements
+* Détecter quand le poids d'une page chute énormément (cas d'une attaque)

@@ -34,6 +34,7 @@ function monitor_declarer_tables_objets_sql($tables) {
 	$tables['spip_syndic']['field']['date_ping'] = 'datetime NOT NULL';
 	$tables['spip_syndic']['field']['statut_log'] = 'varchar(3) NOT NULL';
 	$tables['spip_syndic']['field']['statut_stats'] = 'varchar(3) NOT NULL';
+	$tables['spip_syndic']['field']['monitor_evenements'] = 'tinyint(1) NOT NULL';
 
 	$tables['spip_monitor'] = array(
 		'texte_retour' => 'icone_retour',

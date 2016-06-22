@@ -60,6 +60,15 @@ function monitor_upgrade($nom_meta_base_version, $version_cible) {
 		array('maj_tables', array('spip_monitor_evenements'))
 	);
 
+	$maj['1.9'] = array(
+		// Ajout du champs monitor_evenements dans spip_syndic
+		array('maj_tables', array('spip_syndic'))
+	);
+
+	$maj['2.0'] = array(
+		// Ajouter un index à la table spip_monitor_log
+		array('sql_alter', 'TABLE spip_monitor_log MODIFY valeur DECIMAL(50,14)'));
+
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

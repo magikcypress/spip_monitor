@@ -143,10 +143,15 @@ function genie_monitor_dist($t) {
 					// Insert les data dans monitor_log
 					genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
 					if ($alert >= 5 && $alert <= 10) {
-						// Notification du site malade
-						notification_monitor($site['url_site'], 'down');
-						// On log l'événement pour le site malade
-						sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'down', 'maj'=>date('Y-m-d H:i:s')));
+						$drapeau = sql_getfetsel('monitor_evenements', 'spip_syndic', 'id_syndic=' . $site['id_syndic']);
+						if ($drapeau == 0) {
+							// On log l'événement pour le site malade
+							sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'down', 'maj'=>date('Y-m-d H:i:s')));
+							// On met un drapeau sur l'évenement pour ne pas répéter que le site est malade
+							sql_updateq('spip_syndic', array('monitor_evenements' => 1), 'id_syndic=' . $site['id_syndic']);
+							// Notification du site malade
+							notification_monitor($site['url_site'], 'down');
+						}
 					}
 				} else {
 
@@ -159,18 +164,27 @@ function genie_monitor_dist($t) {
 						// Insert les data dans monitor_log
 						genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
 					} elseif ($result['latency'] >= 10 && $alert_site >= 5) {
-						// Notification du site malade
-						notification_monitor($site['url_site'], 'latence');
 						// Insert les data dans monitor_log
 						$alert = $alert_site+1;
 						genie_monitor_insert($site['id_syndic'], 'ping', ($result['result'] ? 'oui' : 'non'), $result['latency'], $alert);
-						// On log l'événement pour le site malade
-						sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'down', 'maj'=>date('Y-m-d H:i:s')));
+						$drapeau = sql_getfetsel('monitor_evenements', 'spip_syndic', 'id_syndic=' . $site['id_syndic']);
+						if ($drapeau == 0) {
+							// On log l'événement pour le site malade
+							sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'down', 'maj'=>date('Y-m-d H:i:s')));
+							// Notification du site malade
+							notification_monitor($site['url_site'], 'latence');
+						}
 					} else {
 						if ($alert_site>=5) {
-							notification_monitor($site['url_site'], 'restart');
-							// On log l'événement pour le site reparti
-							sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'up', 'maj'=>date('Y-m-d H:i:s')));
+							$drapeau = sql_getfetsel('monitor_evenements', 'spip_syndic', 'id_syndic=' . $site['id_syndic']);
+							if ($drapeau == 1) {
+								// On log l'événement pour le site reparti
+								sql_insertq('spip_monitor_evenements', array('id_syndic' => $site['id_syndic'], 'log' => 'up', 'maj'=>date('Y-m-d H:i:s')));
+								// On léve le drapeau quand le site est reparti
+								sql_updateq('spip_syndic', array('monitor_evenements' => 0), 'id_syndic=' . $site['id_syndic']);
+								// Notification du site up
+								notification_monitor($site['url_site'], 'restart');
+							}
 						}
 						$alert = 0;
 						// Insert les data dans monitor_log
@@ -179,7 +193,7 @@ function genie_monitor_dist($t) {
 				}
 			}
 
-			// Aller chercher les 5 dernier poids dans spip_syndic
+			// Aller chercher le poids dans spip_syndic
 			$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "poids" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
 
 			foreach ($sites as $site) {
