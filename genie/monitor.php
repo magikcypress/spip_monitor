@@ -107,7 +107,12 @@ function genie_monitor_insert($id_syndic, $statut, $log, $valeur, $alert) {
 	if (is_numeric($insert_ping) && $insert_ping > 0) {
 		// Updater champs date_ping dans spip_syndic
 		sql_updateq('spip_syndic', array('date_ping' => date('Y-m-d H:i:s'), 'statut_log' => ($log ? 'oui' : 'non')), 'id_syndic=' . intval($id_syndic));
-		sql_updateq('spip_monitor', array('alert' => $alert), 'id_syndic=' . intval($id_syndic));
+		// On insére la valeur du poids et du ping courant
+		if ($statut == 'ping') {
+			sql_updateq('spip_monitor', array('alert' => $alert, 'ping_courant' => $valeur), 'id_syndic=' . intval($id_syndic));
+		} else {
+			sql_updateq('spip_monitor', array('poids_courant' => $valeur), 'id_syndic=' . intval($id_syndic));
+		}
 		$alert = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . intval($id_syndic));
 	}
 }
@@ -204,6 +209,9 @@ function genie_monitor_dist($t) {
 				if ($result['result']!=false) {
 					// Insert les data dans monitor_log
 					$insert_poids = sql_insertq('spip_monitor_log', array('id_syndic' => $site['id_syndic'], 'statut' => 'poids', 'log' => ($result['result'] ? 'oui' : 'non'), 'valeur' => $result['poids']));
+					// Prendre la dernière valeur des alertes d'un site pour éviter d'écraser l'alerte de latence
+					$alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
+					genie_monitor_insert($site['id_syndic'], 'poids', ($result['result'] ? 'oui' : 'non'), $result['poids'], $alert_site);
 				}
 			}
 

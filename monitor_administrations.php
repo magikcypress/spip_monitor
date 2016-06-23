@@ -69,6 +69,11 @@ function monitor_upgrade($nom_meta_base_version, $version_cible) {
 		// Ajouter un index à la table spip_monitor_log
 		array('sql_alter', 'TABLE spip_monitor_log MODIFY valeur DECIMAL(50,14)'));
 
+	$maj['2.1'] = array(
+		// Ajout du champs ping_courant et poids_courant dans spip_monitor
+		array('maj_tables', array('spip_monitor'))
+	);
+	
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

@@ -32,6 +32,7 @@ Dans l'admin, vous retrouvez
 
 ## Version 1.0.9
 
+* Traiter les etats par maj 
 * Faire une moyens par jour/mois/année sur les graphs pour éviter de les surcharger
 * Corrections bugs sur l'affichage des graphs par semaine/mois/année
 * Nettoyage des fichiers inutiles
@@ -104,6 +105,5 @@ Les relevés sont réalisés avec la commande curl qui doit être prise en charg
 
 # TODO
 
-* Traiter les etats par maj (actuellement, se base sur maj de spip_monitor, mais devrait se baser sur maj de spip_monitor_log)
 * Essayer de trouver pourquoi le site est down et mettre un message explicite dans les événements
 * Détecter quand le poids d'une page chute énormément (cas d'une attaque)

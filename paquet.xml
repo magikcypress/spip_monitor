@@ -6,7 +6,7 @@
 	compatibilite="[3.0.0;3.1.*]"
 	logo="prive/themes/spip/images/monitor-32.png"
 	documentation=""
-	schema="2.0"
+	schema="2.1"
 >
 
 	<nom>Monitor</nom>

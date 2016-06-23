@@ -48,6 +48,8 @@ function monitor_declarer_tables_objets_sql($tables) {
 			'id_syndic' => 'bigint(21) NOT NULL',
 			'alert' => 'int(11) NOT NULL',
 			'type'	=> 'varchar(255) NOT NULL',
+			'ping_courant'	=> 'varchar(255) NOT NULL',
+			'poids_courant'	=> 'varchar(255) NOT NULL',
 			'statut' => "varchar(255) NOT NULL default 'oui'",
 			'date_modif' => "datetime DEFAULT '0000-00-00 00:00:00' NOT NULL",
 			'maj'	=> 'TIMESTAMP',
