@@ -25,7 +25,7 @@ function monitor_upgrade($nom_meta_base_version, $version_cible) {
 	$maj = array();
 
 	$maj['create'] = array(
-		array('maj_tables', array('spip_monitor', 'spip_monitor_log', 'spip_syndic', 'spip_monitor_stats', 'spip_monitor_stats_plugins'))
+		array('maj_tables', array('spip_monitor', 'spip_monitor_log', 'spip_syndic', 'spip_monitor_stats', 'spip_monitor_stats_plugins', 'spip_monitor_evenements'))
 	);
 
 	$maj['1.1'] = array(

@@ -123,8 +123,11 @@ function genie_monitor_dist($t) {
 	if (lire_config('monitor/activer_monitor') == 'oui') {
 		include_spip('lib/Monitor/MonitorSites');
 
-		$nb_site = lire_config('monitor/nb_site', '5');
-
+		$nb_site = lire_config('monitor/nb_site');
+		if (!$nb_site) {
+			$nb_site = 5;
+		}
+		
 		// On limite le genie à l'adresse ip du serveur pour ne pas embêter les utilisateurs
 		if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
 

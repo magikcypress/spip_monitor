@@ -5,7 +5,7 @@
 	<BOUCLE_si_editable(CONDITION){si #ENV{editable}}>
 	<p><:monitor:texte_monitor_sites:></p>
 	<p>
-		<BOUCLE_site_publie(SITES){statut=="publie"}> </BOUCLE_site_publie>
+		<BOUCLE_site_publie(SITES){statut IN publie,prop}> </BOUCLE_site_publie>
 			#SET{site_publie, #TOTAL_BOUCLE}
 		</B_site_publie>
 		

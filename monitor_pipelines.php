@@ -122,14 +122,17 @@ function monitor_affiche_milieu($flux) {
 
 	// si on est sur la liste des sites référencés
 	if (lire_config('monitor/activer_monitor') == 'oui' and trouver_objet_exec($flux['args']['exec'] == 'sites')) {
+		// On vérifie qu'il y a au moins un site d'inséré pour afficher le formulaire d'activation du monitoring
+		if (sql_countsel('spip_syndic', 'statut IN ("publie" , "prop")') > 0) {
+			$texte = recuperer_fond(
+							'prive/objets/editer/monitors'
+			);
 
-		$texte = recuperer_fond(
-						'prive/objets/editer/monitors'
-		);
-		if ($p=strpos($flux['data'], '<!--affiche_milieu-->')) {
-			$flux['data'] = substr_replace($flux['data'], $texte, $p, 0);
-		} else {
-			$flux['data'] .= $texte;
+			if ($p=strpos($flux['data'], '<!--affiche_milieu-->')) {
+				$flux['data'] = substr_replace($flux['data'], $texte, $p, 0);
+			} else {
+				$flux['data'] .= $texte;
+			}
 		}
 	}
 
@@ -170,7 +173,40 @@ function monitor_compagnon_messages($flux) {
 						'statuts' => array('webmestre')
 					);
 				}
-				break;
+			break;
+			case 'liste_etats':
+				// eviter si possible une requete sql.
+				if (!isset($vus['liste_monitor']) and !sql_countsel('spip_monitor')) {
+					$aides[] = array(
+						'id' => 'liste_monitor',
+						'titre' => _T('monitor:c_sites_monitores'),
+						'texte' => _T('monitor:c_sites_monitores_texte'),
+						'statuts' => array('webmestre')
+					);
+				}
+			break;
+			case 'liste_evenements':
+				// eviter si possible une requete sql.
+				if (!isset($vus['liste_monitor']) and !sql_countsel('spip_monitor')) {
+					$aides[] = array(
+						'id' => 'liste_monitor',
+						'titre' => _T('monitor:c_sites_monitores'),
+						'texte' => _T('monitor:c_sites_monitores_texte'),
+						'statuts' => array('webmestre')
+					);
+				}
+			break;
+			case 'stats':
+				// eviter si possible une requete sql.
+				if (!isset($vus['liste_monitor']) and !sql_countsel('spip_monitor')) {
+					$aides[] = array(
+						'id' => 'liste_monitor',
+						'titre' => _T('monitor:c_sites_monitores'),
+						'texte' => _T('monitor:c_sites_monitores_texte'),
+						'statuts' => array('webmestre')
+					);
+				}
+			break;
 			}
 		break;
 	}
