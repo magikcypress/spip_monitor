@@ -65,6 +65,9 @@ function action_recuperer_monitor_dist() {
 		$result = sizePage($site['url_site']);
 		// Insert les data dans monitor_log
 		$insert_poids = sql_insertq('spip_monitor_log', array('id_syndic' => $site['id_syndic'], 'statut' => 'poids', 'log' => ($result['result'] ? 'oui' : 'non'), 'valeur' => $result['poids']));
+		// Prendre la dernière valeur des alertes d'un site pour éviter d'écraser l'alerte de latence
+		$alert_site = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . $site['id_syndic'] . ' order by maj DESC limit 0,1');
+		genie_monitor_insert($site['id_syndic'], 'poids', ($result['result'] ? 'oui' : 'non'), $result['poids'], $alert_site);
 
 	}
 
