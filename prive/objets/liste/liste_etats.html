@@ -1,6 +1,6 @@
 [(#SET{defaut_tri,#ARRAY{
     maj,#ENV{date_sens,-1},
-    ping_courant,-1
+    valeur_courant,-1
 }})]
 <h1 class="grostitre"><:monitor:etats_sites:></h1>
 
@@ -14,7 +14,7 @@
             <th class='statut' scope='col'>#</th>
             <th class='url_site' scope='col'><:monitor:form_url_site:></th>
             <th class='date_ping' scope='col'>[(#TRI{maj,<:monitor:form_date_ping:>,ajax})]</th>
-            <th class='latence' scope='col'>[(#TRI{ping_courant,<:monitor:form_ping:>,ajax})]</th>
+            <th class='latence' scope='col'>[(#TRI{valeur_courant,<:monitor:form_ping:>,ajax})]</th>
             <th class='id' scope='col'><:info_numero_abbreviation:></th>
         </tr>
     </thead>
@@ -27,7 +27,7 @@
                 <a href="[(#ID_SYNDIC|generer_url_entite{site})]"
                     title="<:info_numero_abbreviation|attribut_html:> #ID_SYNDIC">#NOM_SITE</a> [<span class='visiter'>&#91;<a href='(#URL_SITE)'><:lien_visite_site:></a>&#93;</span>]</td>
             <td class='date_ping secondaire'>[(#MAJ|date_relative)]</td>
-            <td class='latence'>[(#PING_COURANT|round{4})]</td>
+            <td class='latence'>[(#VALEUR_COURANT|round{4})]</td>
             <td class='id'>
                 <a href="[(#URL_ECRIRE{site_edit,id_syndic=#ID_SYNDIC})]">#ID_SYNDIC</a></td>
         </tr>

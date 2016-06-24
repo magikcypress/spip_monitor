@@ -108,11 +108,9 @@ function genie_monitor_insert($id_syndic, $statut, $log, $valeur, $alert) {
 		// Updater champs date_ping dans spip_syndic
 		sql_updateq('spip_syndic', array('date_ping' => date('Y-m-d H:i:s'), 'statut_log' => ($log ? 'oui' : 'non')), 'id_syndic=' . intval($id_syndic));
 		// On insére la valeur du poids et du ping courant
-		if ($statut == 'ping') {
-			sql_updateq('spip_monitor', array('alert' => $alert, 'ping_courant' => $valeur), 'id_syndic=' . intval($id_syndic));
-		} else {
-			sql_updateq('spip_monitor', array('poids_courant' => $valeur), 'id_syndic=' . intval($id_syndic));
-		}
+		spip_log($valeur, 'test.' . _LOG_ERREUR);
+		spip_log($statut, 'test.' . _LOG_ERREUR);
+		sql_updateq('spip_monitor', array('alert' => $alert, 'valeur_courant' => $valeur), 'type=' . sql_quote($statut) . ' and id_syndic=' . intval($id_syndic));
 		$alert = sql_getfetsel('alert', 'spip_monitor', 'id_syndic=' . intval($id_syndic));
 	}
 }
