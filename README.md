@@ -5,7 +5,20 @@ Monitorer site web syndiqué.
 
 Plugin SPIP réalisé pour monitorer des sites web syndiqués.
 
-En publiant un site web sur spip, vous avez la possibilité de le monitorer. 
+## Necessite
+
+Les relevés sont réalisés avec la commande curl ou par le fonction SPIP recuperer_url().
+
+## Plugins SPIP utilisé
+
+* sites (http://zone.spip.org/trac/spip-zone/browser/_core_/plugins/sites) 
+* d3js (http://zone.spip.org/trac/spip-zone/browser/_plugins_/d3js/trunk)
+* geoip (http://zone.spip.org/trac/spip-zone/browser/_plugins_/geoip/branches/v1)
+* spip_bonux (http://zone.spip.org/trac/spip-zone/browser/_plugins_/spip-bonux-3)
+
+## Ce que fait le plugin
+
+En publiant un site web, vous avez la possibilité de le monitorer. 
 
 Dans l'édition d'un site web vous avez 3 outils :
 
@@ -18,15 +31,19 @@ Dans l'édition d'un site web vous avez 3 outils :
 	- Nombre de plugins
 	- Pays de l'hébergement
 
-Les alertes :
+### Les alertes :
 
-Ce plugins vous alerte si un site est tombé ou si sa latence est supérieur à 10ms. La nuit vous êtes alerté une seule fois a partir de 22h jusqu'à 8h que le site est planté. Un récapitulatif est envoyé le matin pour signaler les sites plantés. Le reste de la journée vous êtes notifié par email.
+Ce plugins vous alerte par email si un site est tombé ou si sa latence est supérieur à 10ms. La nuit vous êtes alerté une seule fois a partir de 22h jusqu'à 8h que le site est planté. Un récapitulatif est envoyé le matin pour signaler les sites plantés. Le reste de la journée vous êtes notifié par email si le site est arrêté ou reparti.
 
-Dans l'admin, vous retrouvez 
+### Dans l'admin, vous retrouvez 
 
-- L'état de tous les sites monitorés avec leurs latences
-- Les évenements des sites (quand ils tombent et qu'ils repartent)
-- Les stats globals sur les sites
+- L'état de tous les sites monitorés avec leurs latences; (Edition > Etats sites monitorés)
+- Les évenements des sites retracent la vie des sites quand ils tombent et qu'ils repartent; (Edition > Evénements sites monitorés)
+- Les stats globals sur les sites; (Edition > Stats sites monitorés)
+
+Pour pouvoir monitorer les sites nous vous recommandons de mettre un cron serveur si vous en avez la possibilité.
+
+> */5 *         * * *   root    nice /usr/bin/curl http://domain.tld/spip.php?action=super_cron >/dev/null 2>&1
 
 # Version 1.0.x
 
@@ -91,17 +108,6 @@ et les notifications par email
 * Le monitoring du site qui permet de connaître la latence du site et le poids du site. Les relevés courants sont afficher sous forme d'un tableau. Vous pouvez connaître les relevés sur une plus grandes periodes sous forme de graphs. 
 * Les relevés de pageSpeed Google
 * Audit de la page avec l'API de Yellowlab (http://yellowlab.tools)
-
-# Necessite
-
-Les relevés sont réalisés avec la commande curl qui doit être prise en charge par le serveur. 
-
-## Plugins SPIP
-
-* sites (http://zone.spip.org/trac/spip-zone/browser/_core_/plugins/sites) 
-* d3js (http://zone.spip.org/trac/spip-zone/browser/_plugins_/d3js/trunk)
-* geoip (http://zone.spip.org/trac/spip-zone/browser/_plugins_/geoip/branches/v1)
-* spip_bonux (http://zone.spip.org/trac/spip-zone/browser/_plugins_/spip-bonux-3)
 
 # TODO
 
