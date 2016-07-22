@@ -3,7 +3,8 @@ SPIP monitor
 
 Monitorer site web syndiqué.
 
-Plugin SPIP réalisé pour monitorer des sites web syndiqués.
+Plugin SPIP réalisé pour monitorer des sites web syndiqués. 
+Précision: ce plugin ne remplace pas les outils de monitoring (Nagios, Zabbix, etc...) qui sont des outils beaucoup plus puissants pour faire de la surveillance de site web. 
 
 ## Necessite
 
@@ -111,5 +112,6 @@ et les notifications par email
 
 # TODO
 
+* Mettre un pourcentage de disponibilité de chaques sites
 * Essayer de trouver pourquoi le site est down et mettre un message explicite dans les événements
 * Détecter quand le poids d'une page chute énormément (cas d'une attaque)

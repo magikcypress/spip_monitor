@@ -15,7 +15,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'activer_monitor_poids' => 'Activer le poids des pages',
 	'afficher_plugins' => 'Afficher la liste des plugins',
 	'alert_affichage_milieu' => 'Le nombre d\'alerte est de @alert@ points pour ce site. Le site est peut-être coupé ou sa latence est supérieur à 10 ms.',
-	'alert_couper_sujet' => 'Alert: le site est coupé',
+	'alert_couper_sujet' => 'Alerte: le site est coupé',
 	'alert_couper_corps' => 'Bonjour,
 
 Je suis le robot qui vérifie la disponibilité des sites internet via spip monitor.
@@ -24,7 +24,7 @@ Le site @url_site@ est coupé.
 
 Passe une bonne journée,
 Monitor SPIP',
-	'alert_latence_sujet' => 'Alert: Latence est < 10',
+	'alert_latence_sujet' => 'Alerte: Latence est < 10',
 	'alert_latence_corps' => 'Bonjour,
 
 Je suis le robot qui vérifie la latence des sites internet via spip monitor.
@@ -33,7 +33,7 @@ Le site @url_site@ rencontre une latence de plus de 10ms.
 
 Passe une bonne journée,
 Monitor SPIP',
-	'alert_restart_sujet' => 'Alert: le site est reparti',
+	'alert_restart_sujet' => 'Alerte: le site est reparti',
 	'alert_restart_corps' => 'Bonjour,
 
 Je suis le robot qui vérifie la disponibilité des sites internet via spip monitor.
@@ -42,7 +42,7 @@ Le site @url_site@ est reparti.
 
 Passe une bonne journée,
 Monitor SPIP',
-	'alert_latence_recap_sujet' => 'Alert matinale: liste des sites est coupés',
+	'alert_latence_recap_sujet' => 'Alerte matinale: liste des sites est coupés',
 	'alert_latence_recap_corps' => 'Bonjour,
 
 Je suis le robot qui vérifie la latence des sites internet via spip monitor.

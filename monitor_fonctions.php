@@ -25,7 +25,6 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @param object $crit
  */
 function monitor_critere_diff_xx($format, $idb, &$boucles, $crit, $date) {
-	spip_log($date, 'test.' . _LOG_ERREUR);
 	$boucles[$idb]->where[] = array("'>='", 'maj', '"' . sql_quote($date) . '"');
 }
 
@@ -50,7 +49,6 @@ function critere_diff_par_semaine_dist($idb, &$boucles, $crit) {
  */
 function critere_diff_par_mois_dist($idb, &$boucles, $crit) {
 	$date = date('Y-m-d', strtotime('-1 month', time()));
-	spip_log($date, 'test.' . _LOG_ERREUR);
 	monitor_critere_diff_xx('%Y-%m', $idb, $boucles, $crit, $date);
 }
 
