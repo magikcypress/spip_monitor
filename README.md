@@ -46,6 +46,12 @@ Pour pouvoir monitorer les sites nous vous recommandons de mettre un cron serveu
 
 > */5 *         * * *   root    nice /usr/bin/curl http://domain.tld/spip.php?action=super_cron >/dev/null 2>&1
 
+# Version 1.1.x
+
+## Version 1.1.0
+
+* Modification du fichier base/monitor.php pour la traduction des chaînes de langues
+
 # Version 1.0.x
 
 ## Version 1.0.9

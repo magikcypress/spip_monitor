@@ -121,6 +121,14 @@ Monitor SPIP',
 	'item_utiliser_monitor_ping' => 'Activer ping',
 	'item_utiliser_monitor_poids' => 'Activer poids page',
 
+	// M
+	'monitor' => 'Sites Monitorés',
+	'monitor_etats' => 'États sites Monitorés',
+	'monitor_evenements' => 'Événements sites Monitorés',
+	'monitor_logs' => 'Logs des sites Monitorés',
+	'monitor_stats' => 'Stats des sites Monitorés',
+	'monitor_stats_plugins' => 'Stats des plugins pour les sites Monitorés',
+
 	// S
 	'source_tout' => 'Voir tout',
 	'source_moyenne' => 'Voir moyenne',

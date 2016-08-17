@@ -1,7 +1,7 @@
 <paquet
 	prefix="monitor"
 	categorie="statistique"
-	version="1.0.9"
+	version="1.1.0"
 	etat="dev"
 	compatibilite="[3.0.0;3.1.*]"
 	logo="prive/themes/spip/images/monitor-32.png"
