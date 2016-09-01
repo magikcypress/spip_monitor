@@ -48,6 +48,10 @@ Pour pouvoir monitorer les sites nous vous recommandons de mettre un cron serveu
 
 # Version 1.1.x
 
+## Version 1.1.1
+
+* Ajout de la suppression de la table spip_monitor_evenements et des tables additionnelles lors de desinstallation du plugin
+
 ## Version 1.1.0
 
 * Modification du fichier base/monitor.php pour la traduction des chaînes de langues
