@@ -238,7 +238,7 @@ function monitor_insert_head_css($flux) {
 	include_spip('inc/config');
 	if (lire_config('monitor/activer_monitor') == 'oui') {
 		$css = find_in_path('css/monitor.css');
-		$flux .= '<link rel="stylesheet" href="'.direction_css($css).'" type="text/css" media="all" />';
+		$flux .= '<link rel="stylesheet" type="text/css" media="all" href="'.direction_css($css).'" />';
 	}
 	return $flux;
 }

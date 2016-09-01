@@ -60,13 +60,15 @@ function monitor_declarer_tables_objets_sql($tables) {
 	);
 
 	$tables['spip_monitor_log'] = array(
+		'texte_objets' => 'monitor:monitor_logs',
+		'texte_objet' => 'monitor:monitor_logs',
 		'principale' => 'non',
 		'field'=> array(
 			'id_monitor_log' => 'bigint(21) unsigned NOT NULL AUTO_INCREMENT',
 			'id_syndic' => 'bigint(21) NOT NULL',
 			'statut'	=> "varchar(255) NOT NULL default 'ping'",
 			'log' => 'varchar(3) NOT NULL',
-			'valeur' => 'varchar(255) NOT NULL',
+			'valeur' => 'DECIMAL(50,14) NOT NULL',
 			'maj'	=> 'TIMESTAMP'
 		),
 		'key' => array(
@@ -75,6 +77,8 @@ function monitor_declarer_tables_objets_sql($tables) {
 	);
 
 	$tables['spip_monitor_stats'] = array(
+		'texte_objets' => 'monitor:monitor_stats',
+		'texte_objet' => 'monitor:monitor_stats',
 		'principale' => 'non',
 		'field'=> array(
 			'id_monitor_stats' => 'bigint(21) unsigned NOT NULL AUTO_INCREMENT',
@@ -97,6 +101,8 @@ function monitor_declarer_tables_objets_sql($tables) {
 	);
 
 	$tables['spip_monitor_stats_plugins'] = array(
+		'texte_objets' => 'monitor:monitor_stats_plugins',
+		'texte_objet' => 'monitor:monitor_stats_plugins',
 		'principale' => 'non',
 		'field'=> array(
 			'id_monitor_stats'    => 'bigint(21) NOT NULL',
@@ -109,6 +115,8 @@ function monitor_declarer_tables_objets_sql($tables) {
 	);
 
 	$tables['spip_monitor_evenements'] = array(
+		'texte_objets' => 'monitor:monitor_evenements',
+		'texte_objet' => 'monitor:monitor_evenements',
 		'principale' => 'non',
 		'field'=> array(
 			'id_monitor_evenements' => 'bigint(21) unsigned NOT NULL AUTO_INCREMENT',

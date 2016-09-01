@@ -89,9 +89,11 @@ function monitor_vider_tables($nom_meta_base_version) {
 	sql_drop_table('spip_monitor_log');
 	sql_drop_table('spip_monitor_stats');
 	sql_drop_table('spip_monitor_stats_plugins');
+	sql_drop_table('spip_monitor_evenements');
 	sql_alter('TABLE spip_syndic DROP COLUMN date_ping');
 	sql_alter('TABLE spip_syndic DROP COLUMN statut_log');
 	sql_alter('TABLE spip_syndic DROP COLUMN statut_stats');
+	sql_alter('TABLE spip_syndic DROP COLUMN monitor_evenements');
 	effacer_meta('monitor');
 	effacer_meta($nom_meta_base_version);
 }

@@ -4,11 +4,10 @@
 }})]
 <h1 class="grostitre"><:monitor:etats_sites:></h1>
 
-<BOUCLE_total_monitor(MONITOR){statut=oui}{type=ping} />#SET{total,#TOTAL_BOUCLE}<//B_total_monitor>
 <B_liste_monitor>
 <div class="liste-objets sites syndic">
 <table class='spip liste'>
-[<caption><strong class="caption">(#ENV*{titre, [(#GET{total}|singulier_ou_pluriel{info_1_site,info_nb_sites})]})</strong></caption>]
+[<caption><strong class="caption">(#ENV*{titre, [(#TOTAL_BOUCLE|singulier_ou_pluriel{monitor:info_1_site,monitor:info_nb_sites})]})</strong></caption>]
     <thead>
         <tr class='first_row'>
             <th class='statut' scope='col'>#</th>

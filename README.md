@@ -28,6 +28,16 @@ Dans l'admin, vous retrouvez
 - Les évenements des sites (quand ils tombent et qu'ils repartent)
 - Les stats globals sur les sites
 
+# Version 1.1.x
+
+## Version 1.1.1
+
+* Suppression des bases et des tables additionnelles lors de la desinstallation du plugin
+
+## Version 1.1.0
+
+* Modification du fichier base.php la traduction des chaînes de langues
+
 # Version 1.0.x
 
 ## Version 1.0.9
