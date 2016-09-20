@@ -130,7 +130,7 @@ function genie_monitor_dist($t) {
 		}
 		
 		// On limite le genie à l'adresse ip du serveur pour ne pas embêter les utilisateurs
-		if ($_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']) {
+		if ($_SERVER['REMOTE_ADDR'] == $GLOBALS['ip']) {
 
 			// Aller chercher les derniers ping dans spip_syndic
 			$sites = sql_allfetsel('monitor.id_syndic, site.url_site', 'spip_monitor as monitor left join spip_syndic as site on monitor.id_syndic = site.id_syndic', 'monitor.type = "ping" and monitor.statut = "oui"', '', 'site.date_ping ASC', '0,'.$nb_site.'');
