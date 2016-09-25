@@ -48,6 +48,10 @@ Pour pouvoir monitorer les sites nous vous recommandons de mettre un cron serveu
 
 # Version 1.1.x
 
+## Version 1.1.2
+
+* Modification de déclaration des champs de id_monitor dans les tables, suppression de unsigned pour la compat avec sqlite
+
 ## Version 1.1.1
 
 * Suppression des bases et des tables additionnelles lors de la desinstallation du plugin
