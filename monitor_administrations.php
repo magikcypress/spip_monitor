@@ -78,7 +78,8 @@ function monitor_upgrade($nom_meta_base_version, $version_cible) {
 		// Suppression de unsigned et auto incremente pour compat sqlite
 		array('sql_alter', 'TABLE spip_monitor MODIFY id_monitor BIGINT(21) NOT NULL AUTO_INCREMENT'),
 		array('sql_alter', 'TABLE spip_monitor_log MODIFY id_monitor_log BIGINT(21) NOT NULL AUTO_INCREMENT'),
-		array('sql_alter', 'TABLE spip_monitor_stats MODIFY id_monitor_stats BIGINT(21) NOT NULL AUTO_INCREMENT')
+		array('sql_alter', 'TABLE spip_monitor_stats MODIFY id_monitor_stats BIGINT(21) NOT NULL AUTO_INCREMENT'),
+		array('sql_alter', 'TABLE spip_monitor_evenements MODIFY id_monitor_evenements BIGINT(21) NOT NULL AUTO_INCREMENT')
 	);
 
 	include_spip('base/upgrade');
